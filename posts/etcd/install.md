@@ -4,7 +4,16 @@ date = 2018-11-19T11:03:08+08:00
 tags = ["etcd"]
 categories = ["etcd"]
 +++
+# 简介
+etcd是CoreOS团队于2013年6月发起的开源项目，它的目标是构建一个高可用的分布式键值(key-value)数据库。etcd内部采用raft协议作为一致性算法，etcd基于Go语言实现。
 
+etcd作为服务发现系统，有以下的特点:
+
+- 简单：安装配置简单，而且提供了HTTP API进行交互，使用也很简单
+- 安全：支持SSL证书验证
+- 快速：根据官方提供的benchmark数据，单实例支持每秒2k+读操作
+- 可靠：采用raft算法，实现分布式系统数据的可用性和一致性
+- etcd项目地址：https://github.com/coreos/etcd/
 # 设置环境变量
 `export HostIP="192.168.3.3"`
 # 在docker中运行(单服务)
@@ -40,13 +49,13 @@ docker run -d -p 2381:2380 -p 2480:2379 --name etcd1 quay.io/coreos/etcd:v2.3.8 
 ```
 这里模拟多端口代表多服务器,需要注意的是`-listen-client-urls http://0.0.0.0:2379`,`-listen-peer-urls http://0.0.0.0:2380`,这两个参数是服务内端口号,对应的是-p中的`2479:2379`中后面的2379,所以这里的监听不需要改变.
 
-## 集群验证
-### 验证集群members。在集群中的每台机器上查看members，得出的结果应该是相同的
+# 集群验证
+## 验证集群members。在集群中的每台机器上查看members，得出的结果应该是相同的
 ```
 [root@localhost ~]# curl -L http://192.168.3.3:2479/v2/members
 {"members":[{"id":"4b316424559e0f9d","name":"etcd0","peerURLs":["http://192.168.3.3:2380"],"clientURLs":["http://192.168.3.3:2479"]},{"id":"6204f98420b429cc","name":"etcd1","peerURLs":["http://192.168.3.3:2381"],"clientURLs":["http://192.168.3.3:2480"]}]}
 ```
-### 某台机器上添加数据，其他机器上查看数据，得出的结果应该是相同的
+## 某台机器上添加数据，其他机器上查看数据，得出的结果应该是相同的
 A 服务器中执行
 ```
 [root@localhost ~]# curl -L http://192.168.3.3:2479/v2/keys/message -XPUT -d value="Hello zhenyuyaodidiao"
