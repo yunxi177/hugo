@@ -14,19 +14,54 @@ etcd作为服务发现系统，有以下的特点
 - 快速：根据官方提供的benchmark数据，单实例支持每秒2k+读操作
 - 可靠：采用raft算法，实现分布式系统数据的可用性和一致性
 - etcd项目地址：https://github.com/coreos/etcd/
-# 设置环境变量
-`export HostIP="192.168.3.3"`
-# 在docker中运行(单服务)
+
+# 构建镜像
+1.创建dockersfile```$ sudo touch Dockerfile```  
+2.`$ sudo vim Dockerfile`编辑Dockerfile文件,写入内容如下:
+
+```
+FROM alpine:latest
+
+ADD etcd /usr/local/bin/
+ADD etcdctl /usr/local/bin/
+RUN mkdir -p /var/etcd/
+RUN mkdir -p /var/lib/etcd/
+
+# Alpine Linux doesn't use pam, which means that there is no /etc/nsswitch.conf,
+# but Golang relies on /etc/nsswitch.conf to check the order of DNS resolving
+# (see https://github.com/golang/go/commit/9dee7771f561cf6aee081c0af6658cc81fac3918)
+# To fix this we just create /etc/nsswitch.conf and add the following line:
+RUN echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
+
+EXPOSE 2379 2380
+
+# Define default command.
+CMD ["/usr/local/bin/etcd"]
+```
+
+3.下载etcd Releases `$ wget https://github.com/etcd-io/etcd/releases/download/v3.3.10/etcd-v3.3.10-linux-amd64.tar.gz`   
+4.解压文件:`$ tar -zxvf etcd-v3.3.10-linux-amd64.tar.gz`  
+5.将`etcd`和`etcdctl`移动到和dockerfile同级目录:`$ mv etcd-v3.3.10-linux-amd64/etcd etcd-v3.3.10-linux-amd64/etcdctl -t ./`  
+6.构建etcd镜像`docker build -t etcd .`  
+7.查看构建好的镜像`docker images`
+```
+[root@localhost etcd]# docker images;
+REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+etcd                       latest              dd11f9fc0096        13 seconds ago      39.5 MB
+
+```
+
+# 启动etcd(单服务)
 ```
 docker run -d -v /usr/share/ca-certificates/:/etc/ssl/certs -p 4001:4001 -p 2380:2380 -p 2379:2379 \
- --name etcd quay.io/coreos/etcd:v2.3.8 \
+ --name etcd etcd /usr/local/bin/etcd \
  -name etcd0 \
- -advertise-client-urls http://${HostIP}:2379,http://${HostIP}:4001 \
+ -advertise-client-urls http://192.168.3.3:2379,http://192.168.3.3:4001 \
  -listen-client-urls http://0.0.0.0:2379,http://0.0.0.0:4001 \
- -initial-advertise-peer-urls http://${HostIP}:2380 \
+ -initial-advertise-peer-urls http://192.168.3.3:2380 \
  -listen-peer-urls http://0.0.0.0:2380 \
  -initial-cluster-token etcd-cluster-1 \
- -initial-cluster etcd0=http://${HostIP}:2380 \
+ -initial-cluster etcd0=http://192.168.3.3:2380 \
  -initial-cluster-state new
 ```
 ## ETCD参数说明
@@ -42,11 +77,11 @@ docker run -d -v /usr/share/ca-certificates/:/etc/ssl/certs -p 4001:4001 -p 2380
 # 在docker中运行(集群)
 ## node0
 ```
-docker run -d -p 2380:2380 -p 2479:2379 --name etcd0 quay.io/coreos/etcd:v2.3.8 -name etcd0  -advertise-client-urls http://192.168.3.3:2479  -listen-client-urls http://0.0.0.0:2379 -initial-advertise-peer-urls http://192.168.3.3:2380 -listen-peer-urls http://0.0.0.0:2380  -initial-cluster-token etcd-cluster-1 -initial-cluster "etcd0=http://192.168.3.3:2380,etcd1=http://192.168.3.3:2381" -initial-cluster-state new
+docker run -d -p 2380:2380 -p 2479:2379 --name etcd0 etcd /usr/local/bin/etcd -name etcd0  -advertise-client-urls http://192.168.3.3:2479  -listen-client-urls http://0.0.0.0:2379 -initial-advertise-peer-urls http://192.168.3.3:2380 -listen-peer-urls http://0.0.0.0:2380  -initial-cluster-token etcd-cluster-1 -initial-cluster "etcd0=http://192.168.3.3:2380,etcd1=http://192.168.3.3:2381" -initial-cluster-state new
 ```
 ## node1
 ```
-docker run -d -p 2381:2380 -p 2480:2379 --name etcd1 quay.io/coreos/etcd:v2.3.8 -name etcd1  -advertise-client-urls http://192.168.3.3:2480  -listen-client-urls http://0.0.0.0:2379 -initial-advertise-peer-urls http://192.168.3.3:2381 -listen-peer-urls http://0.0.0.0:2380  -initial-cluster-token etcd-cluster-1 -initial-cluster "etcd0=http://192.168.3.3:2380,etcd1=http://192.168.3.3:2381" -initial-cluster-state new
+docker run -d -p 2381:2380 -p 2480:2379 --name etcd1 etcd /usr/local/bin/etcd -name etcd1  -advertise-client-urls http://192.168.3.3:2480  -listen-client-urls http://0.0.0.0:2379 -initial-advertise-peer-urls http://192.168.3.3:2381 -listen-peer-urls http://0.0.0.0:2380  -initial-cluster-token etcd-cluster-1 -initial-cluster "etcd0=http://192.168.3.3:2380,etcd1=http://192.168.3.3:2381" -initial-cluster-state new
 ```
 这里模拟多端口代表多服务器,需要注意的是`-listen-client-urls http://0.0.0.0:2379`,`-listen-peer-urls http://0.0.0.0:2380`,这两个参数是服务内端口号,对应的是-p中的`2479:2379`中后面的2379,所以这里的监听不需要改变.
 
