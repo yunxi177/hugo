@@ -6,7 +6,7 @@ categories = ["etcd"]
 +++  
 上节([etcd在docker中使用](http://www.artacode.com/posts/etcd/install/))etcd已经可以正常使用,这节讲讲如何开启htpps
 
-# 1. 生成签名
+# 1 生成签名
 ## 1.1 下载 cfssl
 ```
 mkdir ~/bin
@@ -45,7 +45,7 @@ cfssl print-defaults csr > ca-csr.json
             "expiry": "43800h"
         },
         "profiles": {
-            "www": {
+            "server": {
                 "expiry": "43800h",
                 "usages": [
                     "signing",
