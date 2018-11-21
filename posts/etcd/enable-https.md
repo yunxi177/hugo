@@ -96,7 +96,7 @@ ca-key.pem
 ca.csr
 ca.pem
 ```
-# 1.5 生成服务器证书
+## 1.5 生成服务器证书
 ```
 cfssl print-defaults csr > server.json
 ```
