@@ -133,14 +133,14 @@ docker run -v /root/cfssl:/root/cfssl -p 2379:2379 \
 # 3 验证请求是否正确
 ## 3.1 不带证书请求
 ```
-curl https://10.105.8.139:2379/v2/keys/foo -XPUT -d value=bar -v
+curl https://192.168.3.3:2379/v2/keys/foo -XPUT -d value=bar -v
 ```
 输出错误如下:
 ```
 客户端错误:
-* About to connect() to 10.105.8.139 port 2379 (#0)
-*   Trying 10.105.8.139...
-* Connected to 10.105.8.139 (10.105.8.139) port 2379 (#0)
+* About to connect() to 192.168.3.3 port 2379 (#0)
+*   Trying 192.168.3.3...
+* Connected to 192.168.3.3 (192.168.3.3) port 2379 (#0)
 * Initializing NSS with certpath: sql:/etc/pki/nssdb
 *   CAfile: /etc/pki/tls/certs/ca-bundle.crt
   CApath: none
@@ -171,12 +171,12 @@ If you'd like to turn off curl's verification of the certificate, use
  
  
 服务端:
-rejected connection from "10.105.8.139:46692" (error "remote error: tls: unknown certificate authority", ServerName "")
+rejected connection from "192.168.3.3:46692" (error "remote error: tls: unknown certificate authority", ServerName "")
 ```
 
 ## 3.2 带证书请求
 ```
-curl --cacert /root/cfssl/ca.pem https://10.105.8.139:2379/v2/keys/foo -XPUT -d value=bar -v
+curl --cacert /root/cfssl/ca.pem https://192.168.3.3:2379/v2/keys/foo -XPUT -d value=bar -v
 ```
 请求结果如下:
 ```
