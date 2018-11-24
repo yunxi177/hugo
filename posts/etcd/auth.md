@@ -96,12 +96,12 @@ etcdctl --ca-file /root/cfssl/ca.pem  --endpoints https://192.168.3.3:2379 set /
 ```
 这里出现了一个问题，我们已经开启了身份访问验证，却仍然可以不通过任何身份进行操作，这是什么原因呢？其实是因为在 `Etcd` 开启 `Basic Auth` 之后，默认会启用两个角色 `root` 和 `guest`， `root` 和 `guest` 角色都拥有所有权限，当我们未指定身份的时候其实是通过 `guest` 角色进行的操作，这里需要注意的是两个角色都不要删除，否则你可能会遇到意想不到的Bug，既然无法删除，那么为们可以通过收回权限的方式对 `guest` 的权限进行限制，执行下面代码：
 ```
-etcdctl --ca-file /root/cfssl/ca.pem --username root:as112233 --endpoints https://192.168.3.3:2379 ro
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 ro
 le revoke guest --path '/*' --rw
 //返回：Role guest updated
 
 //查看guest最新的权限信息
-etcdctl --ca-file /root/cfssl/ca.pem --username root:as112233 --endpoints https://192.168.3.3:2379 ro
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 ro
 le get guest
 
 
@@ -120,31 +120,31 @@ etcdctl --ca-file /root/cfssl/ca.pem  --endpoints https://192.168.3.3:2379 set /
 如我们所愿的已经不可以对 etcd 进行操作了，下面我们创建一个用户并赋予一个新建的角色试试：
 ```
 # 创建user2用户
-etcdctl --ca-file /root/cfssl/ca.pem --username root:as112233 --endpoints https://192.168.3.3:2379 user add user2
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 user add user2
 
 New password: 
 //返回 ：User user2 created
 
 # 创建role2角色
-etcdctl --ca-file /root/cfssl/ca.pem --username root:as112233 --endpoints https://192.168.3.3:2379 role add role2
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 role add role2
 
 Role role2 created
 
 # 赋予role2 角色权限
 
-etcdctl --ca-file /root/cfssl/ca.pem --username root:as112233 --endpoints https://192.168.3.3:2379 ro
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 ro
 le grant role2 --path /foo --rw
 Role role2 updated
 
 
 # 将用户user2赋予角色role2
-etcdctl --ca-file /root/cfssl/ca.pem --username root:as112233 --endpoints https://192.168.3.3:2379 us
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 us
 er  grant --roles role2 user2
 
 User user2 updated
 
 # 设置 foo 值
-etcdctl --ca-file /root/cfssl/ca.pem --username user2:111111 --endpoints https://192.168.3.3:2379:2379 set foo bar
+etcdctl --ca-file /root/cfssl/ca.pem --username user2:passwod --endpoints https://192.168.3.3:2379:2379 set foo bar
 
 bar
 ```
