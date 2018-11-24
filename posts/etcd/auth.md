@@ -148,6 +148,6 @@ etcdctl --ca-file /root/cfssl/ca.pem --username user2:111111 --endpoints https:/
 
 bar
 ```
-
-
-
+# 7. 参考连接
+[Role-based access control](https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/authentication.md)  
+[Etcd安全配置之Basic Auth认证](https://juejin.im/post/5b986abff265da0ad947b52f)
