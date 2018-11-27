@@ -3,7 +3,7 @@ title = "etcd入门系列三：身份验证访问控制"
 date = 2018-11-24T12:05:50+08:00
 tags = ["etcd"]
 categories = ["etcd"]
-slug = "aaaa"
+Slug = "aaaa"
 +++
 
 # etcd入门系列
