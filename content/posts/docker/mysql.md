@@ -3,6 +3,7 @@ title = "docker mysql启动报错"
 date = 2018-09-15T16:22:17+08:00
 tags = ["docker"]
 categories = ["docker"]
+gitmentId="docker-mysql"
 +++
 
 ## 错误信息

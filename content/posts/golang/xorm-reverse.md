@@ -3,6 +3,7 @@ title = "xorm将表生成实体"
 date = 2018-09-16T17:24:20+08:00
 tags = ["golang"]
 categories = ["golang"]
+gitmentId="golang-xorm-reverse"
 +++
 
 # xorm 工具

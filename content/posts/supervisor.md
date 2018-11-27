@@ -3,6 +3,7 @@ title = "Supervisor 安装与使用"
 date = 2018-09-04T11:22:14+08:00
 tags = ["linux"]
 categories = ["linux"]
+gitmentId="supervisor"
 +++
 # 简介
 supervisor管理进程，是通过fork/exec的方式将这些被管理的进程当作supervisor的子进程来启动，所以我们只需要将要管理进程的可执行文件的路径添加到supervisor的配置文件中就好了。此时被管理进程被视为supervisor的子进程，若该子进程异常中断，则父进程可以准确的获取子进程异常中断的信息，通过在配置文件中设置autostart=ture，可以实现对异常中断的子进程的自动重启。

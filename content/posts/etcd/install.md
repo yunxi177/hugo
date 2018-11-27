@@ -3,6 +3,7 @@ title = "etcd入门系列一：etcd 在 docker 中使用"
 date = 2018-11-19T11:03:08+08:00
 tags = ["etcd"]
 categories = ["etcd"]
+gitmentId="etcd-install"
 +++
 # etcd入门系列
 [一. etcd在docker中的安装与使用](http://www.artacode.com/posts/etcd/install/)  

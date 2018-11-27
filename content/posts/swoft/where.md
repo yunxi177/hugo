@@ -3,6 +3,7 @@ title = "swoft openWhere使用指南"
 date = 2018-11-15T10:47:05+08:00
 tags = ["swoft"]
 categories = ["swoft"]
+gitmentId="swoft-where"
 +++
 # open/close where 理解
 1. `openWhere` 为where条件的左边括号即`(`  

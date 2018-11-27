@@ -3,6 +3,7 @@ title = "hugo安装及部署"
 date = 2018-08-06T19:27:54+08:00
 tags = ["golang"]
 categories = ["golang"]
+gitmentId="hugo-install"
 +++
 # 前言
 Hugo是一个用Go编写的快速而现代的静态站点生成器，旨在使网站创建再次变得有趣。  

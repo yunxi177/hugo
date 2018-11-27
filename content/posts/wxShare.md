@@ -3,6 +3,7 @@ title = "微信分享"
 date = "2018年07月14日 09:53:22"
 tags = ["微信开发"]
 categories = ["微信开发"]
+gitmentId="wxShare"
 +++
 ### 微信分享步骤
 - 引入jｓ

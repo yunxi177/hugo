@@ -3,6 +3,7 @@ title = "etcd入门系列三：身份验证访问控制"
 date = 2018-11-24T12:05:50+08:00
 tags = ["etcd"]
 categories = ["etcd"]
+gitmentId="etcd-auth"
 +++
 # etcd入门系列
 [一. etcd在docker中的安装与使用](http://www.artacode.com/posts/etcd/install/)  

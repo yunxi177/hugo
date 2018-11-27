@@ -3,6 +3,7 @@ title = "Sqlite3 stdlib.h: No such file or directory"
 date = 2018-09-23T12:29:55+08:00
 tags = ["golang"]
 categories = ["golang"]
+gitmentId="golang-sqlite3-error"
 +++
 
 # sqlite3/backup.go:14:20: fatal error: stdlib.h: No such file or directory

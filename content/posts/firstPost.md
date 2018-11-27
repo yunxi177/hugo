@@ -10,6 +10,7 @@ categories = [
 ]
 menu = "main"
 weight = "1"
+gitmentId="first-post"
 +++
 # it‘s my life
 ## 最喜欢的句子
