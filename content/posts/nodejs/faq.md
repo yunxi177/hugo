@@ -1,8 +1,8 @@
 +++
 title = "nodejs常见问题"
 date = 2018-09-15T12:44:30+08:00
-tags = [""]
-categories = [""]
+tags = ["nodjs"]
+categories = ["nodejs"]
 draft = false
 +++
 
