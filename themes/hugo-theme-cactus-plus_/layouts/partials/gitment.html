@@ -1,0 +1,15 @@
+<div id="git-comments"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+  var gitment = new Gitment({
+    //id: '{{ .Slug }}',  // 可选, 默认为 location.href
+    owner: 'yunxi177',
+    repo: 'https://github.com/yunxi177/blog',
+    oauth: {
+      client_id: '8d632b10dd3a5ab67f60',
+      client_secret: '9ed2f0555c4f616d9d61fcca42e0b24e08aaa37d',
+    }
+  })
+  gitment.render('git-comments')
+</script>
