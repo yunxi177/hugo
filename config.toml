@@ -20,6 +20,7 @@ hasCJKLanguage = true
 	enableToc = true
 
 	enableDisqus = true
+	enableGitment = true
 	disqusShortname = "yun-xi-de-bo-ke"
 
 
