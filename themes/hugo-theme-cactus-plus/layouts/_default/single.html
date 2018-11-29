@@ -43,8 +43,8 @@
                 {{ partial "disqus.html" . }}
             {{ end }}
 
-	        {{ if .Site.Params.enableGitment }}
-                {{ partial "gitment.html" . }}
+	        {{ if .Site.Params.enableComment }}
+                {{ partial "comment.html" . }}
             {{ end }}
 
             {{ if .Site.Params.showLatestPosts }}
