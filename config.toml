@@ -7,7 +7,6 @@ theme = "hugo-theme-cactus-plus"
 googleAnalytics = "UA-123407925-1"
 # Set the value to true if your site include CJK (Chinese, Japanese, and Korean languages) characters
 hasCJKLanguage = true
-
 [params]
 	author = "Argericy"
 	description = "想成为一名艺术家的码农"
