@@ -3,7 +3,7 @@ title = "etcd入门系列二：etcd开启https"
 date = 2018-11-21T13:44:07+08:00
 tags = ["etcd"]
 categories = ["etcd"]
-gitmentId="etcd-enable-https"
+commentId="etcd-enable-https"
 +++  
 # etcd入门系列
 [一. etcd在docker中的安装与使用](http://www.artacode.com/posts/etcd/install/)  

@@ -3,7 +3,7 @@ title = "docker常见问题"
 date = 2018-09-09T15:54:18+08:00
 tags = ["docker"]
 categories = ["docker"]
-gitmentId="docker-err"
+commentId="docker-err"
 +++
 # docker pull 失败
 ## 错误信息

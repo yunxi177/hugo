@@ -4,7 +4,7 @@ date = 2018-09-15T12:44:30+08:00
 tags = ["nodjs"]
 categories = ["nodejs"]
 draft = false
-gitmentId="nodejs-faq"
+commentId="nodejs-faq"
 +++
 
 # 错误1

@@ -3,7 +3,7 @@ title = "docker常用命令"
 date = 2018-09-15T09:06:07+08:00
 tags = ["docker"]
 categories = ["docker"]
-gitmentId="docker-command"
+commentId="docker-command"
 +++
 
 # docker 查看日志

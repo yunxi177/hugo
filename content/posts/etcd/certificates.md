@@ -3,7 +3,7 @@ title = "etcd入门系列四：开启客户端证书访问"
 date = 2018-11-25T14:26:14+08:00
 tags = ["etcd"]
 categories = ["etcd"]
-gitmentId="etcd-certificates"
+commentId="etcd-certificates"
 +++
 
 # etcd入门系列

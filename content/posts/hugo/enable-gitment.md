@@ -3,7 +3,7 @@ title = "hugo集成girment插件"
 date = 2018-11-27T18:57:45+08:00
 tags = ["hugo"]
 categories = ["hugo"]
-gitmentId = "hugo-enable-gitment"
+commentId = "hugo-enable-gitment"
 +++
 # 起因
 使 `hugo` 搭建博客已经有半年了，一直觉得用 `markdown` 才写博客才程序员应该有的范，所以看到 `hugo` 就觉得自己应该有一个这样的博客，后面就自己搭建起来。最近，写博客的频率越来越高，也越来越觉得交互对一个博客的重要性，于是集成评论系统的优先级变得越来越高。  
