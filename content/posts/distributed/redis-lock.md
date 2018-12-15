@@ -62,7 +62,8 @@ redis> GET job                   # 没有被覆盖
 任何方案都不能是尽善尽美，都有着自身的优势与局限性，我们开发者需要做的是衡量利弊选择对项目有利的解决方案来解决问题，遇到问题解决问题，不断迭代，直到整个方案趋于稳态。这里也非常感谢，在整个实现过程中，和我一起商讨的小伙伴，感谢你们的帮助。
 
 # 参考文献
-[redis命令](http://redisdoc.com/string/setnx.html)
+[setnx命令](http://redisdoc.com/string/setnx.html)  
+[getset](http://doc.redisfans.com/string/getset.html)
 
 
 
