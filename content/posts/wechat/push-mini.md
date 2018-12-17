@@ -4,7 +4,7 @@ date = 2018-12-17T18:34:50+08:00
 tags = ["微信开发"]
 categories = ["微信开发"]
 keywords = ["微信公众号API推送小程序", "公众号API发送小程序卡片", "公众号API发送小程序链接"]
-draft = true
+draft = false
 commentId="push-mini-program"
 +++
 
