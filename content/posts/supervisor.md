@@ -25,6 +25,37 @@ logfile=/var/log/test.log #日志文件
 stopsignal=INT
 [supervisord]
 ```
+# 加入开机启动（centos）
+创建文`/usr/lib/systemd/system/supervisord.service`
+
+    $ sudo vim /usr/lib/systemd/system/supervisord.service
+
+插入如下内容:
+```
+[Unit] 
+Description=Supervisor
+
+[Service] 
+Type=forking 
+ExecStart=/usr/bin/supervisord -c /etc/supervisor/supervisord.conf  // 启动命令
+ExecStop=/usr/bin/supervisorctl shutdown  //关闭命令
+ExecReload=/usr/bin/supervisorctl reload  //重载命令
+KillMode=process 
+Restart=on-failure 
+RestartSec=42s
+
+[Install] 
+WantedBy=multi-user.target
+```
+
+启动服务
+
+	$ systemctl enable supervisord
+验证服务是否未开机启动
+
+	$ systemctl is-enabled supervisord //返回 enable 表示已启动
+
+
 # 常见问题
 ## supervisor Error: .ini file does not include supervisord section
 在配置文件中增加  `[supervisord]` 配置项
