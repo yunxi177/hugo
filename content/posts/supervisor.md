@@ -25,6 +25,34 @@ logfile=/var/log/test.log #日志文件
 stopsignal=INT
 [supervisord]
 ```
+# 参数解释
+```
+;[program:theprogramname]
+;command=/bin/cat              ; 程序执行命令，需要
+;process_name=%(program_name)s ; process_name expr (default %(program_name)s)
+;numprocs=1                    ; 进程启动数量，默认为1
+;directory=/tmp                ; 工作目录，如果配置了工作目录，command 配置项 可以直接执行工作目录里的命令
+;umask=022                     ; 设置进程权限 默认为：none
+;priority=999                  ; 设置优先级 默认：999
+;autostart=true                ; 在 supervisor 启动时启动程序，默认为：true
+;startsecs=1                   ; 程序启动 startsecs 秒 后视为程序启动成功， 默认为：1
+;startretries=3                ; 当程序启动失败后最大尝试次数,默认为：3
+;autorestart=unexpected        ; 其值为可以设置为 true 、false 、expected 设置为 true 无论什么情况下都自动重启， 设置为 false 则不自动重启，设置 unexpected 则配合 exitcodes 使用，只有在 exitcodes 配置的中的退出代码 才会自动重启
+;exitcodes=0,2                 ; autorestart 设置为 unexpected 此项生效，默认为： 0,2
+;stopsignal=QUIT               ; 用于 kill 进程的信号 默认为： TERM
+;stopwaitsecs=10               ; 停止进程等待秒数，默认为：10
+;stopasgroup=false             ; 发送停止信号给 UNIX 进程组 默认为：false
+;killasgroup=false             ; 发送立刻中止信号给 UNIX 进程组，默认为：false
+;user=chrism                   ; 设置启动程序的用户
+;redirect_stderr=true          ; redirect proc stderr to stdout (default false)
+;stdout_logfile=/a/path        ; 输入日志配置
+;stdout_logfile_maxbytes=1MB   ; 日志容量大与1m则分割日志
+;stdout_logfile_backups=10     ; 备份文件数量，默认为10
+;stderr_logfile=/a/path        ; 标准错误日志输出
+;stderr_logfile_maxbytes=1MB   ; 日志容量大与1m则分割日志
+;stderr_logfile_backups=10     ; 备份文件数量，默认为10
+;serverurl=AUTO                ; override serverurl computation (childutils)
+```
 # 加入开机启动（centos）
 创建文`/usr/lib/systemd/system/supervisord.service`
 
@@ -59,5 +87,6 @@ WantedBy=multi-user.target
 # 常见问题
 ## supervisor Error: .ini file does not include supervisord section
 在配置文件中增加  `[supervisord]` 配置项
+
 
 
