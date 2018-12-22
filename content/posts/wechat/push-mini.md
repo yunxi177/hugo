@@ -24,7 +24,7 @@ https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESS_TOKEN
     }
 }
 ```
-说明：
+说明：  
 
 1. data-miniprogram-appid 项，填写小程序appid，则表示该链接跳小程序；
 2. data-miniprogram-path项，填写小程序路径，路径与app.json中保持一致，可带参数；
