@@ -54,6 +54,7 @@ stopsignal=INT
 ;serverurl=AUTO                ; override serverurl computation (childutils)
 ```
 # 加入开机启动（centos）
+关于 centos 加入服务，在[《Centos 服务配置详解》](http://www.artacode.com/posts/linux/centos-service/) 一文中有详细的说明，这里只是简单的应用。  
 创建文`/usr/lib/systemd/system/supervisord.service`
 
     $ sudo vim /usr/lib/systemd/system/supervisord.service
