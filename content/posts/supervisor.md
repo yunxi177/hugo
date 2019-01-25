@@ -53,6 +53,19 @@ stopsignal=INT
 ;stderr_logfile_backups=10     ; 备份文件数量，默认为10
 ;serverurl=AUTO                ; override serverurl computation (childutils)
 ```
+
+# 使用 supervisorctl
+Supervisorctl 是 supervisord 的一个命令行客户端工具，启动时需要指定与 supervisord 使用同一份配置文件，否则与 supervisord 一样按照顺序查找配置文件。
+```
+$ supervisorctl status
+$ supervisorctl stop usercenter
+$ supervisorctl start usercenter
+$ supervisorctl restart usercenter
+$ supervisorctl reread
+$ supervisorctl update
+```
+
+
 # 加入开机启动（centos）
 关于 centos 加入服务，在[《Centos 服务配置详解》](http://www.artacode.com/posts/linux/centos-service/) 一文中有详细的说明，这里只是简单的应用。  
 创建文`/usr/lib/systemd/system/supervisord.service`
