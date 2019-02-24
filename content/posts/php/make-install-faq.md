@@ -6,7 +6,7 @@ categories = ["php"]
 draft = false
 commentId="php-make-install-faq"
 +++
-# configure: error: libxml2 not found. Please check
+# configure: error: libxml2 not found. 
 
 详细错误如下:
 ```
