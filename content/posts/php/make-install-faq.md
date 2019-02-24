@@ -7,7 +7,6 @@ draft = false
 commentId="php-make-install-faq"
 +++
 
-
 # configure: error: libxml2 not found. Please check
 
 详细错误如下:
