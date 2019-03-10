@@ -32,14 +32,15 @@ commentId="ide-vs-code-snippet"
 	}
 ```
 在打开的 `php.json` 中有示例代码：
+
 - `Print to console` 代码片段名称
 - `prefix` 插件前缀
 - `body` 插件内容可以是字符串，也可以为数组，若为数组每个元素都做为单独的一行插入。
-- `description` 插件描述
-
+- `description` 插件描述  
+- 
 # Snippet 语法
 ## 制表位(Tabstops)
-使用制表位(Tabstops)可是在代码片段中移动光标位置，使用$1,$2来指定光标的位置,数字代表光标的移动的顺序，值得注意的时$0代表光标的最后位置。如果有多个相同的制表位(Tabstops)会在编译器里同时出现多个光标（类似编译器的块编辑模式）。
+使用制表位(Tabstops)可是在代码片段中移动光标位置，使用`$1`,`$2`来指定光标的位置,数字代表光标的移动的顺序，值得注意的时`$0`代表光标的最后位置。如果有多个相同的制表位(Tabstops)会在编译器里同时出现多个光标（类似编译器的块编辑模式）。
 ## 占位符(Placeholders)
 占位符(Placeholders) 是带默认值的制表位(Tabstops),占位符(Placeholders)的文本会被插入到制表位(Tabstops)所在位置并且全选以方便修改,占位符(Placeholders)可以嵌套使用，比如`${1:another ${2:placeholder}}`。
 ## 选择项(Choice)
@@ -47,6 +48,7 @@ commentId="ide-vs-code-snippet"
 ## 变量(Variables)
 使用 `$name` 或者 `${name|default}` 可以插入变量的值，如果变量未被赋值则插入 `default` 的值或者空值 。当变量未被定义，则将变量名插入，变量(Variables)将被转换为占位符(Placeholders)
 系统变量如下
+
 - `TM_SELECTED_TEXT` 当前选定的文本或空字符串
 - `TM_CURRENT_LINE` 当前行的内容
 - `TM_CURRENT_WORD` 光标下的单词的内容或空字符串
