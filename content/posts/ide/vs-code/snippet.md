@@ -6,6 +6,7 @@ categories = ["IDE", "工欲善其事，必先利其器"]
 draft = false
 commentId=ide-vs-code-snippet
 +++
+
 # 实现效果
 ![](http://pic.artacode.com/1.gif)
 # 起因
