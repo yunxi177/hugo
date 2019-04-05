@@ -64,5 +64,5 @@ Vue.use(ElementUI)
 为什么是 `electron` 以我目前的技术栈来讲 `electron` 是最容易上手的开发桌面程序的一个途径，尽管他也有这样或那样的缺点，但总归来说还是瑕不掩瑜，此番安装成功，接下来就开始了 `electron` 开发之旅
 
 # 参考链接
-[electron-vue 文档](https://simulatedgreg.gitbooks.io/electron-vue/content/cn/)
+[electron-vue 文档](https://simulatedgreg.gitbooks.io/electron-vue/content/cn/)  
 [element ui](http://element.eleme.io/#/zh-CN/component/installation)
