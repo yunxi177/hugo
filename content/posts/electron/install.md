@@ -1,17 +1,17 @@
 +++
-title = "electron-vue集成 element-ui"
+title = "electron-vue  集成 element-ui"
 date = 2019-04-04T20:21:44+08:00
 tags = ["electron"]
 categories = ["electron"]
-draft = true
+draft = false
 commentId="electron-vue-add-element-ui"
 +++
 
 # 简介
 ## 什么是 electron
-Electron是由Github开发，用HTML，CSS和JavaScript来构建跨平台桌面应用程序的一个开源库。 Electron通过将Chromium和Node.js合并到同一个运行时环境中，并将其打包为Mac，Windows和Linux系统下的应用来实现这一目的。
+Electron  是由 Github 开发，用  HTML，CSS 和 JavaScript 来构建跨平台桌面应用程序的一个开源库。 Electron 通过将 Chromium 和 Node.js 合并到同一个运行时环境中，并将其打包为 Mac  ，Windows 和 Linux 系统下的应用来实现这一目的。
 
-Electron于2013年作为构建Github上可编程的文本编辑器Atom的框架而被开发出来。这两个项目在2014春季开源。
+Electron  于 2013 年作为构建  Github 上可编程的文本编辑器 Atom 的框架而被开发出来。这两个项目在2014春季开源。
 
 目前它已成为开源开发者、初创企业和老牌公司常用的开发工具
 
@@ -58,3 +58,11 @@ Vue.use(ElementUI)
 ```
 运行效果如下:  
 ![](http://pic.artacode.com/2.png)
+
+# 总结
+整个安装过程并不复杂，
+为什么是 `electron` 以我目前的技术栈来讲 `electron` 是最容易上手的开发桌面程序的一个途径，尽管他也有这样或那样的缺点，但总归来说还是瑕不掩瑜，此番安装成功，接下来就开始了 `electron` 开发之旅
+
+# 参考链接
+[electron-vue 文档](https://simulatedgreg.gitbooks.io/electron-vue/content/cn/)
+[element ui](http://element.eleme.io/#/zh-CN/component/installation)
