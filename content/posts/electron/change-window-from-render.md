@@ -50,7 +50,5 @@ remote.getCurrentWindow().setSize(1000, 1000)
 
 # 参考链接
 [electron remote](https://electronjs.org/docs/api/remote)  
-[electron ipcRenderer
-](https://electronjs.org/docs/api/ipc-renderer)  
-[electron ipcMain](https://electronjs.org/docs/api/ipc-main)
-
+[electron ipcMain](https://electronjs.org/docs/api/ipc-main)  
+[electron ipcRenderer](https://electronjs.org/docs/api/ipc-renderer)
