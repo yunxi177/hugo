@@ -1,9 +1,9 @@
 +++
 title = "electron 改变窗体大小"
-date = 2019-04-07T07:28:07+08:00
+date = 2019-04-13T07:28:08+47:00
 tags = ["electron"]
 categories = ["electron"]
-draft = true
+draft = false
 commentId="electron-change-window-from-render"
 +++
 相关链接:  
