@@ -14,7 +14,7 @@ vim-plug 是一个极简的 vim 插件管理器
 
 # 安装
 vim-plug 的安装十分简单只需要一行命令就可以搞定
-# vim
+## vim
 ### Linux
 
 ```
