@@ -1,9 +1,9 @@
 +++
-title = "Vim Plug Install"
-date = 2019-04-20T17:02:57+08:00
+title = "vim-plug 安装"
+date = 2019-04-21T07:33:57+08:00
 tags = ["工欲善其事，必先利其器"]
 categories = ["工欲善其事，必先利其器"]
-draft = true
+draft = false
 commentId="ide-vim-plug-install"
 
 +++
@@ -124,15 +124,80 @@ call plug#end()
 # 插件选项（Plug options）
 |选项|描述|
 |---|---|
-|`branch/tag/commit`||
-|`rtp`||
-|`dir`||
-|`as`||
-|`do`||
-|`on`||
-|`for`||
-|`frozen`||
+|`branch/tag/commit`|使用仓库的 	Branch/tag/commit|
+|`rtp`|包含 vim 插件的子目录|
+|`dir`|自定义插件目录|
+|`as`|自定义插件名称|
+|`do`|更新后钩子|
+|`on`|根据命令或插件映射按需加载|
+|`for`|根据文件类型按需加载|
+|`frozen`|除非显示制定，否则不更新|
 
+# 全局选项
+|标识|默认值|描述|
+|---|---|---|
+|`g:plug_threads`|16|默认使用线程数|
+|`g:plug_timeout`|60|任务执行的超时时间|
+|`g:plug_retries`|2|超时情况下重试次数|
+|`g:plug_shallow`|1|使用浅拷贝|
+|`g:plug_window	`|`vertical topleft new`|打开插件窗口命令|
+|`g:plug_pwindow`|`above 12new`|打开 `PlugDiff` 预览窗口的命令|
+|`g:plug_url_format`|`https://git::@github.com/%s.git`||
 
+# 快捷键绑定
+
+- D - `PlugDiff`
+- S - `PlugStatus`
+- R - 重试失败的更新或安装任务
+- U - 更新选中插件
+- q - 关闭窗口
+- :PlugStatus
+    - L - 加载插件
+- PlugDiff
+    - X - 还原更新
+
+# 插件按需加载
+```
+" NERD tree 在 NERDTreeToggle 第一调用时加载
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+
+" 多命令
+Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
+
+" 当 clojure 文件打开时加载
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+" 多文件类型
+Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
+
+" 两种情况下都可以按需加载
+Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
+
+" 插件按需加载时执行代码
+Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+autocmd! User goyo.vim echom 'Goyo is now loaded!'
+```
+`for` 选项通常是不需要的，因为大多数特定文件类型的插件通常代码不是很多
+
+# Post-update Hooks
+有很多插件在安装或更新后需要额外的操作。这种情况下可以使用 `do` 选项来定义要执行的任务
+```
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+```
+如果 value 以 `:` 开头的话，将认为是 vim 命令
+```
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+```
+在 `do` 选项中的值要确保转义 | 和 ""  否则会被识别为分隔符，或注释的开头
+```
+Plug 'junegunn/fzf', { 'do': 'yes \| ./install' }
+
+```
+如果使用变量方式传入 `do` 选项中，则可以避免转义
+```
+let g:fzf_install = 'yes | ./install'
+Plug 'junegunn/fzf', { 'do': g:fzf_install }
+```
 # 参考链接
 [vim-plug](https://github.com/junegunn/vim-plug)
