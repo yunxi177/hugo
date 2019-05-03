@@ -62,8 +62,8 @@ curl -L https://get.oh-my.fish | fish
 可以按照 主题名或包名或包名+主题名 搜索。 支持模糊查询，如果不确定保命可以直接搜搜  `omf search simple.`'  
 
 `omf channel`  
-获取或更改更新管道  
-有两个可以用的管道 
+获取或更改更新管道,有两个可以用的管道  
+
 1. `stable` 管道使用最新标记版本的 oh my fish 提供稳定版更新　　
 2.  `dev` 提供正在开发中的最新更改
 
