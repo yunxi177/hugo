@@ -1,5 +1,5 @@
 +++
-title = "Ubuntu 终端zsh的agnoster主题乱码"
+title = "Ubuntu 终端oh my fish的agnoster主题乱码"
 date = 2019-05-04T07:33:28+08:00
 tags = ["linux"]
 categories = ["linux"]
