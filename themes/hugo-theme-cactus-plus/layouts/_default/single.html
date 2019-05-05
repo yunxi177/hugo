@@ -11,7 +11,8 @@
                     <h2 class="headline">
                     {{ .Date.Format "Jan 2, 2006 15:04" }}
                     · {{ if lt 1 .WordCount }}{{ .WordCount }} words{{ else }}{{ .WordCount }} word{{ end }}
-                    · {{ .ReadingTime }} minute read
+                    · {{ .ReadingTime }} minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
                       <span class="tags">
                       {{ with .Params.tags }}
                       {{ if ge (len .) 1 }}
