@@ -40,3 +40,18 @@ npm ERR! code EMISSINGARG
 ## 解决方法
 `npm install -g npm@latest`
 参考链接：https://github.com/npm/npm/issues/7308
+
+# npm ERR! cb() never called
+```
+npm ERR! cb() never called!
+
+npm ERR! This is an error with npm itself. Please report this error at:
+npm ERR! https://github.com/npm/npm/issues 38
+
+npm ERR! A complete log of this run can be found in
+npm ERR! C:\Users\komkumar\AppData\Roaming\npm-cache_logs\2018-07-10T06_39_
+39_241Z-debug.log
+Package install failed, see above.
+```
+解决方法：  
+升级 npm `$ npm install -g npm`
