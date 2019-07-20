@@ -3,7 +3,7 @@ title = "exec.Command 返回 “exit status 1” 获取详细错误信息"
 date = 2019-07-20T17:04:20+08:00
 tags = ["golang"]
 categories = ["golang"]
-draft = true
+draft = false
 commentId="golang-commands-exec-debug"
 +++
 
