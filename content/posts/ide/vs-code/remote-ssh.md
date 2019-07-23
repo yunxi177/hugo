@@ -63,5 +63,5 @@ Host oa-online
 目前 `Remote Development` 还不支持 32 位系统, 据官方信息应该在很快的版本更新中就可以添加对 32 为远程主机的支持,期待 `VS Code` 将此功能越做越好.
 
 # 参考连接
-[VS Code Remote Developmen](https://code.visualstudio.com/docs/remote/remote-overview)
+[VS Code Remote Developmen](https://code.visualstudio.com/docs/remote/remote-overview)  
 [Remote Development using SSH](https://code.visualstudio.com/docs/remote/ssh)
