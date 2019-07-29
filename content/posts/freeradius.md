@@ -1,8 +1,8 @@
 +++
 title = "freeRADIUS搭建"
 date = 2018-08-19T11:05:29+08:00
-tags = ["计算机网络"]
-categories = ["计算机网络"]
+tags = ["网络编程"]
+categories = ["网络编程"]
 commentId="freeradius"
 +++
 
