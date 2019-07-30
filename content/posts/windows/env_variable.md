@@ -3,8 +3,8 @@ title = "windows 命令行设置环境变量"
 date = 2019-07-24T15:36:24+08:00
 tags = ["windows"]
 categories = ["windows"]
-draft = true
-commentId=""
+draft = false
+commentId="windows-env-variable"
 +++
 **powershell**
 

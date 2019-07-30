@@ -24,3 +24,7 @@ commentId="cross-origin-intro"
 1. 无法读取非同源网页的 Cookie、LocalStorage 和 IndexedDB
 2. 无法接触非同源网页的 DOM
 3. 无法向非同源地址发送 AJAX 请求
+
+# 跨域的解决方案
+## jsonp
+JSONP 不是 JSON，它是跨域访问的一种机制。那么什么是跨域访问？什么是 JSONP？如果你不清楚的话，不妨点开看看吧。
