@@ -1,5 +1,5 @@
 # Site settings
-baseurl = "http://www.artacode.com/"
+baseurl = "https://www.artacode.com/"
 #baseurl = "artacode.com"
 languageCode = "en"
 title = "一二三四吾"
