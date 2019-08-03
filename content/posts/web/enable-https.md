@@ -53,6 +53,17 @@ $ echo "0 0,12 * * * root python -c 'import random; import time; time.sleep(rand
 ```
 $ cat /etc/crontab
 ```
+关于自动更新证书，如果你手动执行一遍的话会有如下提示
+```
+Cert not yet due for renewal （证书尚未过期`）
+``` 
+你可能会有疑问，如果有了这个限制等过期了再给我更新证书，服务不就会有一段时间无法访问了吗？以下是 Certbot 文档中的原话
+```
+This command attempts to renew any previously-obtained certificates that expire in less than 30 days.
+```
+
+其实 crontab 不会在证书完全到期后才允许我们更新证书，而是会更新 30 天内将要过期的证书，这样以来就可以放心的使用证书，而不用担心中断服务的问题了。
 
 # 参考连接
 [certbot instructions](https://certbot.eff.org/lets-encrypt/centosrhel7-nginx)
+[renewing-certificates](https://certbot.eff.org/docs/using.html#renewing-certificates)
