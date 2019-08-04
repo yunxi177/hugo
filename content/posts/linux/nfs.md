@@ -3,7 +3,7 @@ title = "centos 搭建 NFS"
 date = 2019-08-04T21:17:55+08:00
 tags = ["linux"]
 categories = ["linux"]
-draft = true
+draft = false
 commentId="linux-nfs"
 +++
 
