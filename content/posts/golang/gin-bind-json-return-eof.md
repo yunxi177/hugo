@@ -1,10 +1,10 @@
 +++
 title= "Gin_bind_json_return_eof"
-date= 2019-10-23T12:03:46+08:00
-draft= true
+date = 2019-10-23T12:03:46+08:00
+draft= false
 tags = ["golang"]
 categories = ["golang"]
-commentId="golang-Gin-bind-json-return-eof"
+commentId="gin-bind-json-return-eof"
 +++
 在一次开发中,通过中间件访问请求中的post参数,于是使用 `ioutil.ReadAll` 来读取body中的内容并做相应的验证,代码如下:
 
