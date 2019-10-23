@@ -14,7 +14,7 @@ commentId="gin-bind-json-return-eof"
 	data, _ := ioutil.ReadAll(body)
 ```
 
-一开始一切都挺美好,但等道测试的时候发现接口中调用 `BindJSON`(项目使用的框架是 gin) 返回错误,错误信息如下:
+一开始一切都挺美好,但等到测试的时候发现接口中调用 `BindJSON`(项目使用的框架是 gin) 返回错误,错误信息如下:
 ```
 bind multipart: NextPart: EOF
 ```
