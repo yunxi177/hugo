@@ -15,11 +15,11 @@ commentId="linux-snap-slow"
 Environment="http_proxy=http://127.0.0.1:port"
 Environment="https_proxy=http://127.0.0.1:port"
 ```
-`ctrl + o` 写入文件， 回车确认
-`ctrl + x` 退出编辑
+`ctrl + o` 写入文件， 回车确认  
+`ctrl + x` 退出编辑  
 
 重启服务
-`$ sudo systemctl daemon-reload`
-`$ sudo systemctl restart snapd`
+`$ sudo systemctl daemon-reload`  
+`$ sudo systemctl restart snapd`  
 
 再次执行安装操作，会发现速度已经有了大幅度提升。
