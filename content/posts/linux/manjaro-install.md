@@ -1,5 +1,5 @@
 +++
-title = "Linux Manjaro 安装教程"
+title = "Linux Manjaro 安装指南"
 date = 2020-05-05T17:03:42+08:00
 tags = ["linux"]
 categories = ["linux"]
