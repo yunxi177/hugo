@@ -1,0 +1,179 @@
++++
+title = "Linux Manjaro 安装教程"
+date = 2020-05-05T17:03:42+08:00
+tags = ["linux"]
+categories = ["linux"]
+draft = false
+commentId="linux-manjaro-install"
++++
+
+![manjaro](http://pic.artacode.com/manjaro.png)
+# Linux 历史
+1994年3月，Linux1.0版正式发布，Marc Ewing成立Red Hat软件公司，成为最著名的Linux经销商之一。早期Linux的引导管理程序（boot loader）使用LILO（Linux Loader），早期的LILO存在着一些难以容忍的缺陷，例如无法识别1024柱面以后的硬盘空间，后来的GRUB（GRand Unified Bootloader）克服这些缺点，具有‘动态搜索内核文件’的功能，可以让用户在引导的时候，自行编辑引导设置系统文件，透过ext2或ext3文件系统中加载Linux Kernel（GRUB通过不同的文件系统驱动可以识别几乎所有Linux支持的文件系统，因此可以使用很多文件系统来格式化内核文件所在的扇区，并不局限于ext文件系统）。
+
+今天由Linus Torvalds带领下，众多开发共同参与开发和维护Linux内核。理查德·斯托曼领导的自由软件基金会，继续提供大量支持Linux内核的GNU组件。一些个人和企业开发的第三方的非GNU组件也提供对Linux内核的支持，这些第三方组件包括大量的作品，有内核模块和用户应用程序和库等内容。Linux社区或企业都推出一些重要的Linux发行版，包括Linux内核、GNU组件、非GNU组件，以及其他形式的软件包管理系统软件。
+# 什么人适合 linux 系统
+1. 对 Linux 保持高敏感度的人（运维人员，后端开发...）
+2. 有 Geek 精神喜欢折腾的人。
+3. 对 Windows 生厌， 想要尝试新系统的人，不差钱可以上 MAC。
+
+## 后端开发
+后端开发对于 Linux 系统
+
+# Linux 发行版之 Manjaro
+Manjaro Linux 基于 Arch Linux，但拥有自己独立的软件仓库。Manjaro 的目标是让强大的 Arch 更方便用户使用，Manjaro 使用著名的 Pacman 且可以直接利用 AUR 上的資源。Manjaro 本身使用三个软件仓库：不稳定库，即含有那些不成熟的 Arch 包，这些包与 Arch 源有 1-2 天 的延后；测试库，每周同步一次，包含那些 Arch 不稳定源的包；以及稳定库，包含那些由开发团队确认稳定的软件。  
+Manjaro Linux 拥有开箱即用的多媒体支持、成熟的硬件识别软件，并支持多核 CPU。Manjaro 拥有命令行安装器和图形安装器。同时滚动更新也意味着用户无需通过重装系统或系统更新来更新自己的操作系统。软件包管理由 Pacman 处理，未来也计划提供一个 GUI 版本。Manjaro 有 32 位 和 64 位 的版本，且都与 Arch 兼容。可对其进行配置，选择是与使用稳定库的 Arch 同步（默认），或者是与不稳定的Arch 库同步。
+
+Manjaro 软件库由自带的 BoxIt 工具管理，BoxIt 类似git
+Manjaro 对显卡驱动的兼容性高，可自主选择安装开源驱动或者闭源驱动。
+
+## XFCE
+占用资源较GNOME、KDE较少。适合老机器，轻量级桌面。与windows界面环境类似。许多不习惯GNOME 3 ，Unity新桌面的同学，很多选择了XFCE 4.8，包括Linus大神同学
+## KDE
+界面操作逻辑与 Windows 很像， 很适合对 Linux 不是很熟悉的新手使用。
+## GNOME
+系统设计精美，扩展性强，颜值控的必选项。
+
+## Manjaro IOS 下载地址
+[Manjaro 下载地址](https://manjaro.org/download/)  
+
+# WINDOWS 下 U盘启动工具制作（虚拟机安装忽略该章节）
+[U盘安装Linux必备软件 Rufus 下载](https://rufus.ie/)
+打开下载好的 refus 软件，相关设置如下，注意点了开始之后，选择DD模式写入，ISO 模式写入的启动不了。
+![Rufus](http://pic.artacode.com/rufus.png)
+
+![Rufus-check](http://pic.artacode.com/refus-write.png)
+
+# 启动安装
+将制作好的 U盘，插入需要安装系统电脑，进入 BIOS 关闭安全启动，保存，重启，按F9，进入启动选项，选择uefi usb3.0 的启动项
+
+![manjaro 安装](http://pic.artacode.com/install.png)
+关于 driver 选项有连个 free 和 nonfree, free 为社区提供的开源版， nonfree 为 AMD 或 Nvidia 厂商提供的驱动版本，也意味这有更好的性能和更少的 bug,因而建议选择 nofree 选项。  
+在所有选项配置完毕后，选择 `Boot: Manjaro x86_64 gnome` 进入安装界面
+
+![launch-install](http://pic.artacode.com/manjaro-launch-install.png)
+
+点击 `Launch install` 启动安装程序
+
+# 选择语言
+
+![选择安装语言](http://pic.artacode.com/manaro-step1.png)
+
+# 选择位置
+![选择未知](http://pic.artacode.com/manjaro-install-step2.png)
+
+# 选择键盘排布方式
+![选择键盘排布方式](http://pic.artacode.com/manjaro-install-step3.png)
+
+
+# 分区
+## 主分区、扩展分区、逻辑分区 关系
+
+磁盘分区有三种： 主分区，扩展分区，逻辑分区。  
+通常情况下，一个硬盘中最多能够分割四个主分区。因为硬盘中分区表的大小只有64Bytes，而分割一个分区就需要利用16Bytes空间来存储这个分区的相关信息。由于这个分区表大小的限制，硬盘之能够分给为四个主分区。如果此时一块硬盘有120个G，而管理员划分了4个主分区，每个主分区的空间为20个G。那么总共才用去了80G的空间。这块硬盘剩余的40G空间就将无法使用。这显然浪费了硬盘的空间。  
+为了突破这最多四个主分区的限制，Linux系统引入了扩展分区的概念。即管理员可以把其中一个主分区设置为扩展分区(注意只能够使用一个扩展分区)来进行扩充。而在扩充分区下，又可以建立多个逻辑分区。也就是说，扩展分区是无法直接使用的，必须在细分成逻辑分区才可以用来存储数据。通常情况下，逻辑分区的起始位置及结束位置记录在每个逻辑分区的第一个扇区，这也叫做扩展分区表。在扩展分区下，系统管理员可以根据实际情况建立多个逻辑分区，将一个扩展分区划割成多个区域来使用。  
+
+
+## 分区说明
+- /boot 存放系统启动文件 800M-2G(ext4 文件系统)
+- swap 交换空间，交换空间大小与计算机内存内存存在关联。内存在8 G 以下设置  内存容量 * 2，8 G 以上设置和内存同等大小即可。
+    - 当内存不够用时，系统会将长时间没有运行的程序的缓存从内存中写入 swap 磁盘中，并释放该程序所占用的内存给其他程序使用
+    - Linux 电源管理有休眠模式，系统会将内存中程序运行状态存储在 swap 中然后设备进入完全断电状态，当下次启动计算机时系统会从 swap 恢复休眠前的计算机运行状态。
+- / 根目录， 25G 左右 （etx4 文件系统）
+- /home （etx4 文件系统） Linux 系统中用户的家文件，此目录空间越大越好。
+
+## 新建分区表
+![新建分区表](http://pic.artacode.com/manjaro-step4-1-new.png)
+
+点击新建分区表，选择主引导记录，点击 OK 完成分区表创建。
+
+## 创建分区
+
+![](http://pic.artacode.com/manjaro-install-step4-0-new.png)
+
+1. 选择空闲空间
+2. 点击创建进行分区创建
+
+### 创建 boot 分区
+![](http://pic.artacode.com/manjaro-install-step4-boot.png)
+### 创建 swap （交换空间）
+
+![](http://pic.artacode.com/manjaro-step4-2.png)
+
+### 创建根分区
+
+![](http://pic.artacode.com/manjaro-step4-3.png)
+
+### 创建 home 分区
+![](http://pic.artacode.com/manjaro-step4-4.png)
+
+# 设置用户
+![](http://pic.artacode.com/manjaro-step5.png)
+
+# 选择 office 套件安装
+建议不安装，安装完系统后可以用 wps for linux 替代
+![](http://pic.artacode.com/manjaro-step6.png)
+
+# 安装
+摘要部分安装前确认步骤，如果没有需要调整的配置项，点击安装进入系统安装过程，安装完成后重启拔掉 U盘，进入系统就可以了。
+![](http://pic.artacode.com/manjaro-step7.png)
+安装进度在 95% 左右，有时会出现卡住的情况，是因为国内连接外国网络速度过慢导致的，可以断开网络跳过。
+
+# 安装后配置
+## 更换源
+```
+$ sudo pacman -Syy
+$ sudo pacman-mirrors -i -c China -m rank
+$ sudo pacman -Syyu
+```
+使用root权限编辑/etc/pacman.conf增加以下内容
+```
+[archlinuxcn]
+SigLevel = Optional TrustedOnly
+Server =https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+```
+然后执行
+```
+$ sudo pacman -Syy && sudo pacman -S archlinuxcn-keyring
+```
+
+## 安装中文输入法
+
+```
+sudo pacman -S fcitx-lilydjwg-git
+sudo pacman -S fcitx-sogoupinyin
+sudo pacman -S fcitx-im         # 全部安装
+```
+编辑~/.xprofile文件，在文件末尾增加以下内容
+```
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+```
+
+## 安装 中文字体
+```
+sudo pacman -S ttf-roboto noto-fonts ttf-dejavu
+# 文泉驿
+sudo pacman -S wqy-bitmapfont wqy-microhei wqy-microhei-lite wqy-zenhei
+# 思源字体
+sudo pacman -S noto-fonts-cjk adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts
+```
+## 安装 wps
+```
+sudo pacman -S wps-office
+sudo pacman -S ttf-wps-fonts
+```
+
+## AUR助手（以防官方仓库没有想要的软件）
+```
+sudo pacman -S yay
+```
+
+## 安装 chrome 浏览器
+```
+sudo pacman -S google-chrome
+```
+
+# 总结
+关于 manjaro 安装已经告一段落，参考上述操作，已经搭建出一个可用的 Linux 系统。值得注意的是，Linux 系统与 Windows 系统不同，在 Linux 中，你可以拥有很高的权限，即便是系统核心文件也是可以进行操作的，因此如果你是刚刚接触 Linux 的用户，养成及时备份的习惯是非常明智的选择。最后， 欢迎入坑，我相信在以后 Linux 使用中你一定是痛并快乐着的，坚持下来，时间会给正确的选择以回报。
