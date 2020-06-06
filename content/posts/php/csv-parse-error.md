@@ -3,7 +3,7 @@ title = "CSV 中文解析异常"
 date = 2020-06-06T14:42:50+08:00
 tags = ["php"]
 categories = ["php"]
-draft = true
+draft = false
 commentId="php-csv-parse-error"
 +++
 最近在做导入 csv 数据的时候出现了，未按预期导出的情况，具体情况见下图：
