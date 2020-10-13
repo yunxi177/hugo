@@ -17,12 +17,12 @@ Base64是一种基于64个可打印字符来表示二进制数据的表示方法
 # 原理
 base64 加密原理，是将待转换字符串转换为二进制并以三个字为一组（数据不足用 0 补足），每 6 位为一个索引组转换为十进制索引，通过索引在 base64 索引表中找到对应的字符作为编码后的字符（若原数据长度不是 3 的倍数时则对 3 取余余数为 1，则在编码结果后加2个=；若余数为 2，则在编码结果后加 1 个 =。）。  
 
-![转换流程](https://pic.artacode.com/flow.png)
-![base64索引表](https://pic.artacode.com/f747d0e1e045f3dff317a9b5f43a5f75.jpg)
+![转换流程](http://pic.artacode.com/flow.png)
+![base64索引表](http://pic.artacode.com/f747d0e1e045f3dff317a9b5f43a5f75.jpg)
 
 # base64 转换实例
 以 helloworld 为例转换过程如下：  
-![base64转换实例](https://pic.artacode.com/base64-simple.png)
+![base64转换实例](http://pic.artacode.com/base64-simple.png)
 经过上述步骤转后字符串为：aGVsbG93d29ybGQ=，到此一个完整的转码例子便完成了。
 
 # 应用
