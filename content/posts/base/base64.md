@@ -38,5 +38,4 @@ base64 是一个很优秀的编码方式，他很好的解决了复杂文件在�
 # References
 [维基百科](https://en.wikipedia.org/wiki/Base64)  
 [Why do we use Base64?](https://stackoverflow.com/questions/3538021/why-do-we-use-base64)  
-[What is base 64 encoding used for?
-](https://stackoverflow.com/questions/201479/what-is-base-64-encoding-used-for)
+[What is base 64 encoding used for?](https://stackoverflow.com/questions/201479/what-is-base-64-encoding-used-for)
