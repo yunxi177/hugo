@@ -72,7 +72,7 @@ docker run --rm -it  -v 配置文件所在目录:/build -v 配置文件所在目
         }
     ],
 ```  
-# Summary
+# Conclusion
 经过上述步骤，整个私有仓库的搭建就已经完成了,如果你对私有仓库需要更多的配置，可以阅读[Composer 私有包文档](https://getcomposer.org/doc/articles/handling-private-packages.md),进行更细致的设置，祝进步！
 
 # Reference
