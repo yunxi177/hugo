@@ -82,7 +82,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
       var gitalk = new Gitalk({
-        id: '{{ .Date }}',
+        id: '{{ .Params.commentId }}',
         title: '{{ .Title }}',
         clientID: '{{ .Site.Params.gitalk.clientId }}',
         clientSecret: '{{ .Site.Params.gitalk.clientSecret }}',
