@@ -28,7 +28,7 @@ php bin/satis build <configuration-file> <output-directory>
 下载镜像：  
 `docker pull composer/satis`
 运行镜像:
-```shell
+```
 docker run --rm --init -it \
   --user $(id -u):$(id -g) \
   --volume $(pwd):/build \
@@ -38,7 +38,7 @@ docker run --rm --init -it \
 ## 配置
 创建一个名为：`satis.json` 的配置文件。   
 内容如下:  
-```json
+```
 {
     "name": "passboat", 
     "homepage": "http://packages.example.org", 
@@ -51,7 +51,7 @@ docker run --rm --init -it \
 为了拉取代码更为方便将 ssh  密钥配置到代码仓库中。ssh 密钥生成参考[生成 SSH 公钥](https://git-scm.com/book/zh/v2/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E7%94%9F%E6%88%90-SSH-%E5%85%AC%E9%92%A5)
 
 ## 构建
-```shell
+```
 docker run --rm -it  -v 配置文件所在目录:/build -v 配置文件所在目录:/root/.ssh composer/satis build /build/satis.json /build/public
 ```
 
@@ -64,7 +64,7 @@ docker run --rm -it  -v 配置文件所在目录:/build -v 配置文件所在目
 
 # Composer 配置
 在需要安装私有扩展的项目里，在 `composer.json` 文件中加入如下代码:  
-```json
+```
   "repositories": [
         {
           "type": "composer",
