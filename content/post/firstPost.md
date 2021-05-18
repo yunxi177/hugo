@@ -1,13 +1,7 @@
 +++
 title = "第一篇博客"
-description = "这是我的第一篇hugo博客 "
-tags = [
-    "生活",
-]
-date = "2018-08-05"
-categories = [
-    "生活",
-]
+tags = ["生活"]
+categories = ["生活"]
 menu = "main"
 commentId="first-post"
 +++
