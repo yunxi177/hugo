@@ -2,7 +2,6 @@
 title = "第一篇博客"
 tags = ["生活"]
 categories = ["生活"]
-menu = "main"
 commentId="first-post"
 +++
 # it‘s my life
