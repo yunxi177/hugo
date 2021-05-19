@@ -6,6 +6,8 @@ categories = ["nginx"]
 draft = false
 commentId="nginx-location-priority"
 
++++
+
 #  location 优先级介绍
 
 location 匹配方式有以下几种
