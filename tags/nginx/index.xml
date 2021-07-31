@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nginx on 一二三四吾</title>
+    <link>https://www.artacode.com/tags/nginx/</link>
+    <description>Recent content in nginx on 一二三四吾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 19 May 2021 13:52:44 +0800</lastBuildDate><atom:link href="https://www.artacode.com/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nginx location 优先级</title>
+      <link>https://www.artacode.com/post/nginx/location-priority/</link>
+      <pubDate>Wed, 19 May 2021 13:52:44 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/nginx/location-priority/</guid>
+      <description>location 优先级介绍 location 匹配方式有以下几种 location = /path/a/exact.png {}: 精确匹配 location ^~ /path/a/ {}: 优先前缀匹配（符合最长匹配原则） location ~ /Path?/ {} ： 区分大小写正则匹配（首次匹配原则） location ~* /path?/ {}</description>
+    </item>
+    
+    <item>
+      <title>nginx 单站点多证书配置</title>
+      <link>https://www.artacode.com/post/nginx/multi-cert/</link>
+      <pubDate>Tue, 18 May 2021 16:03:21 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/nginx/multi-cert/</guid>
+      <description>问题 在同一 server 中同时设置了， a.com, b.com.c.com 三个域名，若三个域名都需要 https 访问，应当如何配置呢？ 示例配置如下： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 server { listen 443 ssl; server_name a.com b.com</description>
+    </item>
+    
+  </channel>
+</rss>

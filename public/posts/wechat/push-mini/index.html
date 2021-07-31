@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="公众号通过api发送小程序消息"/>
+  <meta name="twitter:description" content="接口调用请求说明 http请求方式: POST https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESS_TOKEN 发送普通消息的小程序链接 { &quot;touser&quot;:&quot;OPENID&quot;, &quot;msgtype&quot;:&quot;text&quot;, &quot;text&quot;: { &quot;content&quot;:&quot;文本内容&lt;"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>公众号通过api发送小程序消息 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        公众号通过api发送小程序消息
+                    </h1>
+                    <h2 class="headline">
+                    Dec 17, 2018 18:34
+                    · 377 words
+                    · 1 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91">微信开发</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#接口调用请求说明">接口调用请求说明</a>
+<ul>
+<li><a href="#发送普通消息的小程序链接">发送普通消息的小程序链接</a>
+<ul>
+<li><a href="#返回结果">返回结果</a></li>
+<li><a href="#发送效果">发送效果</a></li>
+</ul></li>
+<li><a href="#公众号推送小程序卡片">公众号推送小程序卡片</a>
+<ul>
+<li><a href="#返回结果-1">返回结果</a></li>
+<li><a href="#发送效果-1">发送效果</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h1 id="接口调用请求说明">接口调用请求说明</h1>
+
+<pre><code>http请求方式: POST
+https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESS_TOKEN
+</code></pre>
+
+<h2 id="发送普通消息的小程序链接">发送普通消息的小程序链接</h2>
+
+<pre><code>{
+    &quot;touser&quot;:&quot;OPENID&quot;,
+    &quot;msgtype&quot;:&quot;text&quot;,
+    &quot;text&quot;:
+    {
+         &quot;content&quot;:&quot;文本内容&lt;a href=&quot;http://www.qq.com&quot; data-miniprogram-appid=&quot;appId&quot; data-miniprogram-path=&quot;pages/index/index&quot;&gt;点击跳小程序&lt;/a&quot;
+    }
+}
+</code></pre>
+
+<p>说明：</p>
+
+<ol>
+<li>data-miniprogram-appid 项，填写小程序appid，则表示该链接跳小程序；</li>
+<li>data-miniprogram-path项，填写小程序路径，路径与app.json中保持一致，可带参数；</li>
+<li>对于不支持data-miniprogram-appid 项的客户端版本，如果有herf项，则仍然保持跳href中的网页链接；</li>
+<li>data-miniprogram-appid对应的小程序必须与公众号有绑定关系</li>
+</ol>
+
+<h3 id="返回结果">返回结果</h3>
+
+<p><code>{&quot;errcode&quot;:0,&quot;errmsg&quot;:&quot;ok&quot;}</code></p>
+
+<h3 id="发送效果">发送效果</h3>
+
+<p><img src="http://pic.artacode.com/msg.png" alt="公众号推送微信小程序效果图" /></p>
+
+<h2 id="公众号推送小程序卡片">公众号推送小程序卡片</h2>
+
+<pre><code>{
+    &quot;touser&quot;:&quot;OPENID&quot;,
+    &quot;msgtype&quot;:&quot;miniprogrampage&quot;,
+    &quot;miniprogrampage&quot;:
+    {
+        &quot;title&quot;:&quot;title&quot;,
+        &quot;appid&quot;:&quot;appid&quot;,
+        &quot;pagepath&quot;:&quot;pagepath&quot;,
+        &quot;thumb_media_id&quot;:&quot;thumb_media_id&quot;
+    }
+}
+</code></pre>
+
+<h3 id="返回结果-1">返回结果</h3>
+
+<p><code>{&quot;errcode&quot;:0,&quot;errmsg&quot;:&quot;ok&quot;}</code></p>
+
+<h3 id="发送效果-1">发送效果</h3>
+
+<p><img src="http://pic.artacode.com/card-me.png" alt="公众号推送微信小程序卡片效果图" /></p>
+
+<h1 id="参考链接">参考链接</h1>
+
+<p><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1444738730">公众号文档</a></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fwechat%2fpush-mini%2f - %e5%85%ac%e4%bc%97%e5%8f%b7%e9%80%9a%e8%bf%87api%e5%8f%91%e9%80%81%e5%b0%8f%e7%a8%8b%e5%ba%8f%e6%b6%88%e6%81%af by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'push-mini-program',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

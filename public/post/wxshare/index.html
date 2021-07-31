@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>微信分享 - 一二三四吾</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="yunxi" /><meta name="description" content="微信分享步骤  引入jｓ 设置白名单 引入sdk 实现分享功能 " /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
+
+
+
+<meta name="google-site-verification" content="UA-123407925-1" />
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://www.artacode.com/post/wxshare/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="微信分享" />
+<meta property="og:description" content="微信分享步骤
+
+引入jｓ
+设置白名单
+引入sdk
+实现分享功能
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.artacode.com/post/wxshare/" /><meta property="article:section" content="post" />
+
+
+
+<meta itemprop="name" content="微信分享">
+<meta itemprop="description" content="微信分享步骤
+
+引入jｓ
+设置白名单
+引入sdk
+实现分享功能
+">
+
+<meta itemprop="wordCount" content="1760">
+<meta itemprop="keywords" content="微信开发," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="微信分享"/>
+<meta name="twitter:description" content="微信分享步骤
+
+引入jｓ
+设置白名单
+引入sdk
+实现分享功能
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">一二三四吾</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">一二三四吾</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">微信分享</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 0001-01-01 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"> 微信开发 </a>
+            </div>
+          <span class="more-meta"> 约 1760 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#微信分享步骤">微信分享步骤</a></li>
+            <li><a href="#绑定域名引入js">绑定域名＆　引入js</a></li>
+            <li><a href="#设置ip白名单">设置ip白名单</a></li>
+            <li><a href="#生成分享配置">生成分享配置</a></li>
+            <li><a href="#前台获取配置信息">前台获取配置信息</a></li>
+            <li><a href="#结束">结束</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="微信分享步骤">微信分享步骤</h3>
+<ul>
+<li>引入jｓ</li>
+<li>设置白名单</li>
+<li>引入sdk</li>
+<li>实现分享功能</li>
+</ul>
+<h3 id="绑定域名引入js">绑定域名＆　引入js</h3>
+<p><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421141115">https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421141115</a>　参考文档步骤１，步骤２</p>
+<h3 id="设置ip白名单">设置ip白名单</h3>
+<p>在 <code>基本配置</code>-&gt;<code>ip白名单</code>将服务器Ip配置好即可</p>
+<h3 id="生成分享配置">生成分享配置</h3>
+<p>将下面代码加入项目</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">class</span> <span class="nc">WxShare</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$appId</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$appSecret</span><span class="p">;</span>
+
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$appId</span> <span class="o">=</span> <span class="s1">&#39;自己的appid&#39;</span><span class="p">,</span> <span class="nv">$appSecret</span> <span class="o">=</span> <span class="s1">&#39;自己的appSecret&#39;</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">appId</span> <span class="o">=</span> <span class="nv">$appId</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">appSecret</span> <span class="o">=</span> <span class="nv">$appSecret</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getSignPackage</span><span class="p">()</span>
+    <span class="p">{</span>
+<span class="c1">//接收到前端的转义url转义回来
+</span><span class="c1"></span>        <span class="nv">$url</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">;</span>
+        <span class="nv">$durl</span> <span class="o">=</span> <span class="nv">$url</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">];</span>
+        <span class="nv">$durl</span> <span class="o">=</span> <span class="nx">urldecode</span><span class="p">(</span><span class="nv">$durl</span><span class="p">);</span>
+
+        <span class="nv">$jsapiTicket</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getJsApiTicket</span><span class="p">();</span>
+        <span class="nx">var_dump</span><span class="p">(</span><span class="nv">$jsapiTicket</span><span class="p">);</span>
+        <span class="nv">$timestamp</span> <span class="o">=</span> <span class="nx">time</span><span class="p">();</span>
+        <span class="nv">$nonceStr</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">createNonceStr</span><span class="p">();</span>
+        <span class="c1">// 这里参数的顺序要按照 key 值 ASCII 码升序排序
+</span><span class="c1"></span>        <span class="nv">$string</span> <span class="o">=</span> <span class="s2">&#34;jsapi_ticket=</span><span class="si">$jsapiTicket</span><span class="s2">&amp;noncestr=</span><span class="si">$nonceStr</span><span class="s2">&amp;timestamp=</span><span class="si">$timestamp</span><span class="s2">&amp;url=</span><span class="si">$durl</span><span class="s2">&#34;</span><span class="p">;</span>
+
+
+        <span class="nv">$signature</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
+
+
+        <span class="nv">$signPackage</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&#34;appId&#34;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">appId</span><span class="p">,</span>
+            <span class="s2">&#34;nonceStr&#34;</span> <span class="o">=&gt;</span> <span class="nv">$nonceStr</span><span class="p">,</span>
+            <span class="s2">&#34;timestamp&#34;</span> <span class="o">=&gt;</span> <span class="nv">$timestamp</span><span class="p">,</span>
+            <span class="s2">&#34;url&#34;</span> <span class="o">=&gt;</span> <span class="nv">$url</span><span class="p">,</span>
+            <span class="s2">&#34;signature&#34;</span> <span class="o">=&gt;</span> <span class="nv">$signature</span><span class="p">,</span>
+            <span class="s2">&#34;rawString&#34;</span> <span class="o">=&gt;</span> <span class="nv">$string</span>
+        <span class="p">];</span>
+<span class="c1">//        var_dump($signPackage);die;
+</span><span class="c1"></span>        <span class="k">return</span> <span class="nv">$signPackage</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">curlGet</span><span class="p">(</span><span class="nv">$url</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$curl</span> <span class="o">=</span> <span class="nx">curl_init</span><span class="p">();</span> <span class="c1">// 启动一个CURL会话
+</span><span class="c1"></span>        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nv">$url</span><span class="p">);</span>
+        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_HEADER</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_SSL_VERIFYPEER</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span> <span class="c1">// 跳过证书检查
+</span><span class="c1"></span>        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_SSL_VERIFYHOST</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>  <span class="c1">// 从证书中检查SSL加密算法是否存在
+</span><span class="c1"></span>        <span class="nv">$tmpInfo</span> <span class="o">=</span> <span class="nx">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>     <span class="c1">//返回api的json对象
+</span><span class="c1"></span>        <span class="c1">//关闭URL请求
+</span><span class="c1"></span>        <span class="nx">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nv">$tmpInfo</span><span class="p">;</span>    <span class="c1">//返回json对象
+</span><span class="c1"></span>    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">curlPost</span><span class="p">(</span><span class="nv">$url</span><span class="p">,</span> <span class="nv">$data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$curl</span> <span class="o">=</span> <span class="nx">curl_init</span><span class="p">();</span> <span class="c1">// 启动一个CURL会话
+</span><span class="c1"></span>        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nv">$url</span><span class="p">);</span> <span class="c1">// 要访问的地址
+</span><span class="c1"></span>        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_SSL_VERIFYPEER</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// 对认证证书来源的检查
+</span><span class="c1"></span>        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_SSL_VERIFYHOST</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 从证书中检查SSL加密算法是否存在
+</span><span class="c1"></span>        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_USERAGENT</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;HTTP_USER_AGENT&#39;</span><span class="p">]);</span> <span class="c1">// 模拟用户使用的浏览器
+</span><span class="c1"></span>        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_FOLLOWLOCATION</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 使用自动跳转
+</span><span class="c1"></span>        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_AUTOREFERER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 自动设置Referer
+</span><span class="c1"></span>        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_POST</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 发送一个常规的Post请求
+</span><span class="c1"></span>        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span> <span class="c1">// Post提交的数据包
+</span><span class="c1"></span>        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_TIMEOUT</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span> <span class="c1">// 设置超时限制防止死循环
+</span><span class="c1"></span>        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_HEADER</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// 显示返回的Header区域内容
+</span><span class="c1"></span>        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 获取的信息以文件流的形式返回
+</span><span class="c1"></span>        <span class="nv">$tmpInfo</span> <span class="o">=</span> <span class="nx">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span> <span class="c1">// 执行操作
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nx">curl_errno</span><span class="p">(</span><span class="nv">$curl</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="s1">&#39;Errno&#39;</span><span class="o">.</span><span class="nx">curl_error</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span><span class="c1">//捕抓异常
+</span><span class="c1"></span>        <span class="p">}</span>
+        <span class="nx">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span> <span class="c1">// 关闭CURL会话
+</span><span class="c1"></span>        <span class="k">return</span> <span class="nv">$tmpInfo</span><span class="p">;</span> <span class="c1">// 返回数据，json格式
+</span><span class="c1"></span>    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">createNonceStr</span><span class="p">(</span><span class="nv">$length</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$chars</span> <span class="o">=</span> <span class="s2">&#34;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&#34;</span><span class="p">;</span>
+        <span class="nv">$str</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$length</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$str</span> <span class="o">.=</span> <span class="nx">substr</span><span class="p">(</span><span class="nv">$chars</span><span class="p">,</span> <span class="nx">mt_rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">strlen</span><span class="p">(</span><span class="nv">$chars</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nv">$str</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">getJsApiTicket</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
+</span><span class="c1"></span>        <span class="nv">$data</span> <span class="o">=</span> <span class="nx">json_decode</span><span class="p">(</span><span class="nx">file_get_contents</span><span class="p">(</span><span class="s2">&#34;jssdk/jsapi_ticket.json&#34;</span><span class="p">));</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">||</span>  <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">expire_time</span> <span class="o">&lt;</span> <span class="nx">time</span><span class="p">())</span> <span class="p">{</span>
+            <span class="nv">$accessToken</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getAccessToken</span><span class="p">();</span>
+            <span class="c1">//定义传递的参数数组
+</span><span class="c1"></span>            <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;jsapi&#39;</span><span class="p">;</span>
+            <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$accessToken</span><span class="p">;</span>
+            <span class="nv">$url</span> <span class="o">=</span> <span class="s2">&#34;https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=&#34;</span> <span class="o">.</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&#34;&amp;type=&#34;</span> <span class="o">.</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+            <span class="nv">$res</span> <span class="o">=</span> <span class="nx">json_decode</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">curlGet</span><span class="p">(</span><span class="nv">$url</span><span class="p">));</span>
+            <span class="nv">$ticket</span> <span class="o">=</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$res</span><span class="o">-&gt;</span><span class="na">ticket</span><span class="p">)</span> <span class="o">?</span> <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">ticket</span> <span class="o">:</span> <span class="k">NULL</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$ticket</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">expire_time</span> <span class="o">=</span> <span class="nx">time</span><span class="p">()</span> <span class="o">+</span> <span class="mi">7000</span><span class="p">;</span>
+                <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">jsapi_ticket</span> <span class="o">=</span> <span class="nv">$ticket</span><span class="p">;</span>
+                <span class="nv">$fp</span> <span class="o">=</span> <span class="nx">fopen</span><span class="p">(</span><span class="s2">&#34;jssdk/jsapi_ticket.json&#34;</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">);</span>
+                <span class="nx">fwrite</span><span class="p">(</span><span class="nv">$fp</span><span class="p">,</span> <span class="nx">json_encode</span><span class="p">(</span><span class="nv">$res</span><span class="p">));</span>
+                <span class="nx">fclose</span><span class="p">(</span><span class="nv">$fp</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nv">$ticket</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">jsapi_ticket</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nv">$ticket</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">getAccessToken</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// access_token 应该全局存储与更新，以下代码以写入到文件中做示例
+</span><span class="c1"></span>        <span class="nv">$data</span> <span class="o">=</span> <span class="nx">json_decode</span><span class="p">(</span><span class="nx">file_get_contents</span><span class="p">(</span><span class="s2">&#34;jssdk/access_token.json&#34;</span><span class="p">));</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span> <span class="o">||</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">expire_time</span> <span class="o">&lt;</span> <span class="nx">time</span><span class="p">())</span> <span class="p">{</span>
+            <span class="c1">//定义传递的参数数组
+</span><span class="c1"></span>            <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;grant_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;client_credential&#39;</span><span class="p">;</span>
+            <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;appid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">appId</span><span class="p">;</span>
+            <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;secret&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">appSecret</span><span class="p">;</span>
+            <span class="nv">$url</span> <span class="o">=</span> <span class="s2">&#34;https://api.weixin.qq.com/cgi-bin/token?grant_type=&#34;</span> <span class="o">.</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;grant_type&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&#34;&amp;appid=&#34;</span> <span class="o">.</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;appid&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&#34;&amp;secret=&#34;</span> <span class="o">.</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;secret&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+            <span class="nv">$res</span> <span class="o">=</span> <span class="nx">json_decode</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">curlPost</span><span class="p">(</span><span class="nv">$url</span><span class="p">,</span> <span class="nv">$params</span><span class="p">));</span>
+            <span class="nv">$access_token</span> <span class="o">=</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$res</span><span class="o">-&gt;</span><span class="na">access_token</span><span class="p">)</span> <span class="o">?</span> <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">access_token</span> <span class="o">:</span> <span class="k">NULL</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$access_token</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">expire_time</span> <span class="o">=</span> <span class="nx">time</span><span class="p">()</span> <span class="o">+</span> <span class="mi">7000</span><span class="p">;</span>
+                <span class="nv">$res</span><span class="o">-&gt;</span><span class="na">access_token</span> <span class="o">=</span> <span class="nv">$access_token</span><span class="p">;</span>
+                <span class="nv">$fp</span> <span class="o">=</span> <span class="nx">fopen</span><span class="p">(</span><span class="s2">&#34;jssdk/access_token.json&#34;</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">);</span>
+                <span class="nx">fwrite</span><span class="p">(</span><span class="nv">$fp</span><span class="p">,</span> <span class="nx">json_encode</span><span class="p">(</span><span class="nv">$res</span><span class="p">));</span>
+                <span class="nx">fclose</span><span class="p">(</span><span class="nv">$fp</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nv">$access_token</span> <span class="o">=</span> <span class="nv">$data</span><span class="o">-&gt;</span><span class="na">access_token</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nv">$access_token</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>调用上述代码中的<code>getSignPackage</code>方法生成配置信息</p>
+<h3 id="前台获取配置信息">前台获取配置信息</h3>
+<p>将下列代码加入需要分享页面的js中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">jQuery</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&#34;获取配置的url地址&#34;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&#34;url&#34;</span><span class="o">:</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]),</span><span class="s2">&#34;t&#34;</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+            <span class="kd">var</span> <span class="nx">shareUrl</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">url</span><span class="p">;</span>
+            <span class="nx">wx</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+                <span class="nx">debug</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+</span><span class="c1"></span>                <span class="nx">appId</span><span class="o">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">appId</span><span class="p">,</span> <span class="c1">// 必填，公众号的唯一标识
+</span><span class="c1"></span>                <span class="nx">timestamp</span><span class="o">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">timestamp</span><span class="p">,</span> <span class="c1">// 必填，生成签名的时间戳
+</span><span class="c1"></span>                <span class="nx">nonceStr</span><span class="o">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">nonceStr</span><span class="p">,</span> <span class="c1">// 必填，生成签名的随机串
+</span><span class="c1"></span>                <span class="nx">signature</span><span class="o">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">signature</span><span class="p">,</span><span class="c1">// 必填，签名，见附录1
+</span><span class="c1"></span>                <span class="nx">jsApiList</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;onMenuShareAppMessage&#39;</span><span class="p">,</span><span class="s1">&#39;onMenuShareTimeline&#39;</span><span class="p">,</span><span class="s1">&#39;onMenuShareQQ&#39;</span><span class="p">,</span><span class="s1">&#39;onMenuShareWeibo&#39;</span><span class="p">,</span><span class="s1">&#39;onMenuShareQZone&#39;</span><span class="p">],</span> <span class="c1">// 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+</span><span class="c1"></span>                <span class="nx">success</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;success&#34;</span><span class="p">);</span>
+
+                <span class="p">}</span>
+            <span class="p">})</span>
+        <span class="p">});</span>
+
+        <span class="nx">wx</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="nx">wx</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+                <span class="c1">// config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+</span><span class="c1"></span>                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+            <span class="p">});</span>
+
+
+            <span class="kd">var</span> <span class="nx">s_title</span> <span class="o">=</span> <span class="s1">&#39;分享标题&#39;</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">s_desc</span> <span class="o">=</span> <span class="s1">&#39;分享描述&#39;</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">img_url</span> <span class="o">=</span> <span class="s1">&#39;分享图片地址&#39;</span><span class="p">;</span>
+
+            <span class="nx">wx</span><span class="p">.</span><span class="nx">onMenuShareAppMessage</span><span class="p">({</span>
+                <span class="nx">title</span><span class="o">:</span> <span class="nx">s_title</span><span class="p">,</span> <span class="c1">// 分享标题
+</span><span class="c1"></span>                <span class="nx">desc</span><span class="o">:</span> <span class="nx">s_desc</span><span class="p">,</span> <span class="c1">// 分享描述
+</span><span class="c1"></span>                <span class="nx">link</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+</span><span class="c1"></span>                <span class="nx">imgUrl</span><span class="o">:</span> <span class="nx">img_url</span><span class="p">,</span> <span class="c1">// 分享图标
+</span><span class="c1"></span>                <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;link&#39;</span><span class="p">,</span> <span class="c1">// 分享类型,music、video或link，不填默认为link
+</span><span class="c1"></span>                <span class="nx">dataUrl</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// 如果type是music或video，则要提供数据链接，默认为空
+</span><span class="c1"></span>                <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="c1">// 用户点击了分享后执行的回调函数
+</span><span class="c1"></span>                <span class="p">}</span>
+            <span class="p">});</span>
+
+            <span class="nx">wx</span><span class="p">.</span><span class="nx">onMenuShareTimeline</span><span class="p">({</span>
+                <span class="nx">title</span><span class="o">:</span> <span class="nx">s_title</span><span class="p">,</span> <span class="c1">// 分享标题
+</span><span class="c1"></span>                <span class="nx">link</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+</span><span class="c1"></span>                <span class="nx">imgUrl</span><span class="o">:</span> <span class="nx">img_url</span><span class="p">,</span> <span class="c1">// 分享图标
+</span><span class="c1"></span>                <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="c1">// 用户点击了分享后执行的回调函数
+</span><span class="c1"></span>                <span class="p">}</span>
+            <span class="p">});</span>
+
+
+
+        <span class="p">});</span>
+
+
+
+    <span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="结束">结束</h3>
+<p>代码已经放上只需要将自己的配置信息一一对应，即可实现微信分享功能</p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">yunxi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        0001-01-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/">微信开发</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/swoftunit/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">swoft单元测试</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/firstpost/">
+            <span class="next-text nav-default">第一篇博客</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: 'wxShare',
+        title: '微信分享',
+        clientID: '7df62c8e117826bf4f9b',
+        clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+        repo: 'hugo',
+        owner: 'yunxi177',
+        admin: ['yunxi177'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+    <a class="theme-link" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">苏ICP备18046444号-1</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>yunxi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

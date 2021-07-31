@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="virtualbox 分享文件夹，无权访问问题"/>
+  <meta name="twitter:description" content="背景 在 windows 下使用 virtualbox 安装 linux 系统 实现 windows 下开发虚拟机里跑测试的效果 起因 由于项目使用文件目录是可以在 windows 和 linux 下共享的，因此使用 virtualbox 共享文件夹功能来实现项目"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>virtualbox 分享文件夹，无权访问问题 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        virtualbox 分享文件夹，无权访问问题
+                    </h1>
+                    <h2 class="headline">
+                    Feb 24, 2019 14:26
+                    · 231 words
+                    · 1 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/linux">linux</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#背景">背景</a></li>
+<li><a href="#起因">起因</a></li>
+<li><a href="#解决方法">解决方法</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h1 id="背景">背景</h1>
+
+<p>在 windows 下使用 virtualbox 安装  linux 系统 实现 windows 下开发虚拟机里跑测试的效果</p>
+
+<h1 id="起因">起因</h1>
+
+<p>由于项目使用文件目录是可以在 windows 和 linux 下共享的，因此使用 virtualbox 共享文件夹功能来实现项目文件夹在两个系统间共享，配置好共享文件后，发现在虚拟机的 linux 系统中没有权限操作目录.</p>
+
+<p>百度之后发现原来是因为共享文件夹挂在后的文件是属于 <code>vboxsf</code> 组下的，而登陆用户不属于该组，因而无权对目录进行操作。</p>
+
+<h1 id="解决方法">解决方法</h1>
+
+<p>既然知道原因，解决办法也是非常简单的就是将当前登录的用户加入 <code>vboxsf</code> 用户组即可：<br />
+<code>$ sudo usermod -aG vboxsf $(whoami)</code><br />
+需要注意的是该操作需要重启系统才能生效。</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2flinux%2fnot-permission%2f - virtualbox%20%e5%88%86%e4%ba%ab%e6%96%87%e4%bb%b6%e5%a4%b9%ef%bc%8c%e6%97%a0%e6%9d%83%e8%ae%bf%e9%97%ae%e9%97%ae%e9%a2%98 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'linux-virtualbox-permession',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

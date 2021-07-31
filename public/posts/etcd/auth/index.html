@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="etcd入门系列三：身份验证访问控制"/>
+  <meta name="twitter:description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 1. 简介 etcd 默认是没有开启访问控制"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>etcd入门系列三：身份验证访问控制 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        etcd入门系列三：身份验证访问控制
+                    </h1>
+                    <h2 class="headline">
+                    Nov 24, 2018 12:05
+                    · 1428 words
+                    · 3 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/etcd">etcd</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#etcd入门系列">etcd入门系列</a></li>
+<li><a href="#1-简介">1. 简介</a></li>
+<li><a href="#2-root-用户">2. root 用户</a></li>
+<li><a href="#3-root-角色">3. root 角色</a></li>
+<li><a href="#4-用户操作">4. 用户操作</a></li>
+<li><a href="#5-角色操作">5. 角色操作</a></li>
+<li><a href="#6-开启身份验证">6. 开启身份验证</a></li>
+<li><a href="#7-参考连接">7. 参考连接</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h1 id="etcd入门系列">etcd入门系列</h1>
+
+<p><a href="http://www.artacode.com/posts/etcd/install/">一. etcd在docker中的安装与使用</a><br />
+<a href="http://www.artacode.com/posts/etcd/enable-https/">二. etcd 开启 https</a><br />
+<a href="http://www.artacode.com/posts/etcd/enable-https/">三. 身份验证访问控制</a><br />
+<a href="http://www.artacode.com/posts/etcd/certificates/">四. 开启客户端证书访问</a></p>
+
+<h1 id="1-简介">1. 简介</h1>
+
+<p>etcd 默认是没有开启访问控制的，如果我们开启外网访问的话就需要考虑访问控制的问题，etcd 提供了两种访问控制的方式：
+1. 基于身份验证的访问控制
+2. 基于证书的访问控制</p>
+
+<p>这节主要是选择第一种方式，进行的讲解，由于之前文章中是采用http接口的方式通讯，为了更全面的了解 <code>etcd</code> 的使用，本节使用官方提供的 <code>etcdctl</code> 工具进行与服务器之间的通讯。</p>
+
+<h1 id="2-root-用户">2. root 用户</h1>
+
+<p><code>root</code> 是 <code>etcd</code> 的超级管理员，拥有 <code>etcd</code> 的所有权限，在开启角色认证之前为们必须要先建立好 <code>root</code> 用户。还需要注意的是 <code>root</code> 用户必须拥有 <code>root</code> 的角色,允许在 <code>etcd</code> 的所有操作.</p>
+
+<h1 id="3-root-角色">3. root 角色</h1>
+
+<p><code>root</code> 角色可以赋予任何用户，拥有 <code>root</code> 角色的用户有全局读写权限和集群身份验证配置权限，此外，还具有修改集群成员身份，碎片整理，建立快照等权限。</p>
+
+<h1 id="4-用户操作">4. 用户操作</h1>
+
+<p>查看用户列表：</p>
+
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 user list
+</code></pre>
+
+<p>创建用户：</p>
+
+<pre><code> $ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 user add user1
+</code></pre>
+
+<p>用户可以被赋予角色，也可以被撤销角色：</p>
+
+<pre><code>#赋予权限
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 user grant --roles root user1
+# 撤销权限
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 user revoke --roles root user1
+</code></pre>
+
+<p>修改用户密码：</p>
+
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 user passwd user1
+</code></pre>
+
+<h1 id="5-角色操作">5. 角色操作</h1>
+
+<p>角色列表:</p>
+
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role list
+</code></pre>
+
+<p>创建角色:</p>
+
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role add myrolename
+</code></pre>
+
+<ul>
+<li>角色没有密码，仅仅是定义的一组访问权限</li>
+<li>角色的访问权限可以被赋予read（读）,write（写）,readwrite（读和写）权限</li>
+</ul>
+
+<p>赋予访问权限范例：</p>
+
+<pre><code># 给 role1 角色赋予键 /foo 的读操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role grant role1 --path /foo --read
+# 给 role1 角色赋予键 /foo 的写操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role grant role1 --path /foo --write
+# 给 role1 角色赋予键 /foo 读写操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role grant role1 --path /foo --rw
+# 给 role1 角色赋予键 /foo 目录读写操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role grant role1 --path /foo/* --rw
+</code></pre>
+
+<p>收回访问权限范例：</p>
+
+<pre><code># 收回 role1 角色对 /foo 的读操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role revoke role1 --path /foo --read
+# 收回 role1 角色对 /foo 的写操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role revoke role1 --path /foo --write
+# 收回 role1 角色对 /foo 的读写操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role revoke role1 --path /foo --rw
+# 收回 role1 角色对 /foo 目录的读写操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role revoke role1 --path /foo/* --rw
+
+</code></pre>
+
+<p>查看角色访问权限:</p>
+
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role get role1
+</code></pre>
+
+<p>删除角色 :</p>
+
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role remove role1
+</code></pre>
+
+<h1 id="6-开启身份验证">6. 开启身份验证</h1>
+
+<p>1.增加root用户:</p>
+
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 user add root
+Password of root:
+</code></pre>
+
+<p>2.开启身份验证:</p>
+
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 etcdctl auth enable
+</code></pre>
+
+<p>至此，身份验证已经开启，执行下面命令</p>
+
+<pre><code>etcdctl --ca-file /root/cfssl/ca.pem  --endpoints https://192.168.3.3:2379 set /foo bar
+//返回bar
+</code></pre>
+
+<p>这里出现了一个问题，我们已经开启了身份访问验证，却仍然可以不通过任何身份进行操作，这是什么原因呢？其实是因为在 <code>Etcd</code> 开启 <code>Basic Auth</code> 之后，默认会启用两个角色 <code>root</code> 和 <code>guest</code>， <code>root</code> 和 <code>guest</code> 角色都拥有所有权限，当我们未指定身份的时候其实是通过 <code>guest</code> 角色进行的操作，这里需要注意的是两个角色都不要删除，否则你可能会遇到意想不到的Bug，既然无法删除，那么为们可以通过收回权限的方式对 <code>guest</code> 的权限进行限制，执行下面代码：</p>
+
+<pre><code>etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 ro
+le revoke guest --path '/*' --rw
+//返回：Role guest updated
+
+//查看guest最新的权限信息
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 ro
+le get guest
+
+
+//返回 ：
+ //       Role: guest
+//        KV Read:
+//        KV Write:
+// ok 收回权限成功
+</code></pre>
+
+<p>继续执行之前的set代码 ：</p>
+
+<pre><code>etcdctl --ca-file /root/cfssl/ca.pem  --endpoints https://192.168.3.3:2379 set /foo bar
+//Error:  110: The request requires user authentication (Insufficient credentials) [0]
+</code></pre>
+
+<p>如我们所愿的已经不可以对 etcd 进行操作了，下面我们创建一个用户并赋予一个新建的角色试试：</p>
+
+<pre><code># 创建user2用户
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 user add user2
+
+New password: 
+//返回 ：User user2 created
+
+# 创建role2角色
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 role add role2
+
+Role role2 created
+
+# 赋予role2 角色权限
+
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 ro
+le grant role2 --path /foo --rw
+Role role2 updated
+
+
+# 将用户user2赋予角色role2
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 us
+er  grant --roles role2 user2
+
+User user2 updated
+
+# 设置 foo 值
+etcdctl --ca-file /root/cfssl/ca.pem --username user2:passwod --endpoints https://192.168.3.3:2379:2379 set foo bar
+
+bar
+</code></pre>
+
+<p>到此我们想要实现的功能都已实现，个人理解难免有些疏漏和不足，欢迎大神斧正。</p>
+
+<h1 id="7-参考连接">7. 参考连接</h1>
+
+<p><a href="https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/authentication.md">Role-based access control</a><br />
+<a href="https://juejin.im/post/5b986abff265da0ad947b52f">Etcd安全配置之Basic Auth认证</a></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fetcd%2fauth%2f - etcd%e5%85%a5%e9%97%a8%e7%b3%bb%e5%88%97%e4%b8%89%ef%bc%9a%e8%ba%ab%e4%bb%bd%e9%aa%8c%e8%af%81%e8%ae%bf%e9%97%ae%e6%8e%a7%e5%88%b6 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'etcd-auth',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

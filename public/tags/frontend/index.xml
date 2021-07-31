@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>frontend on 一二三四吾</title>
+    <link>https://www.artacode.com/tags/frontend/</link>
+    <description>Recent content in frontend on 一二三四吾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 11 May 2019 07:12:56 +0800</lastBuildDate><atom:link href="https://www.artacode.com/tags/frontend/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vue jsonp 跨域调用 腾讯地图 api报错</title>
+      <link>https://www.artacode.com/post/cross-origin/jsonp/</link>
+      <pubDate>Sat, 11 May 2019 07:12:56 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/cross-origin/jsonp/</guid>
+      <description>今天帮助前端小伙伴解决了一下 jsonp 调用腾讯地图 WebService API 报错 Unexpected token : 的问题，这里记录一下解决过程 项目中使用 vue-jsonp 组件来解决跨域问题，使用流程如下 安装 jsonp 1 npm install</description>
+    </item>
+    
+  </channel>
+</rss>

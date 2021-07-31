@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="Supervisor 安装与使用"/>
+  <meta name="twitter:description" content="简介 supervisor管理进程，是通过fork/exec的方式将这些被管理的进程当作supervisor的子进程来启动，所以我们只需要将要"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>Supervisor 安装与使用 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Supervisor 安装与使用
+                    </h1>
+                    <h2 class="headline">
+                    Sep 4, 2018 11:22
+                    · 1011 words
+                    · 3 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/linux">linux</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#安装">安装</a></li>
+<li><a href="#配置">配置</a></li>
+<li><a href="#参数解释">参数解释</a></li>
+<li><a href="#使用-supervisorctl">使用 supervisorctl</a></li>
+<li><a href="#加入开机启动-centos">加入开机启动（centos）</a></li>
+<li><a href="#常见问题">常见问题</a>
+<ul>
+<li><a href="#supervisor-error-ini-file-does-not-include-supervisord-section">supervisor Error: .ini file does not include supervisord section</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h1 id="简介">简介</h1>
+
+<p>supervisor管理进程，是通过fork/exec的方式将这些被管理的进程当作supervisor的子进程来启动，所以我们只需要将要管理进程的可执行文件的路径添加到supervisor的配置文件中就好了。此时被管理进程被视为supervisor的子进程，若该子进程异常中断，则父进程可以准确的获取子进程异常中断的信息，通过在配置文件中设置autostart=ture，可以实现对异常中断的子进程的自动重启。</p>
+
+<h1 id="安装">安装</h1>
+
+<p><code>sudo apt-get install supervisor</code></p>
+
+<h1 id="配置">配置</h1>
+
+<ul>
+<li>进入配置文件目录 : <code>cd /etc/supervisor/conf.d</code></li>
+<li>新建配置文件 <code>sudo vim test.conf</code></li>
+</ul>
+
+<p>配置内如如下：</p>
+
+<pre><code>[program:cow] 
+command=/home/argericy/workspace/test #要执行的命令
+autostart=true #自动启动
+autorestart=true #自动重启
+user=root #执行命令用户
+log_stderr=true
+logfile=/var/log/test.log #日志文件
+stopsignal=INT
+[supervisord]
+</code></pre>
+
+<h1 id="参数解释">参数解释</h1>
+
+<pre><code>;[program:theprogramname]
+;command=/bin/cat              ; 程序执行命令，需要
+;process_name=%(program_name)s ; process_name expr (default %(program_name)s)
+;numprocs=1                    ; 进程启动数量，默认为1
+;directory=/tmp                ; 工作目录，如果配置了工作目录，command 配置项 可以直接执行工作目录里的命令
+;umask=022                     ; 设置进程权限 默认为：none
+;priority=999                  ; 设置优先级 默认：999
+;autostart=true                ; 在 supervisor 启动时启动程序，默认为：true
+;startsecs=1                   ; 程序启动 startsecs 秒 后视为程序启动成功， 默认为：1
+;startretries=3                ; 当程序启动失败后最大尝试次数,默认为：3
+;autorestart=unexpected        ; 其值为可以设置为 true 、false 、expected 设置为 true 无论什么情况下都自动重启， 设置为 false 则不自动重启，设置 unexpected 则配合 exitcodes 使用，只有在 exitcodes 配置的中的退出代码 才会自动重启
+;exitcodes=0,2                 ; autorestart 设置为 unexpected 此项生效，默认为： 0,2
+;stopsignal=QUIT               ; 用于 kill 进程的信号 默认为： TERM
+;stopwaitsecs=10               ; 停止进程等待秒数，默认为：10
+;stopasgroup=false             ; 发送停止信号给 UNIX 进程组 默认为：false
+;killasgroup=false             ; 发送立刻中止信号给 UNIX 进程组，默认为：false
+;user=chrism                   ; 设置启动程序的用户
+;redirect_stderr=true          ; redirect proc stderr to stdout (default false)
+;stdout_logfile=/a/path        ; 输入日志配置
+;stdout_logfile_maxbytes=1MB   ; 日志容量大与1m则分割日志
+;stdout_logfile_backups=10     ; 备份文件数量，默认为10
+;stderr_logfile=/a/path        ; 标准错误日志输出
+;stderr_logfile_maxbytes=1MB   ; 日志容量大与1m则分割日志
+;stderr_logfile_backups=10     ; 备份文件数量，默认为10
+;serverurl=AUTO                ; override serverurl computation (childutils)
+</code></pre>
+
+<h1 id="使用-supervisorctl">使用 supervisorctl</h1>
+
+<p>Supervisorctl 是 supervisord 的一个命令行客户端工具，启动时需要指定与 supervisord 使用同一份配置文件，否则与 supervisord 一样按照顺序查找配置文件。</p>
+
+<pre><code>$ supervisorctl status
+$ supervisorctl stop usercenter
+$ supervisorctl start usercenter
+$ supervisorctl restart usercenter
+$ supervisorctl reread
+$ supervisorctl update
+</code></pre>
+
+<h1 id="加入开机启动-centos">加入开机启动（centos）</h1>
+
+<p>关于 centos 加入服务，在<a href="http://www.artacode.com/posts/linux/centos-service/">《Centos 服务配置详解》</a> 一文中有详细的说明，这里只是简单的应用。<br />
+创建文<code>/usr/lib/systemd/system/supervisord.service</code></p>
+
+<pre><code>$ sudo vim /usr/lib/systemd/system/supervisord.service
+</code></pre>
+
+<p>插入如下内容:</p>
+
+<pre><code>[Unit] 
+Description=Supervisor
+
+[Service] 
+Type=forking 
+ExecStart=/usr/bin/supervisord -c /etc/supervisor/supervisord.conf  // 启动命令
+ExecStop=/usr/bin/supervisorctl shutdown  //关闭命令
+ExecReload=/usr/bin/supervisorctl reload  //重载命令
+KillMode=process 
+Restart=on-failure 
+RestartSec=42s
+
+[Install] 
+WantedBy=multi-user.target
+</code></pre>
+
+<p>启动服务</p>
+
+<pre><code>$ systemctl enable supervisord
+</code></pre>
+
+<p>验证服务是否未开机启动</p>
+
+<pre><code>$ systemctl is-enabled supervisord //返回 enable 表示已启动
+</code></pre>
+
+<h1 id="常见问题">常见问题</h1>
+
+<h2 id="supervisor-error-ini-file-does-not-include-supervisord-section">supervisor Error: .ini file does not include supervisord section</h2>
+
+<p>在配置文件中增加  <code>[supervisord]</code> 配置项</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fsupervisor%2f - Supervisor%20%e5%ae%89%e8%a3%85%e4%b8%8e%e4%bd%bf%e7%94%a8 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'supervisor',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

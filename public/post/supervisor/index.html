@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Supervisor 安装与使用 - 一二三四吾</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="yunxi" /><meta name="description" content="简介 supervisor管理进程，是通过fork/exec的方式将这些被管理的进程当作supervisor的子进程来启动，所以我们只需要将要" /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
+
+
+
+<meta name="google-site-verification" content="UA-123407925-1" />
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://www.artacode.com/post/supervisor/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Supervisor 安装与使用" />
+<meta property="og:description" content="简介 supervisor管理进程，是通过fork/exec的方式将这些被管理的进程当作supervisor的子进程来启动，所以我们只需要将要" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.artacode.com/post/supervisor/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-09-04T11:22:14&#43;08:00" />
+<meta property="article:modified_time" content="2018-09-04T11:22:14&#43;08:00" />
+
+<meta itemprop="name" content="Supervisor 安装与使用">
+<meta itemprop="description" content="简介 supervisor管理进程，是通过fork/exec的方式将这些被管理的进程当作supervisor的子进程来启动，所以我们只需要将要"><meta itemprop="datePublished" content="2018-09-04T11:22:14&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-04T11:22:14&#43;08:00" />
+<meta itemprop="wordCount" content="1065">
+<meta itemprop="keywords" content="linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Supervisor 安装与使用"/>
+<meta name="twitter:description" content="简介 supervisor管理进程，是通过fork/exec的方式将这些被管理的进程当作supervisor的子进程来启动，所以我们只需要将要"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">一二三四吾</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">一二三四吾</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Supervisor 安装与使用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-04 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            </div>
+          <span class="more-meta"> 约 1065 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#配置">配置</a></li>
+    <li><a href="#参数解释">参数解释</a></li>
+    <li><a href="#使用-supervisorctl">使用 supervisorctl</a></li>
+    <li><a href="#加入开机启动centos">加入开机启动（centos）</a></li>
+    <li><a href="#常见问题">常见问题</a>
+      <ul>
+        <li><a href="#supervisor-error-ini-file-does-not-include-supervisord-section">supervisor Error: .ini file does not include supervisord section</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="简介">简介</h1>
+<p>supervisor管理进程，是通过fork/exec的方式将这些被管理的进程当作supervisor的子进程来启动，所以我们只需要将要管理进程的可执行文件的路径添加到supervisor的配置文件中就好了。此时被管理进程被视为supervisor的子进程，若该子进程异常中断，则父进程可以准确的获取子进程异常中断的信息，通过在配置文件中设置autostart=ture，可以实现对异常中断的子进程的自动重启。</p>
+<h1 id="安装">安装</h1>
+<p><code>sudo apt-get install supervisor</code></p>
+<h1 id="配置">配置</h1>
+<ul>
+<li>进入配置文件目录 : <code>cd /etc/supervisor/conf.d</code></li>
+<li>新建配置文件 <code>sudo vim test.conf</code></li>
+</ul>
+<p>配置内如如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[program:cow] 
+command=/home/argericy/workspace/test #要执行的命令
+autostart=true #自动启动
+autorestart=true #自动重启
+user=root #执行命令用户
+log_stderr=true
+logfile=/var/log/test.log #日志文件
+stopsignal=INT
+[supervisord]
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="参数解释">参数解释</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">;[program:theprogramname]
+;command=/bin/cat              ; 程序执行命令，需要
+;process_name=%(program_name)s ; process_name expr (default %(program_name)s)
+;numprocs=1                    ; 进程启动数量，默认为1
+;directory=/tmp                ; 工作目录，如果配置了工作目录，command 配置项 可以直接执行工作目录里的命令
+;umask=022                     ; 设置进程权限 默认为：none
+;priority=999                  ; 设置优先级 默认：999
+;autostart=true                ; 在 supervisor 启动时启动程序，默认为：true
+;startsecs=1                   ; 程序启动 startsecs 秒 后视为程序启动成功， 默认为：1
+;startretries=3                ; 当程序启动失败后最大尝试次数,默认为：3
+;autorestart=unexpected        ; 其值为可以设置为 true 、false 、expected 设置为 true 无论什么情况下都自动重启， 设置为 false 则不自动重启，设置 unexpected 则配合 exitcodes 使用，只有在 exitcodes 配置的中的退出代码 才会自动重启
+;exitcodes=0,2                 ; autorestart 设置为 unexpected 此项生效，默认为： 0,2
+;stopsignal=QUIT               ; 用于 kill 进程的信号 默认为： TERM
+;stopwaitsecs=10               ; 停止进程等待秒数，默认为：10
+;stopasgroup=false             ; 发送停止信号给 UNIX 进程组 默认为：false
+;killasgroup=false             ; 发送立刻中止信号给 UNIX 进程组，默认为：false
+;user=chrism                   ; 设置启动程序的用户
+;redirect_stderr=true          ; redirect proc stderr to stdout (default false)
+;stdout_logfile=/a/path        ; 输入日志配置
+;stdout_logfile_maxbytes=1MB   ; 日志容量大与1m则分割日志
+;stdout_logfile_backups=10     ; 备份文件数量，默认为10
+;stderr_logfile=/a/path        ; 标准错误日志输出
+;stderr_logfile_maxbytes=1MB   ; 日志容量大与1m则分割日志
+;stderr_logfile_backups=10     ; 备份文件数量，默认为10
+;serverurl=AUTO                ; override serverurl computation (childutils)
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="使用-supervisorctl">使用 supervisorctl</h1>
+<p>Supervisorctl 是 supervisord 的一个命令行客户端工具，启动时需要指定与 supervisord 使用同一份配置文件，否则与 supervisord 一样按照顺序查找配置文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ supervisorctl status
+$ supervisorctl stop usercenter
+$ supervisorctl start usercenter
+$ supervisorctl restart usercenter
+$ supervisorctl reread
+$ supervisorctl update
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="加入开机启动centos">加入开机启动（centos）</h1>
+<p>关于 centos 加入服务，在<a href="http://www.artacode.com/posts/linux/centos-service/">《Centos 服务配置详解》</a> 一文中有详细的说明，这里只是简单的应用。<br>
+创建文<code>/usr/lib/systemd/system/supervisord.service</code></p>
+<pre><code>$ sudo vim /usr/lib/systemd/system/supervisord.service
+</code></pre>
+<p>插入如下内容:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[Unit] 
+Description=Supervisor
+
+[Service] 
+Type=forking 
+ExecStart=/usr/bin/supervisord -c /etc/supervisor/supervisord.conf  // 启动命令
+ExecStop=/usr/bin/supervisorctl shutdown  //关闭命令
+ExecReload=/usr/bin/supervisorctl reload  //重载命令
+KillMode=process 
+Restart=on-failure 
+RestartSec=42s
+
+[Install] 
+WantedBy=multi-user.target
+</code></pre></td></tr></table>
+</div>
+</div><p>启动服务</p>
+<pre><code>$ systemctl enable supervisord
+</code></pre>
+<p>验证服务是否未开机启动</p>
+<pre><code>$ systemctl is-enabled supervisord //返回 enable 表示已启动
+</code></pre>
+<h1 id="常见问题">常见问题</h1>
+<h2 id="supervisor-error-ini-file-does-not-include-supervisord-section">supervisor Error: .ini file does not include supervisord section</h2>
+<p>在配置文件中增加  <code>[supervisord]</code> 配置项</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">yunxi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-09-04
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/docker-error/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">docker常见问题</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/freeradius/">
+            <span class="next-text nav-default">freeRADIUS搭建</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: 'supervisor',
+        title: 'Supervisor 安装与使用',
+        clientID: '7df62c8e117826bf4f9b',
+        clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+        repo: 'hugo',
+        owner: 'yunxi177',
+        admin: ['yunxi177'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+    <a class="theme-link" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">苏ICP备18046444号-1</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>yunxi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

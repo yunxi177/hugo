@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="微信分享"/>
+  <meta name="twitter:description" content="微信分享步骤
+
+
+引入jｓ
+设置白名单
+引入sdk
+实现分享功能
+"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>微信分享 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        微信分享
+                    </h1>
+                    <h2 class="headline">
+                    Jan 1, 0001 00:00
+                    · 1514 words
+                    · 4 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91">微信开发</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#微信分享步骤">微信分享步骤</a></li>
+<li><a href="#绑定域名-引入js">绑定域名＆　引入js</a></li>
+<li><a href="#设置ip白名单">设置ip白名单</a></li>
+<li><a href="#生成分享配置">生成分享配置</a></li>
+<li><a href="#前台获取配置信息">前台获取配置信息</a></li>
+<li><a href="#结束">结束</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <h3 id="微信分享步骤">微信分享步骤</h3>
+
+<ul>
+<li>引入jｓ</li>
+<li>设置白名单</li>
+<li>引入sdk</li>
+<li>实现分享功能</li>
+</ul>
+
+<h3 id="绑定域名-引入js">绑定域名＆　引入js</h3>
+
+<p><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421141115　参考文档步骤１，步骤２">https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421141115　参考文档步骤１，步骤２</a></p>
+
+<h3 id="设置ip白名单">设置ip白名单</h3>
+
+<p>在 <code>基本配置</code>-&gt;<code>ip白名单</code>将服务器Ip配置好即可</p>
+
+<h3 id="生成分享配置">生成分享配置</h3>
+
+<p>将下面代码加入项目</p>
+
+<pre><code class="language-php">&lt;?php
+class WxShare
+{
+    private $appId;
+    private $appSecret;
+
+
+    public function __construct($appId = '自己的appid', $appSecret = '自己的appSecret')
+    {
+        $this-&gt;appId = $appId;
+        $this-&gt;appSecret = $appSecret;
+    }
+
+
+    public function getSignPackage()
+    {
+//接收到前端的转义url转义回来
+        $url = $_POST;
+        $durl = $url['url'];
+        $durl = urldecode($durl);
+
+        $jsapiTicket = $this-&gt;getJsApiTicket();
+        var_dump($jsapiTicket);
+        $timestamp = time();
+        $nonceStr = $this-&gt;createNonceStr();
+        // 这里参数的顺序要按照 key 值 ASCII 码升序排序
+        $string = &quot;jsapi_ticket=$jsapiTicket&amp;noncestr=$nonceStr&amp;timestamp=$timestamp&amp;url=$durl&quot;;
+
+
+        $signature = sha1($string);
+
+
+        $signPackage = [
+            &quot;appId&quot; =&gt; $this-&gt;appId,
+            &quot;nonceStr&quot; =&gt; $nonceStr,
+            &quot;timestamp&quot; =&gt; $timestamp,
+            &quot;url&quot; =&gt; $url,
+            &quot;signature&quot; =&gt; $signature,
+            &quot;rawString&quot; =&gt; $string
+        ];
+//        var_dump($signPackage);die;
+        return $signPackage;
+    }
+
+
+
+
+    public function curlGet($url) {
+        $curl = curl_init(); // 启动一个CURL会话
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); // 跳过证书检查
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, true);  // 从证书中检查SSL加密算法是否存在
+        $tmpInfo = curl_exec($curl);     //返回api的json对象
+        //关闭URL请求
+        curl_close($curl);
+        return $tmpInfo;    //返回json对象
+    }
+
+    public function curlPost($url, $data) {
+        $curl = curl_init(); // 启动一个CURL会话
+        curl_setopt($curl, CURLOPT_URL, $url); // 要访问的地址
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0); // 对认证证书来源的检查
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 1); // 从证书中检查SSL加密算法是否存在
+        curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); // 模拟用户使用的浏览器
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1); // 使用自动跳转
+        curl_setopt($curl, CURLOPT_AUTOREFERER, 1); // 自动设置Referer
+        curl_setopt($curl, CURLOPT_POST, 1); // 发送一个常规的Post请求
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data); // Post提交的数据包
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30); // 设置超时限制防止死循环
+        curl_setopt($curl, CURLOPT_HEADER, 0); // 显示返回的Header区域内容
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); // 获取的信息以文件流的形式返回
+        $tmpInfo = curl_exec($curl); // 执行操作
+        if (curl_errno($curl)) {
+            echo 'Errno'.curl_error($curl);//捕抓异常
+        }
+        curl_close($curl); // 关闭CURL会话
+        return $tmpInfo; // 返回数据，json格式
+    }
+
+    private function createNonceStr($length = 16)
+    {
+        $chars = &quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&quot;;
+        $str = &quot;&quot;;
+        for ($i = 0; $i &lt; $length; $i++) {
+            $str .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
+        }
+        return $str;
+    }
+
+
+    private function getJsApiTicket()
+    {
+        // jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
+        $data = json_decode(file_get_contents(&quot;jssdk/jsapi_ticket.json&quot;));
+        if ( empty($data) ||  $data-&gt;expire_time &lt; time()) {
+            $accessToken = $this-&gt;getAccessToken();
+            //定义传递的参数数组
+            $params['type'] = 'jsapi';
+            $params['access_token'] = $accessToken;
+            $url = &quot;https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=&quot; . $params['access_token'] . &quot;&amp;type=&quot; . $params['type'] . &quot;&quot;;
+            $res = json_decode($this-&gt;curlGet($url));
+            $ticket = isset($res-&gt;ticket) ? $res-&gt;ticket : NULL;
+            if ($ticket) {
+                $res-&gt;expire_time = time() + 7000;
+                $res-&gt;jsapi_ticket = $ticket;
+                $fp = fopen(&quot;jssdk/jsapi_ticket.json&quot;, &quot;w&quot;);
+                fwrite($fp, json_encode($res));
+                fclose($fp);
+            }
+        } else {
+            $ticket = $data-&gt;jsapi_ticket;
+        }
+        return $ticket;
+    }
+
+
+    private function getAccessToken()
+    {
+        // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
+        $data = json_decode(file_get_contents(&quot;jssdk/access_token.json&quot;));
+        if ( empty($data) || $data-&gt;expire_time &lt; time()) {
+            //定义传递的参数数组
+            $params['grant_type'] = 'client_credential';
+            $params['appid'] = $this-&gt;appId;
+            $params['secret'] = $this-&gt;appSecret;
+            $url = &quot;https://api.weixin.qq.com/cgi-bin/token?grant_type=&quot; . $params['grant_type'] . &quot;&amp;appid=&quot; . $params['appid'] . &quot;&amp;secret=&quot; . $params['secret'] . &quot;&quot;;
+            $res = json_decode($this-&gt;curlPost($url, $params));
+            $access_token = isset($res-&gt;access_token) ? $res-&gt;access_token : NULL;
+            if ($access_token) {
+                $res-&gt;expire_time = time() + 7000;
+                $res-&gt;access_token = $access_token;
+                $fp = fopen(&quot;jssdk/access_token.json&quot;, &quot;w&quot;);
+                fwrite($fp, json_encode($res));
+                fclose($fp);
+            }
+        } else {
+            $access_token = $data-&gt;access_token;
+        }
+        return $access_token;
+    }
+}
+</code></pre>
+
+<p>调用上述代码中的<code>getSignPackage</code>方法生成配置信息</p>
+
+<h3 id="前台获取配置信息">前台获取配置信息</h3>
+
+<p>将下列代码加入需要分享页面的js中</p>
+
+<pre><code class="language-javascript">$(function(){
+        jQuery.post(&quot;获取配置的url地址&quot;, {&quot;url&quot;: encodeURIComponent(window.location.href.split('#')[0]),&quot;t&quot;: new Date().getTime()}, function (result) {
+            var result = JSON.parse(result)
+            var shareUrl = result.url;
+            wx.config({
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: result.appId, // 必填，公众号的唯一标识
+                timestamp: result.timestamp, // 必填，生成签名的时间戳
+                nonceStr: result.nonceStr, // 必填，生成签名的随机串
+                signature: result.signature,// 必填，签名，见附录1
+                jsApiList: ['onMenuShareAppMessage','onMenuShareTimeline','onMenuShareQQ','onMenuShareWeibo','onMenuShareQZone'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                success:function(){
+                    console.log(&quot;success&quot;);
+
+                }
+            })
+        });
+
+        wx.ready(function(){
+            wx.error(function(res){
+                // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+                console.log(res);
+            });
+
+
+            var s_title = '分享标题';
+            var s_desc = '分享描述';
+            var img_url = '分享图片地址';
+
+            wx.onMenuShareAppMessage({
+                title: s_title, // 分享标题
+                desc: s_desc, // 分享描述
+                link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: img_url, // 分享图标
+                type: 'link', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    // 用户点击了分享后执行的回调函数
+                }
+            });
+
+            wx.onMenuShareTimeline({
+                title: s_title, // 分享标题
+                link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: img_url, // 分享图标
+                success: function () {
+                    // 用户点击了分享后执行的回调函数
+                }
+            });
+
+
+
+        });
+
+
+
+    })
+</code></pre>
+
+<h3 id="结束">结束</h3>
+
+<p>代码已经放上只需要将自己的配置信息一一对应，即可实现微信分享功能</p>
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fwxshare%2f - %e5%be%ae%e4%bf%a1%e5%88%86%e4%ba%ab by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'wxShare',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

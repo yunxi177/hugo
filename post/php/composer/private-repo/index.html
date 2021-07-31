@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Composer 私有仓库搭建 - 一二三四吾</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="yunxi" /><meta name="description" content="Composer 是 PHP 的软件包管理系统，它提供用于管理 PHP 软件和依赖库关系的标准格式。作为日常开发，Composer 能够满足我们的日常需求，但有些情况下，我们" /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
+
+
+
+<meta name="google-site-verification" content="UA-123407925-1" />
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://www.artacode.com/post/php/composer/private-repo/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Composer 私有仓库搭建" />
+<meta property="og:description" content="Composer 是 PHP 的软件包管理系统，它提供用于管理 PHP 软件和依赖库关系的标准格式。作为日常开发，Composer 能够满足我们的日常需求，但有些情况下，我们" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.artacode.com/post/php/composer/private-repo/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-04-01T18:00:46&#43;08:00" />
+<meta property="article:modified_time" content="2021-04-01T18:00:46&#43;08:00" />
+
+<meta itemprop="name" content="Composer 私有仓库搭建">
+<meta itemprop="description" content="Composer 是 PHP 的软件包管理系统，它提供用于管理 PHP 软件和依赖库关系的标准格式。作为日常开发，Composer 能够满足我们的日常需求，但有些情况下，我们"><meta itemprop="datePublished" content="2021-04-01T18:00:46&#43;08:00" />
+<meta itemprop="dateModified" content="2021-04-01T18:00:46&#43;08:00" />
+<meta itemprop="wordCount" content="771">
+<meta itemprop="keywords" content="php," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Composer 私有仓库搭建"/>
+<meta name="twitter:description" content="Composer 是 PHP 的软件包管理系统，它提供用于管理 PHP 软件和依赖库关系的标准格式。作为日常开发，Composer 能够满足我们的日常需求，但有些情况下，我们"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">一二三四吾</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">一二三四吾</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Composer 私有仓库搭建</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-04-01 </span>
+        <div class="post-category">
+            <a href="/categories/php/"> php </a>
+            </div>
+          <span class="more-meta"> 约 771 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#composer-安装扩展流程">Composer 安装扩展流程</a></li>
+    <li><a href="#satis">Satis</a>
+      <ul>
+        <li><a href="#介绍">介绍</a></li>
+        <li><a href="#安装">安装</a>
+          <ul>
+            <li><a href="#命令行安装">命令行安装</a></li>
+            <li><a href="#docker-安装">docker 安装</a></li>
+          </ul>
+        </li>
+        <li><a href="#配置">配置</a></li>
+        <li><a href="#构建">构建</a></li>
+      </ul>
+    </li>
+    <li><a href="#nginx-配置">Nginx 配置</a></li>
+    <li><a href="#composer-配置">Composer 配置</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Composer 是 PHP 的软件包管理系统，它提供用于管理 PHP 软件和依赖库关系的标准格式。作为日常开发，Composer 能够满足我们的日常需求，但有些情况下，我们有些公司内部的扩展，不希望被检索或者放在共有库中，就需要搭建私有库来解决问题。<br>
+在讨论搭建私有仓库前，我们先了解一下 Composer 是如何安装扩展的</p>
+<h1 id="composer-安装扩展流程">Composer 安装扩展流程</h1>
+<p><img src="https://pic.artacode.com/image.png" alt="composer下载流程图"><br>
+通过上图我们不难发现，如果要构建私有仓库，我们需要构建一个类似 <a href="https://packagist.org/">Packagist</a> 的网站，来告诉 Composer 该从哪里下载扩展代码，这就需要用到 <strong>Satis</strong> 工具</p>
+<h1 id="satis">Satis</h1>
+<h2 id="介绍">介绍</h2>
+<p><strong>Satis</strong> 是一个开源的静态 Composer 仓库生成器，有了它我们可以轻松的构建出一个类似 <a href="https://packagist.org/">Packagist</a> 的索引网站，来告诉 Composer 通过我们自己的私有仓库下载扩展。</p>
+<h2 id="安装">安装</h2>
+<h3 id="命令行安装">命令行安装</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 安装
+composer create-project composer/satis:dev-main
+// 构建索引仓库
+php bin/satis build &lt;configuration-file&gt; &lt;output-directory&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="docker-安装">docker 安装</h3>
+<p>下载镜像：<br>
+<code>docker pull composer/satis</code>
+运行镜像:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">docker run --rm --init -it <span class="se">\
+</span><span class="se"></span>  --user <span class="k">$(</span>id -u<span class="k">)</span>:<span class="k">$(</span>id -g<span class="k">)</span> <span class="se">\
+</span><span class="se"></span>  --volume <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/build <span class="se">\
+</span><span class="se"></span>  --volume <span class="s2">&#34;</span><span class="si">${</span><span class="nv">COMPOSER_HOME</span><span class="k">:-</span><span class="nv">$HOME</span><span class="p">/.composer</span><span class="si">}</span><span class="s2">:/composer&#34;</span> <span class="se">\
+</span><span class="se"></span>  composer/satis build &lt;configuration-file&gt; &lt;output-directory&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="配置">配置</h2>
+<p>创建一个名为：<code>satis.json</code> 的配置文件。<br>
+内容如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;passboat&#34;</span><span class="p">,</span> 
+    <span class="nt">&#34;homepage&#34;</span><span class="p">:</span> <span class="s2">&#34;http://packages.example.org&#34;</span><span class="p">,</span> 
+    <span class="nt">&#34;repositories&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;vcs&#34;</span><span class="p">,</span> <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;你的仓库地址（支持git/svn）&#34;</span><span class="p">,</span> <span class="p">}</span>
+    <span class="p">],</span> 
+    <span class="nt">&#34;require-all&#34;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>为了拉取代码更为方便将 ssh  密钥配置到代码仓库中。ssh 密钥生成参考<a href="https://git-scm.com/book/zh/v2/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E7%94%9F%E6%88%90-SSH-%E5%85%AC%E9%92%A5">生成 SSH 公钥</a></p>
+<h2 id="构建">构建</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">docker run --rm -it  -v 配置文件所在目录:/build -v 配置文件所在目录:/root/.ssh composer/satis build /build/satis.json /build/public
+</code></pre></td></tr></table>
+</div>
+</div><p>执行完上述命令后，会在<code>配置文件所在目录</code>生成一个 <code>public</code> 文件夹，该文件夹就是 <strong>Satis</strong> 为我们生成的静态索引网站。接下来就是通过配置 nginx 将域名解析到生成的 <code>public</code> 文件夹。</p>
+<h1 id="nginx-配置">Nginx 配置</h1>
+<p>当通过 <strong>Satis</strong> 生成索引网站后，我们需要通过 nginx 配置，使其能够通过外网访问到该网站.
+配置完成后访问下过如下：
+<img src="https://pic.artacode.com/composerstaticweb.png" alt="composer静态网站配置"></p>
+<h1 id="composer-配置">Composer 配置</h1>
+<p>在需要安装私有扩展的项目里，在 <code>composer.json</code> 文件中加入如下代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json">  <span class="s2">&#34;repositories&#34;</span><span class="err">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;composer&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;nginx配置的静态所以网站的域名&#34;</span>
+        <span class="p">}</span>
+    <span class="p">]</span><span class="err">,</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="conclusion">Conclusion</h1>
+<p>经过上述步骤，整个私有仓库的搭建就已经完成了,如果你对私有仓库需要更多的配置，可以阅读<a href="https://getcomposer.org/doc/articles/handling-private-packages.md">Composer 私有包文档</a>,进行更细致的设置，祝进步！</p>
+<h1 id="reference">Reference</h1>
+<p><a href="https://github.com/composer/satis">Satis github</a><br>
+<a href="https://getcomposer.org/doc/articles/handling-private-packages.md">Composer</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">yunxi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-04-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/php/">php</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/nginx/multi-cert/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">nginx 单站点多证书配置</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/ci-cd/front-cicd/">
+            <span class="next-text nav-default">前端CI/CD落地实践</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: 'php-composer-private-repo',
+        title: 'Composer 私有仓库搭建',
+        clientID: '7df62c8e117826bf4f9b',
+        clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+        repo: 'hugo',
+        owner: 'yunxi177',
+        admin: ['yunxi177'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+    <a class="theme-link" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">苏ICP备18046444号-1</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>yunxi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

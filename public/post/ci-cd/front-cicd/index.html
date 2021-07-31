@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>前端CI/CD落地实践 - 一二三四吾</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="yunxi" /><meta name="description" content="随着 nodejs 的兴起，前端开发也进入了 新的时代，webpack 的诞生，更是让其如虎添翼，构建出欣欣向荣的前端生态. 然而事物的发展总是在：发现问题-&amp;" /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
+
+
+
+<meta name="google-site-verification" content="UA-123407925-1" />
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://www.artacode.com/post/ci-cd/front-cicd/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="前端CI/CD落地实践" />
+<meta property="og:description" content="随着 nodejs 的兴起，前端开发也进入了 新的时代，webpack 的诞生，更是让其如虎添翼，构建出欣欣向荣的前端生态. 然而事物的发展总是在：发现问题-&" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.artacode.com/post/ci-cd/front-cicd/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-03-29T18:30:18&#43;08:00" />
+<meta property="article:modified_time" content="2021-03-29T18:30:18&#43;08:00" />
+
+<meta itemprop="name" content="前端CI/CD落地实践">
+<meta itemprop="description" content="随着 nodejs 的兴起，前端开发也进入了 新的时代，webpack 的诞生，更是让其如虎添翼，构建出欣欣向荣的前端生态. 然而事物的发展总是在：发现问题-&"><meta itemprop="datePublished" content="2021-03-29T18:30:18&#43;08:00" />
+<meta itemprop="dateModified" content="2021-03-29T18:30:18&#43;08:00" />
+<meta itemprop="wordCount" content="836">
+<meta itemprop="keywords" content="CI/CD," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="前端CI/CD落地实践"/>
+<meta name="twitter:description" content="随着 nodejs 的兴起，前端开发也进入了 新的时代，webpack 的诞生，更是让其如虎添翼，构建出欣欣向荣的前端生态. 然而事物的发展总是在：发现问题-&"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">一二三四吾</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">一二三四吾</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">前端CI/CD落地实践</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-03-29 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+            </div>
+          <span class="more-meta"> 约 836 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#工具">工具</a></li>
+    <li><a href="#方案">方案</a></li>
+    <li><a href="#好处">好处</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>随着 nodejs 的兴起，前端开发也进入了 新的时代，webpack 的诞生，更是让其如虎添翼，构建出欣欣向荣的前端生态. 然而事物的发展总是在：<strong>发现问题</strong>-&gt;<strong>解决问题</strong>-&gt;<strong>引入新问题</strong>中往复。</p>
+<p>webpack 给前端带来了一个新的高频操作就是打包，<strong>高频的打包</strong>会带来如下问题：</p>
+<ul>
+<li>
+<p><strong>阻塞前端工作</strong>：前端必须等到打包完成，才能 进入后续工作,如果打包时间过长，这中间就会阻塞就会更加明显。</p>
+</li>
+<li>
+<p><strong>影响团队协作</strong>：当功能点开发完成后，未避免频繁打包，会将多个功能点合并在 一起打包，这样就会导致测试没有办法提前介入测试，如果测试出问题的功能点是在几天前开发的，对于代码已经有所遗忘，还需要阅读代码帮助找回记忆gg。</p>
+</li>
+<li>
+<p><strong>打断专注时间</strong>：如果前端正在专注的解决一个复杂问题,此时出现紧急问题需要打包，使得前端不得不从当前工作中抽身出来进行打包，打包完成后将需要一段时间的预热才可以像之前一样 专注的处理未完成的问题。</p>
+</li>
+</ul>
+<p>对于上述 问题完全可以通过<strong>工具</strong>构建出一套 <strong>CI/CD</strong> 方案交由计算机来解决，让前端工程师从打包解放出来。</p>
+<h1 id="工具">工具</h1>
+<ul>
+<li>
+<p><strong>jenkens</strong>: 是一款由 JAVA 编写的开源的持续集成工具.</p>
+</li>
+<li>
+<p><strong>gogs</strong>: 轻量级代码仓库</p>
+</li>
+</ul>
+<p>jenkins 与 gogs 的通讯是通过 Gogs plugin 通过 webhook 来通讯的。</p>
+<h1 id="方案">方案</h1>
+<p><strong>方案设计大致如下</strong>：</p>
+<p><img src="https://pic.artacode.com/front-ci-cd.png" alt="image.png"></p>
+<p><strong>方案执行步骤</strong>：</p>
+<ol>
+<li>前端工程师往代码仓库 push 代码</li>
+<li>gogs 会调用 jenkins 的 webhook 地址触发 jenkins 工作流</li>
+<li>jenkins 会将前端代码从代码仓库中拉取最新的代码，并执行构建流程</li>
+<li>将构建好的代码上传到 dist 仓库(如果存在 CDN 则清除 CDN 缓存)</li>
+<li>push dist 仓库到 gogs 远程仓库</li>
+<li>gogs 触发 dist 仓库的 webhook,将服务器代码更新到最新的打包文件</li>
+<li>完成部署</li>
+<li>测试人员执行测试用例（如果由缺陷，将缺陷反馈给前端开发人员）</li>
+</ol>
+<h1 id="好处">好处</h1>
+<p>完成上述方案，前端工程师只需要将前端代码 push 到远程仓库，服务器会自动构建响应的包，并部署到测试服务器上供测试测试,前端可以缩小提交粒度并更快的将功能交付测试，也可以将问题尽早暴露尽早解决。</p>
+<p>整个构建和部署流程对于团来来说是完全透明的，团队成员可以清晰的了解到整个程序的构建过程及部署过程。每次的构建都会执行构建流程及发布流程，能够保证流程是安全稳定的，减少人为构建/部署失误带来的问题。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">yunxi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-03-29
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ci/cd/">CI/CD</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/php/composer/private-repo/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Composer 私有仓库搭建</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/base/base64/">
+            <span class="next-text nav-default">Base64编码的前世今生</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: 'cicd-front-cicd',
+        title: '前端CI\/CD落地实践',
+        clientID: '7df62c8e117826bf4f9b',
+        clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+        repo: 'hugo',
+        owner: 'yunxi177',
+        admin: ['yunxi177'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+    <a class="theme-link" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">苏ICP备18046444号-1</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>yunxi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

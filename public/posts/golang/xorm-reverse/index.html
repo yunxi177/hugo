@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="xorm将表生成实体"/>
+  <meta name="twitter:description" content="xorm 工具 xorm 是一组数据库操作命令行工具。 源码安装 go get github.com/go-xorm/cmd/xorm 使用 使用帮助 查看帮助命令： xorm help reverse 帮助详情 usage: xorm reverse [-s] driverName datasourceName tmplPath [generatedPath] [tableFilterReg] according database&#39;s tables and columns to generate codes for Go, C&#43;&#43; and etc. -s Generated one"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>xorm将表生成实体 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        xorm将表生成实体
+                    </h1>
+                    <h2 class="headline">
+                    Sep 16, 2018 17:24
+                    · 247 words
+                    · 1 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/golang">golang</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#xorm-工具">xorm 工具</a></li>
+<li><a href="#源码安装">源码安装</a></li>
+<li><a href="#使用">使用</a>
+<ul>
+<li><a href="#使用帮助">使用帮助</a></li>
+<li><a href="#使用实例-以mysql为例">使用实例（以mysql为例）</a></li>
+</ul></li>
+<li><a href="#常见问题">常见问题</a>
+<ul>
+<li><a href="#no-matches-found-root-root-tcp-127-0-0-1-3306-test-charset-utf8">no matches found: root:root@tcp(127.0.0.1:3306)/test?charset=utf8</a></li>
+</ul></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h1 id="xorm-工具">xorm 工具</h1>
+
+<p>xorm 是一组数据库操作命令行工具。</p>
+
+<h1 id="源码安装">源码安装</h1>
+
+<p><code>go get github.com/go-xorm/cmd/xorm</code></p>
+
+<h1 id="使用">使用</h1>
+
+<h2 id="使用帮助">使用帮助</h2>
+
+<p>查看帮助命令： <code>xorm help reverse</code>
+帮助详情</p>
+
+<pre><code>usage: xorm reverse [-s] driverName datasourceName tmplPath [generatedPath] [tableFilterReg]
+
+according database's tables and columns to generate codes for Go, C++ and etc.
+
+    -s                Generated one go file for every table
+    driverName        Database driver name, now supported four: mysql mymysql sqlite3 postgres
+    datasourceName    Database connection uri, for detail infomation please visit driver's project page
+    tmplPath          Template dir for generated. the default templates dir has provide 1 template
+    generatedPath     This parameter is optional, if blank, the default value is models, then will
+                      generated all codes in models dir
+    tableFilterReg    Table name filter regexp
+
+</code></pre>
+
+<h2 id="使用实例-以mysql为例">使用实例（以mysql为例）</h2>
+
+<ol>
+<li>切换项目目录<code>cd project1</code></li>
+<li>讲模板配置文件移动到项目目录<code>cp $GOPATH/src/github.com/go-xorm/cmd/xorm/templates ./template</code></li>
+<li>执行生成实体命令<code>xorm reverse mysql root:root@tcp\(127.0.0.1:3306\)/test\?charset=utf8 templates/goxorm</code></li>
+<li><code>ls models</code>实体生成成功</li>
+</ol>
+
+<h1 id="常见问题">常见问题</h1>
+
+<h2 id="no-matches-found-root-root-tcp-127-0-0-1-3306-test-charset-utf8">no matches found: root:root@tcp(127.0.0.1:3306)/test?charset=utf8</h2>
+
+<p>解决方法：将mysql 链接中的（）和？转义，正确链接为
+<code>root:root@tcp\(127.0.0.1:3306\)/nideshop\?charset=utf8</code></p>
+
+<h1 id="参考链接">参考链接</h1>
+
+<p><a href="https://github.com/go-xorm/cmd">go-xorm/cmd</a></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fgolang%2fxorm-reverse%2f - xorm%e5%b0%86%e8%a1%a8%e7%94%9f%e6%88%90%e5%ae%9e%e4%bd%93 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'golang-xorm-reverse',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

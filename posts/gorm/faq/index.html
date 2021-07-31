@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="gorm常见问题"/>
+  <meta name="twitter:description" content="sql: Scan error on column index 5, name &ldquo;created_at&rdquo;: unsupported Scan, storing driver.Value type []uint8 into type *time.Time DATETIME转换问题 执行Rows.Scan()时报告错误 原因是在调用sql.Open()时没有将pa"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>gorm常见问题 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        gorm常见问题
+                    </h1>
+                    <h2 class="headline">
+                    Dec 22, 2018 10:38
+                    · 239 words
+                    · 1 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/golang">golang</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#sql-scan-error-on-column-index-5-name-created-at-unsupported-scan-storing-driver-value-type-uint8-into-type-time-time">sql: Scan error on column index 5, name &ldquo;created_at&rdquo;: unsupported Scan, storing driver.Value type []uint8 into type *time.Time</a></li>
+<li><a href="#invalid-memory-address-or-nil-pointer-dereference-on-simple-learning-example-maybe-a-bug-with-latest-version">invalid memory address or nil pointer dereference on simple learning example. Maybe a bug with latest version</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h1 id="sql-scan-error-on-column-index-5-name-created-at-unsupported-scan-storing-driver-value-type-uint8-into-type-time-time">sql: Scan error on column index 5, name &ldquo;created_at&rdquo;: unsupported Scan, storing driver.Value type []uint8 into type *time.Time</h1>
+
+<p>DATETIME转换问题
+执行Rows.Scan()时报告错误</p>
+
+<p>原因是在调用sql.Open()时没有将parseTime设置为True。加入parseTime即可修复问题：
+<code>db, err := sql.Open(&quot;mysql&quot;, &quot;user:password@tcp(127.0.0.1:3306)/dbname?parseTime=true&quot;)</code></p>
+
+<h1 id="invalid-memory-address-or-nil-pointer-dereference-on-simple-learning-example-maybe-a-bug-with-latest-version">invalid memory address or nil pointer dereference on simple learning example. Maybe a bug with latest version</h1>
+
+<p>代码实例</p>
+
+<pre><code>package main
+
+import (
+    &quot;net/http&quot;
+    &quot;strconv&quot;
+
+    &quot;github.com/gin-gonic/gin&quot;
+    &quot;github.com/jinzhu/gorm&quot;
+    _ &quot;github.com/jinzhu/gorm/dialects/postgres&quot;
+)
+
+var db *gorm.DB
+
+func init() {
+    var err error
+    db, err := gorm.Open(&quot;postgres&quot;, &quot;host=localhost user=postgres dbname=postgres sslmode=disable password=pass&quot;)
+    if err != nil {
+        panic(&quot;failed to connect database&quot;)
+    }
+    db.AutoMigrate(&amp;todoModel{})
+}
+</code></pre>
+
+<p>重点在 <code>db, err := gorm.Open(&quot;postgres&quot;, &quot;host=localhost user=postgres dbname=postgres sslmode=disable password=pass&quot;)</code> 代码处，由于上述代码中已经设置了全局变量 <code>db</code> 所以在接受赋值的时候不能用 <code>:=</code> 二应该用 <code>=</code> 。<br />
+正确代码应该为 <code>db, err := gorm.Open(&quot;postgres&quot;, &quot;host=localhost user=postgres dbname=postgres sslmode=disable password=pass&quot;)</code></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fgorm%2ffaq%2f - gorm%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'gorm-FAQ',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on 一二三四吾</title>
+    <link>https://www.artacode.com/categories/git/</link>
+    <description>Recent content in git on 一二三四吾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 28 Oct 2019 20:38:00 +0800</lastBuildDate><atom:link href="https://www.artacode.com/categories/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git 删除 commit 信息</title>
+      <link>https://www.artacode.com/post/git/del-commit/</link>
+      <pubDate>Mon, 28 Oct 2019 20:38:00 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/git/del-commit/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 #Clone your git repo git clone &amp;lt;repo url&amp;gt;; #Entre your local repo cd lestatzhang.github.io; #Checkout git checkout --orphan latest_branch; #Add all the files git add -A; #Commit the changes git commit -am &amp;#34;Reinitialize&amp;#34;; #Delete the branch git branch -D master; #Rename the current branch to master git branch -m master; #Finally, force update your</description>
+    </item>
+    
+  </channel>
+</rss>

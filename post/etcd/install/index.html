@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>etcd入门系列一：etcd 在 docker 中使用 - 一二三四吾</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="yunxi" /><meta name="description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 简介 etcd是CoreOS团队" /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
+
+
+
+<meta name="google-site-verification" content="UA-123407925-1" />
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://www.artacode.com/post/etcd/install/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="etcd入门系列一：etcd 在 docker 中使用" />
+<meta property="og:description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 简介 etcd是CoreOS团队" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.artacode.com/post/etcd/install/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-11-19T11:03:08&#43;08:00" />
+<meta property="article:modified_time" content="2018-11-19T11:03:08&#43;08:00" />
+
+<meta itemprop="name" content="etcd入门系列一：etcd 在 docker 中使用">
+<meta itemprop="description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 简介 etcd是CoreOS团队"><meta itemprop="datePublished" content="2018-11-19T11:03:08&#43;08:00" />
+<meta itemprop="dateModified" content="2018-11-19T11:03:08&#43;08:00" />
+<meta itemprop="wordCount" content="1202">
+<meta itemprop="keywords" content="etcd," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="etcd入门系列一：etcd 在 docker 中使用"/>
+<meta name="twitter:description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 简介 etcd是CoreOS团队"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">一二三四吾</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">一二三四吾</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">etcd入门系列一：etcd 在 docker 中使用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-11-19 </span>
+        <div class="post-category">
+            <a href="/categories/etcd/"> etcd </a>
+            </div>
+          <span class="more-meta"> 约 1202 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#etcd入门系列">etcd入门系列</a></li>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#构建镜像">构建镜像</a></li>
+    <li><a href="#启动etcd单服务">启动etcd(单服务)</a>
+      <ul>
+        <li><a href="#etcd参数说明">ETCD参数说明</a></li>
+      </ul>
+    </li>
+    <li><a href="#在docker中运行集群">在docker中运行(集群)</a>
+      <ul>
+        <li><a href="#node0">node0</a></li>
+        <li><a href="#node1">node1</a></li>
+      </ul>
+    </li>
+    <li><a href="#集群验证">集群验证</a>
+      <ul>
+        <li><a href="#验证集群members在集群中的每台机器上查看members得出的结果应该是相同的">验证集群members。在集群中的每台机器上查看members，得出的结果应该是相同的</a></li>
+        <li><a href="#某台机器上添加数据其他机器上查看数据得出的结果应该是相同的">某台机器上添加数据，其他机器上查看数据，得出的结果应该是相同的</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="etcd入门系列">etcd入门系列</h1>
+<p><a href="http://www.artacode.com/posts/etcd/install/">一. etcd在docker中的安装与使用</a><br>
+<a href="http://www.artacode.com/posts/etcd/enable-https/">二. etcd 开启 https</a><br>
+<a href="http://www.artacode.com/posts/etcd/enable-https/">三. 身份验证访问控制</a><br>
+<a href="http://www.artacode.com/posts/etcd/certificates/">四. 开启客户端证书访问</a></p>
+<h1 id="简介">简介</h1>
+<p>etcd是CoreOS团队于2013年6月发起的开源项目，它的目标是构建一个高可用的分布式键值(key-value)数据库。etcd内部采用raft协议作为一致性算法，etcd基于Go语言实现。</p>
+<p>etcd作为服务发现系统，有以下的特点</p>
+<ul>
+<li>简单：安装配置简单，而且提供了HTTP API进行交互，使用也很简单</li>
+<li>安全：支持SSL证书验证</li>
+<li>快速：根据官方提供的benchmark数据，单实例支持每秒2k+读操作</li>
+<li>可靠：采用raft算法，实现分布式系统数据的可用性和一致性</li>
+<li>etcd项目地址：https://github.com/coreos/etcd/</li>
+</ul>
+<h1 id="构建镜像">构建镜像</h1>
+<p>1.创建dockersfile<code>$ sudo touch Dockerfile</code><br>
+2.<code>$ sudo vim Dockerfile</code>编辑Dockerfile文件,写入内容如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">FROM alpine:latest
+
+ADD etcd /usr/local/bin/
+ADD etcdctl /usr/local/bin/
+RUN mkdir -p /var/etcd/
+RUN mkdir -p /var/lib/etcd/
+
+# Alpine Linux doesn&#39;t use pam, which means that there is no /etc/nsswitch.conf,
+# but Golang relies on /etc/nsswitch.conf to check the order of DNS resolving
+# (see https://github.com/golang/go/commit/9dee7771f561cf6aee081c0af6658cc81fac3918)
+# To fix this we just create /etc/nsswitch.conf and add the following line:
+RUN echo &#39;hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4&#39; &gt;&gt; /etc/nsswitch.conf
+
+EXPOSE 2379 2380
+
+# Define default command.
+CMD [&#34;/usr/local/bin/etcd&#34;]
+</code></pre></td></tr></table>
+</div>
+</div><p>3.下载etcd Releases <code>$ wget https://github.com/etcd-io/etcd/releases/download/v3.3.10/etcd-v3.3.10-linux-amd64.tar.gz</code><br>
+4.解压文件:<code>$ tar -zxvf etcd-v3.3.10-linux-amd64.tar.gz</code><br>
+5.将<code>etcd</code>和<code>etcdctl</code>移动到和dockerfile同级目录:<code>$ mv etcd-v3.3.10-linux-amd64/etcd etcd-v3.3.10-linux-amd64/etcdctl -t ./</code><br>
+6.构建etcd镜像<code>docker build -t etcd .</code><br>
+7.查看构建好的镜像<code>docker images</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost etcd]# docker images;
+REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+etcd                       latest              dd11f9fc0096        13 seconds ago      39.5 MB
+
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="启动etcd单服务">启动etcd(单服务)</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">docker run -d -v /usr/share/ca-certificates/:/etc/ssl/certs -p 4001:4001 -p 2380:2380 -p 2379:2379 \
+ --name etcd etcd /usr/local/bin/etcd \
+ -name etcd0 \
+ -advertise-client-urls http://192.168.3.3:2379,http://192.168.3.3:4001 \
+ -listen-client-urls http://0.0.0.0:2379,http://0.0.0.0:4001 \
+ -initial-advertise-peer-urls http://192.168.3.3:2380 \
+ -listen-peer-urls http://0.0.0.0:2380 \
+ -initial-cluster-token etcd-cluster-1 \
+ -initial-cluster etcd0=http://192.168.3.3:2380 \
+ -initial-cluster-state new
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="etcd参数说明">ETCD参数说明</h2>
+<ul>
+<li>**data-dir:**指定节点的数据存储目录，这些数据包括节点ID，集群ID，集群初始化配置，Snapshot文件，若未指定—wal-dir，还会存储WAL文件；</li>
+<li>**wal-dir:**指定节点的was文件的存储目录，若指定了该参数，wal文件会和其他数据文件分开存储。</li>
+<li><strong>name:</strong> 节点名称</li>
+<li><strong>initial-advertise-peer-urls:</strong> 告知集群其他节点url.(<code>对于集群内提供服务的url</code>)</li>
+<li><strong>listen-peer-urls:</strong> 监听URL，用于与其他节点通讯</li>
+<li><strong>advertise-client-urls:</strong> 告知客户端url, 也就是服务的url(<code>对外提供服务的utl</code>)</li>
+<li><strong>initial-cluster-token:</strong> 集群的ID</li>
+<li><strong>initial-cluster:</strong> 集群中所有节点</li>
+</ul>
+<h1 id="在docker中运行集群">在docker中运行(集群)</h1>
+<h2 id="node0">node0</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">docker run -d -p 2380:2380 -p 2479:2379 --name etcd0 etcd /usr/local/bin/etcd -name etcd0  -advertise-client-urls http://192.168.3.3:2479  -listen-client-urls http://0.0.0.0:2379 -initial-advertise-peer-urls http://192.168.3.3:2380 -listen-peer-urls http://0.0.0.0:2380  -initial-cluster-token etcd-cluster-1 -initial-cluster &#34;etcd0=http://192.168.3.3:2380,etcd1=http://192.168.3.3:2381&#34; -initial-cluster-state new
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="node1">node1</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">docker run -d -p 2381:2380 -p 2480:2379 --name etcd1 etcd /usr/local/bin/etcd -name etcd1  -advertise-client-urls http://192.168.3.3:2480  -listen-client-urls http://0.0.0.0:2379 -initial-advertise-peer-urls http://192.168.3.3:2381 -listen-peer-urls http://0.0.0.0:2380  -initial-cluster-token etcd-cluster-1 -initial-cluster &#34;etcd0=http://192.168.3.3:2380,etcd1=http://192.168.3.3:2381&#34; -initial-cluster-state new
+</code></pre></td></tr></table>
+</div>
+</div><p>这里模拟多端口代表多服务器,需要注意的是<code>-listen-client-urls http://0.0.0.0:2379</code>,<code>-listen-peer-urls http://0.0.0.0:2380</code>,这两个参数是服务内端口号,对应的是-p中的<code>2479:2379</code>中后面的2379,所以这里的监听不需要改变.</p>
+<h1 id="集群验证">集群验证</h1>
+<h2 id="验证集群members在集群中的每台机器上查看members得出的结果应该是相同的">验证集群members。在集群中的每台机器上查看members，得出的结果应该是相同的</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# curl -L http://192.168.3.3:2479/v2/members
+{&#34;members&#34;:[{&#34;id&#34;:&#34;4b316424559e0f9d&#34;,&#34;name&#34;:&#34;etcd0&#34;,&#34;peerURLs&#34;:[&#34;http://192.168.3.3:2380&#34;],&#34;clientURLs&#34;:[&#34;http://192.168.3.3:2479&#34;]},{&#34;id&#34;:&#34;6204f98420b429cc&#34;,&#34;name&#34;:&#34;etcd1&#34;,&#34;peerURLs&#34;:[&#34;http://192.168.3.3:2381&#34;],&#34;clientURLs&#34;:[&#34;http://192.168.3.3:2480&#34;]}]}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="某台机器上添加数据其他机器上查看数据得出的结果应该是相同的">某台机器上添加数据，其他机器上查看数据，得出的结果应该是相同的</h2>
+<p>A 服务器中执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# curl -L http://192.168.3.3:2479/v2/keys/message -XPUT -d value=&#34;Hello zhenyuyaodidiao&#34;
+{&#34;action&#34;:&#34;set&#34;,&#34;node&#34;:{&#34;key&#34;:&#34;/message&#34;,&#34;value&#34;:&#34;Hello zhenyuyaodidiao&#34;,&#34;modifiedIndex&#34;:13,&#34;createdIndex&#34;:13},&#34;prevNode&#34;:{&#34;key&#34;:&#34;/message&#34;,&#34;value&#34;:&#34;Hello world1&#34;,&#34;modifiedIndex&#34;:11,&#34;createdIndex&#34;:11}}
+</code></pre></td></tr></table>
+</div>
+</div><p>B 服务上执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]#  curl -L http://192.168.3.3:2480/v2/keys/message
+{&#34;action&#34;:&#34;get&#34;,&#34;node&#34;:{&#34;key&#34;:&#34;/message&#34;,&#34;value&#34;:&#34;Hello zhenyuyaodidiao&#34;,&#34;modifiedIndex&#34;:13,&#34;createdIndex&#34;:13}}
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">yunxi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-11-19
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/etcd/">etcd</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/etcd/enable-https/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">etcd入门系列二：etcd开启https</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/windows/modify-command-title/">
+            <span class="next-text nav-default">Windows修改命令行标题</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: 'etcd-install',
+        title: 'etcd入门系列一：etcd 在 docker 中使用',
+        clientID: '7df62c8e117826bf4f9b',
+        clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+        repo: 'hugo',
+        owner: 'yunxi177',
+        admin: ['yunxi177'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+    <a class="theme-link" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">苏ICP备18046444号-1</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>yunxi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

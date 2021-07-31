@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux Manjaro 安装指南 - 一二三四吾</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="yunxi" /><meta name="description" content="Linux 历史 1994 年 3 月，Linux1.0 版正式发布，Marc Ewing 成立 Red Hat 软件公司，成为最著名的 Linux 经销商之一。早期 Linux 的引导管理程序（boot loader" /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
+
+
+
+<meta name="google-site-verification" content="UA-123407925-1" />
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://www.artacode.com/post/linux/manjaro-install/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux Manjaro 安装指南" />
+<meta property="og:description" content="Linux 历史 1994 年 3 月，Linux1.0 版正式发布，Marc Ewing 成立 Red Hat 软件公司，成为最著名的 Linux 经销商之一。早期 Linux 的引导管理程序（boot loader" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.artacode.com/post/linux/manjaro-install/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-05-05T17:03:42&#43;08:00" />
+<meta property="article:modified_time" content="2020-05-05T17:03:42&#43;08:00" />
+
+<meta itemprop="name" content="Linux Manjaro 安装指南">
+<meta itemprop="description" content="Linux 历史 1994 年 3 月，Linux1.0 版正式发布，Marc Ewing 成立 Red Hat 软件公司，成为最著名的 Linux 经销商之一。早期 Linux 的引导管理程序（boot loader"><meta itemprop="datePublished" content="2020-05-05T17:03:42&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-05T17:03:42&#43;08:00" />
+<meta itemprop="wordCount" content="3441">
+<meta itemprop="keywords" content="linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux Manjaro 安装指南"/>
+<meta name="twitter:description" content="Linux 历史 1994 年 3 月，Linux1.0 版正式发布，Marc Ewing 成立 Red Hat 软件公司，成为最著名的 Linux 经销商之一。早期 Linux 的引导管理程序（boot loader"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">一二三四吾</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">一二三四吾</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux Manjaro 安装指南</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-05 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            </div>
+          <span class="more-meta"> 约 3441 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#linux-历史">Linux 历史</a></li>
+    <li><a href="#什么人适合-linux-系统">什么人适合 linux 系统</a></li>
+    <li><a href="#linux-发行版之-manjaro">Linux 发行版之 Manjaro</a></li>
+    <li><a href="#关于滚动发布">关于滚动发布</a></li>
+    <li><a href="#滚挂">滚挂</a>
+      <ul>
+        <li><a href="#xfce">XFCE</a></li>
+        <li><a href="#kde">KDE</a></li>
+        <li><a href="#gnome">GNOME</a></li>
+      </ul>
+    </li>
+    <li><a href="#manjaro-iso-下载地址">Manjaro ISO 下载地址</a></li>
+    <li><a href="#windows-下-u盘启动工具制作虚拟机安装忽略该章节">WINDOWS 下 U盘启动工具制作（虚拟机安装忽略该章节）</a></li>
+    <li><a href="#启动安装">启动安装</a></li>
+    <li><a href="#选择语言">选择语言</a></li>
+    <li><a href="#选择位置">选择位置</a></li>
+    <li><a href="#选择键盘排布方式">选择键盘排布方式</a></li>
+    <li><a href="#分区">分区</a>
+      <ul>
+        <li><a href="#主分区扩展分区逻辑分区-关系">主分区、扩展分区、逻辑分区 关系</a></li>
+        <li><a href="#分区说明">分区说明</a></li>
+        <li><a href="#新建分区表">新建分区表</a></li>
+        <li><a href="#创建分区">创建分区</a>
+          <ul>
+            <li><a href="#创建-boot-分区">创建 boot 分区</a></li>
+            <li><a href="#创建-swap-交换空间">创建 swap （交换空间）</a></li>
+            <li><a href="#创建根分区">创建根分区</a></li>
+            <li><a href="#创建-home-分区">创建 home 分区</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#设置用户">设置用户</a></li>
+    <li><a href="#选择-office-套件安装">选择 office 套件安装</a></li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#安装后配置">安装后配置</a>
+      <ul>
+        <li><a href="#更换源">更换源</a></li>
+        <li><a href="#安装中文输入法">安装中文输入法</a></li>
+        <li><a href="#安装-中文字体">安装 中文字体</a></li>
+        <li><a href="#安装-wps">安装 wps</a></li>
+        <li><a href="#aur助手以防官方仓库没有想要的软件">AUR助手（以防官方仓库没有想要的软件）</a></li>
+        <li><a href="#安装-chrome-浏览器">安装 chrome 浏览器</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p><img src="http://pic.artacode.com/manjaro.png" alt="manjaro"></p>
+<h1 id="linux-历史">Linux 历史</h1>
+<p>1994 年 3 月，Linux1.0 版正式发布，Marc Ewing 成立 Red Hat 软件公司，成为最著名的 Linux 经销商之一。早期 Linux 的引导管理程序（boot loader）使用 LILO（Linux Loader），早期的 LILO存在着一些难以容忍的缺陷，例如无法识别 1024 柱面以后的硬盘空间，后来的 GRUB（GRand Unified Bootloader）克服这些缺点，具有‘动态搜索内核文件’的功能，可以让用户在引导的时候，自行编辑引导设置系统文件，透过 ext2 或 ext3 文件系统中加载 Linux Kernel（GRUB通过不同的文件系统驱动可以识别几乎所有 Linux 支持的文件系统，因此可以使用很多文件系统来格式化内核文件所在的扇区，并不局限于 ext 文件系统）。</p>
+<p>今天由 Linus Torvalds 带领下，众多开发共同参与开发和维护 Linux 内核。理查德·斯托曼领导的自由软件基金会，继续提供大量支持 Linux 内核的GNU组件。一些个人和企业开发的第三方的非GNU组件也提供对Linux 内核的支持，这些第三方组件包括大量的作品，有内核模块和用户应用程序和库等内容。Linux社区或企业都推出一些重要的 Linux 发行版，包括 Linux 内核、GNU 组件、非 GNU 组件，以及其他形式的软件包管理系统软件。</p>
+<h1 id="什么人适合-linux-系统">什么人适合 linux 系统</h1>
+<ol>
+<li>对 Linux 保持高敏感度的人（运维人员，后端开发&hellip;）</li>
+<li>有 Geek 精神喜欢折腾的人。</li>
+<li>对 Windows 生厌， 想要尝试新系统的人，不差钱可以上 MAC。</li>
+</ol>
+<h1 id="linux-发行版之-manjaro">Linux 发行版之 Manjaro</h1>
+<p>Manjaro Linux 基于 Arch Linux，但拥有自己独立的软件仓库。Manjaro 的目标是让强大的 Arch 更方便用户使用，Manjaro 使用著名的 Pacman 且可以直接利用 AUR 上的資源。Manjaro 本身使用三个软件仓库：不稳定库，即含有那些不成熟的 Arch 包，这些包与 Arch 源有 1-2 天 的延后；测试库，每周同步一次，包含那些 Arch 不稳定源的包；以及稳定库，包含那些由开发团队确认稳定的软件。<br>
+Manjaro Linux 拥有开箱即用的多媒体支持、成熟的硬件识别软件，并支持多核 CPU。Manjaro 拥有命令行安装器和图形安装器。同时滚动更新也意味着用户无需通过重装系统或系统更新来更新自己的操作系统。软件包管理由 Pacman 处理，未来也计划提供一个 GUI 版本。Manjaro 有 32 位 和 64 位 的版本，且都与 Arch 兼容。可对其进行配置，选择是与使用稳定库的 Arch 同步（默认），或者是与不稳定的Arch 库同步。</p>
+<p>Manjaro 软件库由自带的 BoxIt 工具管理，BoxIt 类似git
+Manjaro 对显卡驱动的兼容性高，可自主选择安装开源驱动或者闭源驱动。</p>
+<h1 id="关于滚动发布">关于滚动发布</h1>
+<p>Manjaro 采用滚动发布的方式发布版本更新，相对于传统的固定版本发布，使用 manjaro 可以保证系统一直处于最新的状态，而<strong>不需要像固定版本发布一样需要等待一个版本发布周期才能用上最新的系统</strong>。<br>
+由上面的描述我们不难发现，滚动发布具有如下优势:</p>
+<ol>
+<li>无需进行系统升级，只需要日常的更新，就可以保证系统一直处在最新状态</li>
+<li>所有的软件包都是最新的，无需借助 snaps 和 flatpaks 运行当前软件</li>
+</ol>
+<p>当然滚动发布也存在自身的劣势，主要劣势如下：</p>
+<ol>
+<li>d滚动升级是以系统为单位的，因此很难将某个特定软件保持在旧版本。</li>
+<li>由于是更新整个系统因而在带宽比较小的情况下更新是一个比较有挑战的事情。</li>
+<li>在安装软件前必须更新你的系统，否则会存在系统不一致，存在部分升级的情况</li>
+</ol>
+<h1 id="滚挂">滚挂</h1>
+<p>滚挂就是在滚动更新的过程中出错，导致系统崩溃的一种现象。 manjaro 是基于 arch 的发行版其系统更新是慢于 arch，也正是因为这样 arch 会更早的暴露滚挂的问题，及时的对滚挂的问题进行修复或更新说明。manjaro 站在了 arch 的肩膀上，本身滚挂的情况会更少于 arch，但是在使用的过程中，还是需要对此问题进行注意。<br>
+避免滚挂有如下几种方式：</p>
+<ol>
+<li>不要开启 test 库</li>
+<li>一般大的更新官网会给出更新指南，因此多关注官网能够避免更新系统出现的一些问题。</li>
+<li>经常更新系统，保证系统在一个最新的状态。</li>
+<li>备份你的系统，如果一旦出现滚挂，这将是一颗让你系统起死回生的灵丹妙药。</li>
+</ol>
+<h2 id="xfce">XFCE</h2>
+<p>XFCE 是一个轻量级的桌面环境,，它被广泛的运用于各种 UNIX 中，它非常的小巧，运行程序很快，节省系统资源。XFCE 融合了 UNIX 哲学中的“模块化”和“可重用性”这两个极为重要的思想。它包含了很多的组件，而正是这些组件构成了整个 XFCE 的强大。它轻量及的特点，也是拯救家中旧电脑的必备神器。</p>
+<h2 id="kde">KDE</h2>
+<p>由德国人创立而开发的桌面，据说还受到德国政府的资助。KDE 桌 面默认的主题与布局接近于 Windows Vista，因此 Windows 用户很容易熟悉这个桌面。不过，KDE 桌面具有强大的自定义功能，可以根据自己需要来折腾自己的桌面。</p>
+<h2 id="gnome">GNOME</h2>
+<p>由 GUN 软件计划组织创立而开发的桌面，有自己的一套完整的风格，支持扩展插件与主题更换，同时也为越来越多的触摸设备做出优化。高颜值的 UI 设计，也在这个颜值即正义的时代，迎来了越来越多人的青睐。</p>
+<h1 id="manjaro-iso-下载地址">Manjaro ISO 下载地址</h1>
+<p><a href="https://manjaro.org/download/">Manjaro 下载地址</a></p>
+<h1 id="windows-下-u盘启动工具制作虚拟机安装忽略该章节">WINDOWS 下 U盘启动工具制作（虚拟机安装忽略该章节）</h1>
+<p><a href="https://rufus.ie/">U盘安装Linux必备软件 Rufus 下载</a>
+打开下载好的 refus 软件，相关设置如下，注意点了开始之后，选择DD模式写入，ISO 模式写入的启动不了。
+<img src="http://pic.artacode.com/rufus.png" alt="Rufus"></p>
+<p><img src="http://pic.artacode.com/refus-write.png" alt="Rufus-check"></p>
+<h1 id="启动安装">启动安装</h1>
+<p>将制作好的 U盘，插入需要安装系统电脑，进入 BIOS 关闭安全启动，保存，重启，按F9，进入启动选项，选择 uefi usb3.0 的启动项</p>
+<p><img src="http://pic.artacode.com/install-1.png" alt="">
+关于 driver 选项有连个 free 和 nonfree, free 为社区提供的开源版， nonfree 为 AMD 或 Nvidia 厂商提供的驱动版本，也意味这有更好的性能和更少的 bug,因而建议选择 nofree 选项。<br>
+在所有选项配置完毕后，选择 <code>Boot: Manjaro x86_64 gnome</code> 进入安装界面</p>
+<p><img src="http://pic.artacode.com/manjaro-launch-install.png" alt="launch-install"></p>
+<p>点击 <code>Launch install</code> 启动安装程序</p>
+<h1 id="选择语言">选择语言</h1>
+<p><img src="http://pic.artacode.com/manaro-step1.png" alt="选择安装语言"></p>
+<h1 id="选择位置">选择位置</h1>
+<p><img src="http://pic.artacode.com/manjaro-install-step2.png" alt="选择未知"></p>
+<h1 id="选择键盘排布方式">选择键盘排布方式</h1>
+<p><img src="http://pic.artacode.com/manjaro-install-step3.png" alt="选择键盘排布方式"></p>
+<h1 id="分区">分区</h1>
+<h2 id="主分区扩展分区逻辑分区-关系">主分区、扩展分区、逻辑分区 关系</h2>
+<p>磁盘分区有三种： 主分区，扩展分区，逻辑分区。<br>
+通常情况下，一个硬盘中最多能够分割四个主分区。因为硬盘中分区表的大小只有64Bytes，而分割一个分区就需要利用16Bytes空间来存储这个分区的相关信息。由于这个分区表大小的限制，硬盘之能够分给为四个主分区。如果此时一块硬盘有120个G，而管理员划分了4个主分区，每个主分区的空间为20个G。那么总共才用去了80G的空间。这块硬盘剩余的40G空间就将无法使用。这显然浪费了硬盘的空间。<br>
+为了突破这最多四个主分区的限制，Linux系统引入了扩展分区的概念。即管理员可以把其中一个主分区设置为扩展分区(注意只能够使用一个扩展分区)来进行扩充。而在扩充分区下，又可以建立多个逻辑分区。也就是说，扩展分区是无法直接使用的，必须在细分成逻辑分区才可以用来存储数据。通常情况下，逻辑分区的起始位置及结束位置记录在每个逻辑分区的第一个扇区，这也叫做扩展分区表。在扩展分区下，系统管理员可以根据实际情况建立多个逻辑分区，将一个扩展分区划割成多个区域来使用。</p>
+<h2 id="分区说明">分区说明</h2>
+<ul>
+<li>/boot 存放系统启动文件 800M-2G(ext4 文件系统)</li>
+<li>swap 交换空间，交换空间大小与计算机内存内存存在关联。内存在8 G 以下设置  内存容量 * 2，8 G 以上设置和内存同等大小即可。
+<ul>
+<li>当内存不够用时，系统会将长时间没有运行的程序的缓存从内存中写入 swap 分区中，并释放该程序所占用的内存给其他程序使用</li>
+<li>Linux 电源管理有休眠模式，系统会将内存中程序运行状态存储在 swap 中然后设备进入完全断电状态，当下次启动计算机时系统会从 swap 恢复休眠前的计算机运行状态。</li>
+</ul>
+</li>
+<li>/ 根目录， 25G 左右 （etx4 文件系统）</li>
+<li>/home （etx4 文件系统） Linux 系统中用户的家文件，此目录空间越大越好。</li>
+</ul>
+<h2 id="新建分区表">新建分区表</h2>
+<p><img src="http://pic.artacode.com/manjaro-step4-1-new.png" alt="新建分区表"></p>
+<p>点击新建分区表，选择主引导记录，点击 OK 完成分区表创建。</p>
+<h2 id="创建分区">创建分区</h2>
+<p><img src="http://pic.artacode.com/manjaro-install-step4-0-new.png" alt=""></p>
+<ol>
+<li>选择空闲空间</li>
+<li>点击创建进行分区创建</li>
+</ol>
+<h3 id="创建-boot-分区">创建 boot 分区</h3>
+<p><img src="http://pic.artacode.com/manjaro-install-step4-boot.png" alt=""></p>
+<h3 id="创建-swap-交换空间">创建 swap （交换空间）</h3>
+<p><img src="http://pic.artacode.com/manjaro-step4-2.png" alt=""></p>
+<h3 id="创建根分区">创建根分区</h3>
+<p><img src="http://pic.artacode.com/manjaro-step4-3.png" alt=""></p>
+<h3 id="创建-home-分区">创建 home 分区</h3>
+<p><img src="http://pic.artacode.com/manjaro-step4-4.png" alt=""></p>
+<h1 id="设置用户">设置用户</h1>
+<p><img src="http://pic.artacode.com/manjaro-step5.png" alt=""></p>
+<h1 id="选择-office-套件安装">选择 office 套件安装</h1>
+<p>建议不安装，安装完系统后可以用 wps for linux 替代
+<img src="http://pic.artacode.com/manjaro-step6.png" alt=""></p>
+<h1 id="安装">安装</h1>
+<p>摘要部分安装前确认步骤，如果没有需要调整的配置项，点击安装进入系统安装过程，安装完成后重启拔掉 U盘，进入系统就可以了。
+<img src="http://pic.artacode.com/manjaro-step7.png" alt="">
+安装进度在 95% 左右，有时会出现卡住的情况，是因为国内连接外国网络速度过慢导致的，可以断开网络跳过。</p>
+<h1 id="安装后配置">安装后配置</h1>
+<h2 id="更换源">更换源</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ sudo pacman -Syy
+$ sudo pacman-mirrors -i -c China -m rank
+$ sudo pacman -Syyu
+</code></pre></td></tr></table>
+</div>
+</div><p>使用root权限编辑/etc/pacman.conf增加以下内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[archlinuxcn]
+SigLevel = Optional TrustedOnly
+Server =https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+</code></pre></td></tr></table>
+</div>
+</div><p>然后执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ sudo pacman -Syy &amp;&amp; sudo pacman -S archlinuxcn-keyring
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="安装中文输入法">安装中文输入法</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo pacman -S fcitx-lilydjwg-git
+sudo pacman -S fcitx-sogoupinyin
+sudo pacman -S fcitx-im         # 全部安装
+</code></pre></td></tr></table>
+</div>
+</div><p>编辑~/.xprofile文件，在文件末尾增加以下内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=&#34;@im=fcitx&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="安装-中文字体">安装 中文字体</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo pacman -S ttf-roboto noto-fonts ttf-dejavu
+# 文泉驿
+sudo pacman -S wqy-bitmapfont wqy-microhei wqy-microhei-lite wqy-zenhei
+# 思源字体
+sudo pacman -S noto-fonts-cjk adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="安装-wps">安装 wps</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo pacman -S wps-office
+sudo pacman -S ttf-wps-fonts
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="aur助手以防官方仓库没有想要的软件">AUR助手（以防官方仓库没有想要的软件）</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo pacman -S yay
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="安装-chrome-浏览器">安装 chrome 浏览器</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo pacman -S google-chrome
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="总结">总结</h1>
+<p>关于 manjaro 安装已经告一段落，参考上述操作，已经搭建出一个可用的 Linux 系统。值得注意的是，Linux 系统与 Windows 系统不同，在 Linux 中，你可以拥有很高的权限，即便是系统核心文件也是可以进行操作的，因此如果你是刚刚接触 Linux 的用户，养成及时备份的习惯是非常明智的选择。最后， 欢迎入坑，我相信在以后 Linux 使用中你一定是痛并快乐着的，坚持下来，时间会给正确的选择以回报。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">yunxi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-05-05
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/php/csv-parse-error/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">CSV 中文解析异常</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/linux/snap-slow/">
+            <span class="next-text nav-default">snapcraft 下载软件慢，解决办法</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: 'linux-manjaro-install',
+        title: 'Linux Manjaro 安装指南',
+        clientID: '7df62c8e117826bf4f9b',
+        clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+        repo: 'hugo',
+        owner: 'yunxi177',
+        admin: ['yunxi177'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+    <a class="theme-link" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">苏ICP备18046444号-1</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>yunxi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

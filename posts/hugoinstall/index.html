@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="hugo安装及部署"/>
+  <meta name="twitter:description" content="前言
+
+Hugo是一个用Go编写的快速而现代的静态站点生成器，旨在使网站创建再次变得有趣。
+Hugo的优势就在于其生成的站点是静态的，因此网站的访问速度是非常快的，其次使用Hugo，可以让你专注于写文章，至于主题和seo Hugo已经很好的解决了这些问题。下面就来讲一下如何用Hugo生成一个站点并用github page部署"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>hugo安装及部署 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        hugo安装及部署
+                    </h1>
+                    <h2 class="headline">
+                    Aug 6, 2018 19:27
+                    · 1328 words
+                    · 3 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/golang">golang</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#安装hugo">安装Hugo</a></li>
+<li><a href="#生成站点">生成站点</a></li>
+<li><a href="#创建文章">创建文章</a></li>
+<li><a href="#安装皮肤">安装皮肤</a></li>
+<li><a href="#运行hugo">运行Hugo</a></li>
+<li><a href="#部署">部署</a></li>
+<li><a href="#绑定域名">绑定域名</a>
+<ul>
+<li><a href="#解析域名">解析域名</a>
+<ul>
+<li><a href="#解析www">解析www</a></li>
+<li><a href="#解析顶级域名">解析顶级域名</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#配置github-pages的custom-domain">配置github pages的custom domain</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <h1 id="前言">前言</h1>
+
+<p>Hugo是一个用Go编写的快速而现代的静态站点生成器，旨在使网站创建再次变得有趣。<br />
+Hugo的优势就在于其生成的站点是静态的，因此网站的访问速度是非常快的，其次使用Hugo，可以让你专注于写文章，至于主题和seo Hugo已经很好的解决了这些问题。下面就来讲一下如何用Hugo生成一个站点并用github page部署</p>
+
+<h1 id="安装hugo">安装Hugo</h1>
+
+<p>Hugo的安装方式<br />
+- <a href="https://gohugo.io/getting-started/installing/#source" title="Hugo下载地址">源码安装</a>
+- <a href="https://github.com/gohugoio/hugo/releases" title="Hugo下载地址">二进制安装</a></p>
+
+<p>本篇文章旨在让小白也能用Hugo搭建出来一个站点，所以选择最简单的方式（二进制）安装，下载地址：
+<a href="https://github.com/gohugoio/hugo/releases" title="Hugo下载地址">Hugo 二进制下载</a>
+选择你对应系统的文件下载即可。<br />
+将下载文件放在系统的PATH目录中，这样你可以在系统的任意位置实用Hugo命令。</p>
+
+<p><code>在 OS X，如果你有 Homebrew ，安装过程就更简单了：只需要运行 brew install hugo 。</code></p>
+
+<p>如果没有问题的话在命令行输入<code>hugo version</code>就可以显示出hugo的版本信息。</p>
+
+<h1 id="生成站点">生成站点</h1>
+
+<p>使用Hugo快速生成站点，比如希望生成到 /path/to/site 路径：
+<code>hugo new site /path/to/site</code>
+这样就在 /path/to/site 目录里生成了初始站点，进去目录：<code>cd /path/to/site</code></p>
+
+<pre><code>  ▸ archetypes/
+  ▸ content/ 
+  ▸ layouts/
+  ▸ resources/
+  ▸ static/
+  ▸ themes/
+    config.toml
+</code></pre>
+
+<h1 id="创建文章">创建文章</h1>
+
+<p>创建一个 about 页面：<code>$ hugo new about.md</code>
+about.md 自动生成到了 content/about.md ，打开 about.md 看下：</p>
+
+<pre><code>+++
+date = &quot;2015-10-25T08:36:54-07:00&quot;
+draft = true
+title = &quot;about&quot;
+
++++
+
+正文内容
+</code></pre>
+
+<p>内容是 Markdown 格式的，+++ 之间的内容是 TOML 格式的，根据你的喜好，你可以换成 YAML 格式（使用 &mdash; 标记）或者 JSON 格式。<br />
+创建第一篇文章，放到 post 目录，方便之后生成聚合页面。
+<code>$ hugo new post/first.md</code>
+打开编辑 post/first.md ：</p>
+
+<pre><code>---
+date: &quot;2015-10-25T08:36:54-07:00&quot;
+title: &quot;first&quot;
+ 
+---
+
+### Hello Hugo
+
+ 1. aaa
+ 1. bbb
+ 1. ccc
+</code></pre>
+
+<h1 id="安装皮肤">安装皮肤</h1>
+
+<p>到 <a href="https://themes.gohugo.io/" title="皮肤列表">皮肤列表</a>   挑选一个心仪的皮肤，比如你觉得 Hyde 皮肤不错，找到相关的 GitHub 地址，进入themesmulu，在 themes 目录里把皮肤 git clone 下来：</p>
+
+<pre><code># 进入 themes 目录
+$ cd themes
+$ git clone https://github.com/spf13/hyde.git
+</code></pre>
+
+<h1 id="运行hugo">运行Hugo</h1>
+
+<p>在你的站点根目录执行 Hugo 命令进行调试：</p>
+
+<pre><code>$ hugo server --theme=hyde --buildDrafts、
+</code></pre>
+
+<p>（注明：v0.15 版本之后，不再需要使用 &ndash;watch 参数了）</p>
+
+<p>浏览器里打开： <a href="http://localhost:1313">http://localhost:1313</a></p>
+
+<h1 id="部署">部署</h1>
+
+<p>假设你需要部署在 GitHub Pages 上，首先在GitHub上创建一个Repository，命名为：login_name.github.io （login_name替换为你的github登录用户名）。</p>
+
+<p>在站点根目录执行 Hugo 命令生成最终页面：</p>
+
+<pre><code>$ hugo --theme=hyde --baseUrl=&quot;http://login_name.github.io/&quot;
+</code></pre>
+
+<p>（注意，以上命令并不会生成草稿页面，如果未生成任何文章，请去掉文章头部的 draft=true 再重新生成。）</p>
+
+<p>如果一切顺利，所有静态页面都会生成到 public 目录，将pubilc目录里所有文件 push 到刚创建的Repository的 master 分支。</p>
+
+<pre><code>$ cd public
+$ git init
+$ git remote add origin https://github.com/coderzh/login_name.github.io.git
+$ git add -A
+$ git commit -m &quot;first commit&quot;
+$ git push -u origin master
+</code></pre>
+
+<p>浏览器里访问：<code>http://login_name.github.io/</code></p>
+
+<h1 id="绑定域名">绑定域名</h1>
+
+<h2 id="解析域名">解析域名</h2>
+
+<h3 id="解析www">解析www</h3>
+
+<p>在域名服务商后台添加一条CNAME的解析记录：</p>
+
+<pre><code>记录类型：CNAME
+主机记录：www
+记录值：login_name.github.io
+</code></pre>
+
+<h3 id="解析顶级域名">解析顶级域名</h3>
+
+<p>使用DNS提供程序配置记录</p>
+
+<pre><code>185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+</code></pre>
+
+<p>可以手动ping上面地址，找一个延迟最低的配置域名解析</p>
+
+<pre><code>记录类型：A
+主机记录：@
+记录值：185.199.109.153
+</code></pre>
+
+<p><code>警告：除非您的DNS提供商支持展CNAME平，否则请勿CNAME为自定义顶点域创建记录。这样做可能会导致该域上的其他服务（例如电子邮件）出现问题。</code></p>
+
+<h1 id="配置github-pages的custom-domain">配置github pages的custom domain</h1>
+
+<p>进入你的github pages的仓库，然后在设置里面将的你的域名的地址，添加到custom domain中，然后保存即可。如下图所示：
+<img src="http://o8ei86anm.bkt.clouddn.com/github.jpg" alt="设置custom domain" title="设置custom domain" /></p>
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fhugoinstall%2f - hugo%e5%ae%89%e8%a3%85%e5%8f%8a%e9%83%a8%e7%bd%b2 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'hugo-install',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

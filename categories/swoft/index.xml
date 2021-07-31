@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>swoft on 一二三四吾</title>
+    <link>https://www.artacode.com/categories/swoft/</link>
+    <description>Recent content in swoft on 一二三四吾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 15 Nov 2018 10:47:05 +0800</lastBuildDate><atom:link href="https://www.artacode.com/categories/swoft/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>swoft openWhere使用指南</title>
+      <link>https://www.artacode.com/post/swoft/where/</link>
+      <pubDate>Thu, 15 Nov 2018 10:47:05 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/swoft/where/</guid>
+      <description>open/close where 理解 openWhere 为where条件的左边括号即( closeWhere 为where条件的右边括号即) 实例 1 2 3 4 5 6 7 8 9 //默认连接符为AND Query::table(&amp;#34;order&amp;#34;)-&amp;gt;openWhere()-&amp;gt;where(&amp;#39;id&amp;#39;,&amp;#39;1&amp;#39;)-&amp;gt;where(&amp;#39;state&amp;#39;, 3)-&amp;gt;closeWhere()-&amp;gt;openWhere()-&amp;gt;where(&amp;#39;id&amp;#39;, 3)-&amp;gt;where(&amp;#39;state&amp;#39;, 2)-&amp;gt;closeWhere()-&amp;gt;one()-&amp;gt;getResult(); //执行结果为:</description>
+    </item>
+    
+    <item>
+      <title>swoft单元测试</title>
+      <link>https://www.artacode.com/post/swoftunit/</link>
+      <pubDate>Sun, 05 Aug 2018 11:08:39 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/swoftunit/</guid>
+      <description>&lt;h2 id=&#34;11-为什么要使用单元测试&#34;&gt;1.1 为什么要使用单元测试&lt;/h2&gt;
+&lt;p&gt;在编写代码的过程中，一定会反复调试保证它能够编译通过。但代码通过编译，只是说明了它的语法正确。无法保证它的语义也一定正确，没有任何人可以轻易承诺这段代码的行为一定是正确的。幸运的是，单元测试会为我们的承诺做保证。编写单元测试就是用来验证这段代码的行为是否与我们期望的一致。有了单元测试，我们可以自信地交付自己的代码，减少后顾之忧。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

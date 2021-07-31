@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="electron 改变窗体大小"/>
+  <meta name="twitter:description" content="相关链接: electron-vue 集成 element-ui 在开发 electron 的时候遇到了需要在 render 中修改 BrowserWindow 窗口大小的方式，经过一番尝试，有两种方法实现: 1. 通过 ipcRenderer 与 ipcMain 的通讯来实现 2. 通过 render 的 remote 模块"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>electron 改变窗体大小 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        electron 改变窗体大小
+                    </h1>
+                    <h2 class="headline">
+                    Apr 13, 2019 07:28
+                    · 359 words
+                    · 1 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/electron">electron</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#ipcrenderer-和-ipcmain-实现">ipcRenderer 和 ipcMain 实现</a></li>
+<li><a href="#remote-方式是实现">remote 方式是实现</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>相关链接:<br />
+<a href="http://www.artacode.com/posts/electron/install/">electron-vue 集成 element-ui</a><br />
+在开发 <code>electron</code> 的时候遇到了需要在 <code>render</code> 中修改 <code>BrowserWindow</code> 窗口大小的方式，经过一番尝试，有两种方法实现:<br />
+1. 通过 <code>ipcRenderer</code> 与 <code>ipcMain</code> 的通讯来实现
+2. 通过 <code>render</code> 的 <code>remote</code> 模块来实现</p>
+
+<h1 id="ipcrenderer-和-ipcmain-实现">ipcRenderer 和 ipcMain 实现</h1>
+
+<p>实现原理是 <code>render</code> 进程通过 <code>ipcRenderer</code>  与 <code>ipcMain</code>  进行通讯以通知 <code>main</code> 进程操作窗体操作。</p>
+
+<p>在 <code>render</code> 引入 <code>ipcRenderer</code></p>
+
+<pre><code>let {ipcRenderer} = require('electron')
+</code></pre>
+
+<p>发送同步消息给 <code>main</code> 进程</p>
+
+<pre><code>ipcRenderer.sendSync('synchronous-message','logined')
+</code></pre>
+
+<p>在 <code>main</code> 中监听同步消息，并处理 <code>logined</code> 消息操作</p>
+
+<pre><code>ipcMain.on('synchronous-message', (event, arg) =&gt; {
+  if (arg === 'logined') {
+    mainWindow.resize(1000, 1000)
+  }
+})
+</code></pre>
+
+<h1 id="remote-方式是实现">remote 方式是实现</h1>
+
+<p>引入 <code>remote</code> 模块</p>
+
+<pre><code>const { remote } = require('electron')
+</code></pre>
+
+<p>调用 <code>remote</code> 方法中的 <code>getCurrentWindow</code> 获取当前窗体对象，然后进行修改窗体属性</p>
+
+<pre><code class="language-js">remote.getCurrentWindow().setSize(1000, 1000)
+</code></pre>
+
+<h1 id="总结">总结</h1>
+
+<p>上面实现方式可以看出 <code>remote</code> 方式其实是比较简单和方便的，我个人更倾向于用第二种方式实现此功能。其实在 <code>remote</code> 模块的底层实现也是通过发布同步消息的方式来实现与 <code>main</code> 进程通讯的，本质上和我们实现的方式一是一样的，既然 <code>eletron</code> 已经做了一个很好的封装，完全也没有必要舍近求远 直接用 <code>remote</code> 方式实现是一个比较优雅的方式。</p>
+
+<h1 id="参考链接">参考链接</h1>
+
+<p><a href="https://electronjs.org/docs/api/remote">electron remote</a><br />
+<a href="https://electronjs.org/docs/api/ipc-main">electron ipcMain</a><br />
+<a href="https://electronjs.org/docs/api/ipc-renderer">electron ipcRenderer</a></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2felectron%2fchange-window-from-render%2f - electron%20%e6%94%b9%e5%8f%98%e7%aa%97%e4%bd%93%e5%a4%a7%e5%b0%8f by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'electron-change-window-from-render',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

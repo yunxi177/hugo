@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="nodejs常见问题"/>
+  <meta name="twitter:description" content="错误1 npm ERR! Linux 4.15.0-34-generic npm ERR! argv &quot;/usr/bin/node&quot; &quot;/usr/bin/npm&quot; &quot;install&quot; &quot;--no-bin-links&quot; npm ERR! node v8.10.0 npm ERR! npm v3.5.2 npm ERR! code EMISSINGARG npm ERR! typeerror Error: Missing required argument #1 npm ERR! typeerror at andLogAndFinish (/usr/share/npm/lib/fetch-package-metadata.js:31:3) npm ERR! typeerror at fetchPackageMetadata (/usr/share/npm/lib/fetch-package-metadata.js:51:22) npm ERR! typeerror at resolveWithNewModule (/usr/share/npm/lib/install/deps.js:456:12) npm ERR! typeerror at /usr/share/npm/lib/install/deps.js:457:7 npm ERR! typeerror at /usr/share/npm/node_modules/iferr/index.js:13:50 npm ERR! typeerror at /usr/share/npm/lib/fetch-package-metadata.js:37:12 npm ERR! typeerror"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>nodejs常见问题 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        nodejs常见问题
+                    </h1>
+                    <h2 class="headline">
+                    Sep 15, 2018 12:44
+                    · 245 words
+                    · 1 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/nodjs">nodjs</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#错误1">错误1</a>
+<ul>
+<li><a href="#解决方法">解决方法</a></li>
+</ul></li>
+<li><a href="#npm-err-cb-never-called">npm ERR! cb() never called</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h1 id="错误1">错误1</h1>
+
+<pre><code>npm ERR! Linux 4.15.0-34-generic
+npm ERR! argv &quot;/usr/bin/node&quot; &quot;/usr/bin/npm&quot; &quot;install&quot; &quot;--no-bin-links&quot;
+npm ERR! node v8.10.0
+npm ERR! npm  v3.5.2
+npm ERR! code EMISSINGARG
+
+npm ERR! typeerror Error: Missing required argument #1
+npm ERR! typeerror     at andLogAndFinish (/usr/share/npm/lib/fetch-package-metadata.js:31:3)
+npm ERR! typeerror     at fetchPackageMetadata (/usr/share/npm/lib/fetch-package-metadata.js:51:22)
+npm ERR! typeerror     at resolveWithNewModule (/usr/share/npm/lib/install/deps.js:456:12)
+npm ERR! typeerror     at /usr/share/npm/lib/install/deps.js:457:7
+npm ERR! typeerror     at /usr/share/npm/node_modules/iferr/index.js:13:50
+npm ERR! typeerror     at /usr/share/npm/lib/fetch-package-metadata.js:37:12
+npm ERR! typeerror     at addRequestedAndFinish (/usr/share/npm/lib/fetch-package-metadata.js:82:5)
+npm ERR! typeerror     at returnAndAddMetadata (/usr/share/npm/lib/fetch-package-metadata.js:117:7)
+npm ERR! typeerror     at pickVersionFromRegistryDocument (/usr/share/npm/lib/fetch-package-metadata.js:134:20)
+npm ERR! typeerror     at /usr/share/npm/node_modules/iferr/index.js:13:50
+npm ERR! typeerror This is an error with npm itself. Please report this error at:
+npm ERR! typeerror     &lt;http://github.com/npm/npm/issues&gt;
+npm ERR! Linux 4.15.0-34-generic
+npm ERR! argv &quot;/usr/bin/node&quot; &quot;/usr/bin/npm&quot; &quot;install&quot; &quot;--no-bin-links&quot;
+npm ERR! node v8.10.0
+npm ERR! npm  v3.5.2
+npm ERR! code EMISSINGARG
+
+
+</code></pre>
+
+<h2 id="解决方法">解决方法</h2>
+
+<p><code>npm install -g npm@latest</code>
+参考链接：<a href="https://github.com/npm/npm/issues/7308">https://github.com/npm/npm/issues/7308</a></p>
+
+<h1 id="npm-err-cb-never-called">npm ERR! cb() never called</h1>
+
+<pre><code>npm ERR! cb() never called!
+
+npm ERR! This is an error with npm itself. Please report this error at:
+npm ERR! https://github.com/npm/npm/issues 38
+
+npm ERR! A complete log of this run can be found in
+npm ERR! C:\Users\komkumar\AppData\Roaming\npm-cache_logs\2018-07-10T06_39_
+39_241Z-debug.log
+Package install failed, see above.
+</code></pre>
+
+<p>解决方法：<br />
+升级 npm <code>$ npm install -g npm</code></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fnodejs%2ffaq%2f - nodejs%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'nodejs-faq',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1 - 一二三四吾</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="yunxi" /><meta name="description" content="使用 gorm 插入数据时爆出 Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1 的错误信息，搜索之后发现原来是因为 msyql5.7 及以上不允许时间戳字段插入 ‘0000-00-00’ 数据，修复" /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
+
+
+
+<meta name="google-site-verification" content="UA-123407925-1" />
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://www.artacode.com/post/sql/gorm-err/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1" />
+<meta property="og:description" content="使用 gorm 插入数据时爆出 Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1 的错误信息，搜索之后发现原来是因为 msyql5.7 及以上不允许时间戳字段插入 ‘0000-00-00’ 数据，修复" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.artacode.com/post/sql/gorm-err/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-12-22T08:48:49&#43;08:00" />
+<meta property="article:modified_time" content="2018-12-22T08:48:49&#43;08:00" />
+
+<meta itemprop="name" content="Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1">
+<meta itemprop="description" content="使用 gorm 插入数据时爆出 Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1 的错误信息，搜索之后发现原来是因为 msyql5.7 及以上不允许时间戳字段插入 ‘0000-00-00’ 数据，修复"><meta itemprop="datePublished" content="2018-12-22T08:48:49&#43;08:00" />
+<meta itemprop="dateModified" content="2018-12-22T08:48:49&#43;08:00" />
+<meta itemprop="wordCount" content="902">
+<meta itemprop="keywords" content="mysql,gorm," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1"/>
+<meta name="twitter:description" content="使用 gorm 插入数据时爆出 Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1 的错误信息，搜索之后发现原来是因为 msyql5.7 及以上不允许时间戳字段插入 ‘0000-00-00’ 数据，修复"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">一二三四吾</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">一二三四吾</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-12-22 </span>
+        <div class="post-category">
+            <a href="/categories/mysql/"> mysql </a>
+            <a href="/categories/gorm/"> gorm </a>
+            </div>
+          <span class="more-meta"> 约 902 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#方式一-sql-配置">方式一 sql 配置</a></li>
+    <li><a href="#方式二-配置文件配置">方式二 配置文件配置</a></li>
+    <li><a href="#sql_model-参数详解">sql_model 参数详解</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>使用 gorm 插入数据时爆出 <code>Error 1292: Incorrect datetime value: '0000-00-00' for column 'created_at' at row 1</code>  的错误信息，搜索之后发现原来是因为 msyql5.7 及以上不允许时间戳字段插入 ‘0000-00-00’ 数据，修复方法也比较简单，去掉sql_model 中的 <code>NO_ZERO_DATE</code> 配置即可</p>
+<h1 id="方式一-sql-配置">方式一 sql 配置</h1>
+<p>使用 <code>select @@GLOBAL.sql_mode;</code> 查出原有的配置信息，将配置信息去除 <code>NO_ZERO_DATE</code> 并复制</p>
+<p>使用 <code>SET GLOBAL sql_mode = '去除 NO_ZERO_DATE 后的剩余配置项'</code></p>
+<p>经过以上步骤就可以完成设置了。</p>
+<h1 id="方式二-配置文件配置">方式二 配置文件配置</h1>
+<p>打开 mysql 配置文件：
+$ sodo vim /etc/my.cnf
+在 [mysqld] 配置项下插入 sql_mode 配置
+<code>sql_mode=ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION</code>
+重启 mysql 完成配置</p>
+<h1 id="sql_model-参数详解">sql_model 参数详解</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ONLY_FULL_GROUP_BY：
+对于GROUP BY聚合操作，如果在SELECT中的列，没有在GROUP BY中出现，那么这个SQL是不合法的，因为列不在GROUP BY从句中
+
+NO_AUTO_VALUE_ON_ZERO：
+该值影响自增长列的插入。默认设置下，插入0或NULL代表生成下一个自增长值。如果用户 希望插入的值为0，而该列又是自增长的，那么这个选项就有用了。
+
+STRICT_TRANS_TABLES：
+在该模式下，如果一个值不能插入到一个事务表中，则中断当前的操作，对非事务表不做限制
+
+NO_ZERO_IN_DATE：
+在严格模式下，不允许日期和月份为零
+
+NO_ZERO_DATE：
+设置该值，mysql数据库不允许插入零日期，插入零日期会抛出错误而不是警告。
+
+ERROR_FOR_DIVISION_BY_ZERO：
+在INSERT或UPDATE过程中，如果数据被零除，则产生错误而非警告。如 果未给出该模式，那么数据被零除时MySQL返回NULL
+
+NO_AUTO_CREATE_USER：
+禁止GRANT创建密码为空的用户
+
+NO_ENGINE_SUBSTITUTION：
+如果需要的存储引擎被禁用或未编译，那么抛出错误。不设置此值时，用默认的存储引擎替代，并抛出一个异常
+
+PIPES_AS_CONCAT：
+将&#34;||&#34;视为字符串的连接操作符而非或运算符，这和Oracle数据库是一样的，也和字符串的拼接函数Concat相类似
+ANSI_QUOTES：
+启用ANSI_QUOTES后，不能用双引号来引用字符串，因为它被解释为识别符
+
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="参考链接">参考链接</h1>
+<p><a href="https://github.com/jinzhu/gorm/issues/595">Error 1292 on update a row</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">yunxi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-12-22
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/mysql/">mysql</a>
+          <a href="/tags/gorm/">gorm</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/gorm/faq/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">gorm常见问题</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/linux/centos-service/">
+            <span class="next-text nav-default">Centos 服务配置详解</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: 'sql-mysql-sql_mode',
+        title: 'Error 1292: Incorrect datetime value: \u00270000-00-00\u0027 for column \u0027created_at\u0027 at row 1',
+        clientID: '7df62c8e117826bf4f9b',
+        clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+        repo: 'hugo',
+        owner: 'yunxi177',
+        admin: ['yunxi177'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+    <a class="theme-link" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">苏ICP备18046444号-1</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>yunxi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

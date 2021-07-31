@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>golang on 一二三四吾</title>
+    <link>https://www.artacode.com/categories/golang/</link>
+    <description>Recent content in golang on 一二三四吾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 19 Jun 2021 17:35:46 +0800</lastBuildDate><atom:link href="https://www.artacode.com/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang设计模式之单例模式</title>
+      <link>https://www.artacode.com/post/golang/design-pattern/singletion/</link>
+      <pubDate>Sat, 19 Jun 2021 17:35:46 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/golang/design-pattern/singletion/</guid>
+      <description>日常开发中经常会遇到单例模式的使用场景，单例模式可以保证我们初始化出来的结构体只有一个，在一些请求上下文，mysql 连接池..场景经常有着不</description>
+    </item>
+    
+    <item>
+      <title>golang base64 编码与 PHP 输出不一致</title>
+      <link>https://www.artacode.com/post/golang/base64-ascii/</link>
+      <pubDate>Wed, 16 Jun 2021 17:49:39 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/golang/base64-ascii/</guid>
+      <description>最近开发中，将一个 php 算法，移植到 golang 中，发现 base64 算法生成的字符串不一致，经过排查发现是由于 ASCII 控制字符导致的原因，加下来看代码 1 2 3 4 5 6 7 8 9 &amp;lt;?php</description>
+    </item>
+    
+    <item>
+      <title>Gin_bind_json_return_eof</title>
+      <link>https://www.artacode.com/post/golang/gin-bind-json-return-eof/</link>
+      <pubDate>Wed, 23 Oct 2019 12:03:46 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/golang/gin-bind-json-return-eof/</guid>
+      <description>在一次开发中,通过中间件访问请求中的post参数,于是使用 ioutil.ReadAll 来读取body中的内容并做相应的验证,代码如下: 1 2 3 var pj map[string]interface{} body := c.Request.Body data, _ := ioutil.ReadAll(body) 一开始</description>
+    </item>
+    
+    <item>
+      <title>exec.Command 返回 “exit status 1” 获取详细错误信息</title>
+      <link>https://www.artacode.com/post/golang/command-debug/</link>
+      <pubDate>Sat, 20 Jul 2019 17:04:20 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/golang/command-debug/</guid>
+      <description>1 2 3 4 5 6 7 cmd := exec.Command(&amp;#34;find&amp;#34;, &amp;#34;/&amp;#34;, &amp;#34;-maxdepth&amp;#34;, &amp;#34;1&amp;#34;, &amp;#34;-exec&amp;#34;, &amp;#34;wc&amp;#34;, &amp;#34;-c&amp;#34;, &amp;#34;{}&amp;#34;, &amp;#34;\\&amp;#34;) output, err := cmd.CombinedOutput() if err != nil { fmt.Println(fmt.Sprint(err) + &amp;#34;: &amp;#34; + string(output)) return } fmt.Println(string(output))</description>
+    </item>
+    
+    <item>
+      <title>gorm常见问题</title>
+      <link>https://www.artacode.com/post/gorm/faq/</link>
+      <pubDate>Sat, 22 Dec 2018 10:38:17 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/gorm/faq/</guid>
+      <description>sql: Scan error on column index 5, name &amp;ldquo;created_at&amp;rdquo;: unsupported Scan, storing driver.Value type []uint8 into type *time.Time DATETIME转换问题 执行Rows.Scan()时报告错误 原因是在调用sql.Open()时没有将pa</description>
+    </item>
+    
+    <item>
+      <title>Sqlite3 stdlib.h: No such file or directory</title>
+      <link>https://www.artacode.com/post/golang/sqlite3-error/</link>
+      <pubDate>Sun, 23 Sep 2018 12:29:55 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/golang/sqlite3-error/</guid>
+      <description>sqlite3/backup.go:14:20: fatal error: stdlib.h: No such file or directory 错误提示 1 2 3 # github.com/mattn/go-sqlite3 ../../../.go/src/github.com/mattn/go-sqlite3/backup.go:14:20: fatal error: stdlib.h: No such file or directory compilation terminated. 解决方法 sudo apt-get install g++ 参考链接 mattn/go-sqlite3/issues</description>
+    </item>
+    
+    <item>
+      <title>xorm将表生成实体</title>
+      <link>https://www.artacode.com/post/golang/xorm-reverse/</link>
+      <pubDate>Sun, 16 Sep 2018 17:24:20 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/golang/xorm-reverse/</guid>
+      <description>xorm 工具 xorm 是一组数据库操作命令行工具。 源码安装 go get github.com/go-xorm/cmd/xorm 使用 使用帮助 查看帮助命令： xorm help reverse 帮助详情 1 2 3 4 5 6 7 8 9 10 11 12 usage: xorm reverse [-s] driverName datasourceName tmplPath [generatedPath] [tableFilterReg] according database&amp;#39;s tables and</description>
+    </item>
+    
+    <item>
+      <title>hugo安装及部署</title>
+      <link>https://www.artacode.com/post/hugoinstall/</link>
+      <pubDate>Mon, 06 Aug 2018 19:27:54 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/hugoinstall/</guid>
+      <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+&lt;p&gt;Hugo是一个用Go编写的快速而现代的静态站点生成器，旨在使网站创建再次变得有趣。&lt;br&gt;
+Hugo的优势就在于其生成的站点是静态的，因此网站的访问速度是非常快的，其次使用Hugo，可以让你专注于写文章，至于主题和seo Hugo已经很好的解决了这些问题。下面就来讲一下如何用Hugo生成一个站点并用github page部署&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

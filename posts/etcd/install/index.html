@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="etcd入门系列一：etcd 在 docker 中使用"/>
+  <meta name="twitter:description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 简介 etcd是CoreOS团队"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>etcd入门系列一：etcd 在 docker 中使用 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        etcd入门系列一：etcd 在 docker 中使用
+                    </h1>
+                    <h2 class="headline">
+                    Nov 19, 2018 11:03
+                    · 1155 words
+                    · 3 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/etcd">etcd</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#etcd入门系列">etcd入门系列</a></li>
+<li><a href="#简介">简介</a></li>
+<li><a href="#构建镜像">构建镜像</a></li>
+<li><a href="#启动etcd-单服务">启动etcd(单服务)</a>
+<ul>
+<li><a href="#etcd参数说明">ETCD参数说明</a></li>
+</ul></li>
+<li><a href="#在docker中运行-集群">在docker中运行(集群)</a>
+<ul>
+<li><a href="#node0">node0</a></li>
+<li><a href="#node1">node1</a></li>
+</ul></li>
+<li><a href="#集群验证">集群验证</a>
+<ul>
+<li><a href="#验证集群members-在集群中的每台机器上查看members-得出的结果应该是相同的">验证集群members。在集群中的每台机器上查看members，得出的结果应该是相同的</a></li>
+<li><a href="#某台机器上添加数据-其他机器上查看数据-得出的结果应该是相同的">某台机器上添加数据，其他机器上查看数据，得出的结果应该是相同的</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h1 id="etcd入门系列">etcd入门系列</h1>
+
+<p><a href="http://www.artacode.com/posts/etcd/install/">一. etcd在docker中的安装与使用</a><br />
+<a href="http://www.artacode.com/posts/etcd/enable-https/">二. etcd 开启 https</a><br />
+<a href="http://www.artacode.com/posts/etcd/enable-https/">三. 身份验证访问控制</a><br />
+<a href="http://www.artacode.com/posts/etcd/certificates/">四. 开启客户端证书访问</a></p>
+
+<h1 id="简介">简介</h1>
+
+<p>etcd是CoreOS团队于2013年6月发起的开源项目，它的目标是构建一个高可用的分布式键值(key-value)数据库。etcd内部采用raft协议作为一致性算法，etcd基于Go语言实现。</p>
+
+<p>etcd作为服务发现系统，有以下的特点</p>
+
+<ul>
+<li>简单：安装配置简单，而且提供了HTTP API进行交互，使用也很简单</li>
+<li>安全：支持SSL证书验证</li>
+<li>快速：根据官方提供的benchmark数据，单实例支持每秒2k+读操作</li>
+<li>可靠：采用raft算法，实现分布式系统数据的可用性和一致性</li>
+<li>etcd项目地址：<a href="https://github.com/coreos/etcd/">https://github.com/coreos/etcd/</a></li>
+</ul>
+
+<h1 id="构建镜像">构建镜像</h1>
+
+<p>1.创建dockersfile<code>$ sudo touch Dockerfile</code><br />
+2.<code>$ sudo vim Dockerfile</code>编辑Dockerfile文件,写入内容如下:</p>
+
+<pre><code>FROM alpine:latest
+
+ADD etcd /usr/local/bin/
+ADD etcdctl /usr/local/bin/
+RUN mkdir -p /var/etcd/
+RUN mkdir -p /var/lib/etcd/
+
+# Alpine Linux doesn't use pam, which means that there is no /etc/nsswitch.conf,
+# but Golang relies on /etc/nsswitch.conf to check the order of DNS resolving
+# (see https://github.com/golang/go/commit/9dee7771f561cf6aee081c0af6658cc81fac3918)
+# To fix this we just create /etc/nsswitch.conf and add the following line:
+RUN echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' &gt;&gt; /etc/nsswitch.conf
+
+EXPOSE 2379 2380
+
+# Define default command.
+CMD [&quot;/usr/local/bin/etcd&quot;]
+</code></pre>
+
+<p>3.下载etcd Releases <code>$ wget https://github.com/etcd-io/etcd/releases/download/v3.3.10/etcd-v3.3.10-linux-amd64.tar.gz</code><br />
+4.解压文件:<code>$ tar -zxvf etcd-v3.3.10-linux-amd64.tar.gz</code><br />
+5.将<code>etcd</code>和<code>etcdctl</code>移动到和dockerfile同级目录:<code>$ mv etcd-v3.3.10-linux-amd64/etcd etcd-v3.3.10-linux-amd64/etcdctl -t ./</code><br />
+6.构建etcd镜像<code>docker build -t etcd .</code><br />
+7.查看构建好的镜像<code>docker images</code></p>
+
+<pre><code>[root@localhost etcd]# docker images;
+REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+etcd                       latest              dd11f9fc0096        13 seconds ago      39.5 MB
+
+</code></pre>
+
+<h1 id="启动etcd-单服务">启动etcd(单服务)</h1>
+
+<pre><code>docker run -d -v /usr/share/ca-certificates/:/etc/ssl/certs -p 4001:4001 -p 2380:2380 -p 2379:2379 \
+ --name etcd etcd /usr/local/bin/etcd \
+ -name etcd0 \
+ -advertise-client-urls http://192.168.3.3:2379,http://192.168.3.3:4001 \
+ -listen-client-urls http://0.0.0.0:2379,http://0.0.0.0:4001 \
+ -initial-advertise-peer-urls http://192.168.3.3:2380 \
+ -listen-peer-urls http://0.0.0.0:2380 \
+ -initial-cluster-token etcd-cluster-1 \
+ -initial-cluster etcd0=http://192.168.3.3:2380 \
+ -initial-cluster-state new
+</code></pre>
+
+<h2 id="etcd参数说明">ETCD参数说明</h2>
+
+<ul>
+<li><strong>data-dir:</strong>指定节点的数据存储目录，这些数据包括节点ID，集群ID，集群初始化配置，Snapshot文件，若未指定—wal-dir，还会存储WAL文件；</li>
+<li><strong>wal-dir:</strong>指定节点的was文件的存储目录，若指定了该参数，wal文件会和其他数据文件分开存储。</li>
+<li><strong>name:</strong> 节点名称</li>
+<li><strong>initial-advertise-peer-urls:</strong> 告知集群其他节点url.(<code>对于集群内提供服务的url</code>)</li>
+<li><strong>listen-peer-urls:</strong> 监听URL，用于与其他节点通讯</li>
+<li><strong>advertise-client-urls:</strong> 告知客户端url, 也就是服务的url(<code>对外提供服务的utl</code>)</li>
+<li><strong>initial-cluster-token:</strong> 集群的ID</li>
+<li><strong>initial-cluster:</strong> 集群中所有节点</li>
+</ul>
+
+<h1 id="在docker中运行-集群">在docker中运行(集群)</h1>
+
+<h2 id="node0">node0</h2>
+
+<pre><code>docker run -d -p 2380:2380 -p 2479:2379 --name etcd0 etcd /usr/local/bin/etcd -name etcd0  -advertise-client-urls http://192.168.3.3:2479  -listen-client-urls http://0.0.0.0:2379 -initial-advertise-peer-urls http://192.168.3.3:2380 -listen-peer-urls http://0.0.0.0:2380  -initial-cluster-token etcd-cluster-1 -initial-cluster &quot;etcd0=http://192.168.3.3:2380,etcd1=http://192.168.3.3:2381&quot; -initial-cluster-state new
+</code></pre>
+
+<h2 id="node1">node1</h2>
+
+<pre><code>docker run -d -p 2381:2380 -p 2480:2379 --name etcd1 etcd /usr/local/bin/etcd -name etcd1  -advertise-client-urls http://192.168.3.3:2480  -listen-client-urls http://0.0.0.0:2379 -initial-advertise-peer-urls http://192.168.3.3:2381 -listen-peer-urls http://0.0.0.0:2380  -initial-cluster-token etcd-cluster-1 -initial-cluster &quot;etcd0=http://192.168.3.3:2380,etcd1=http://192.168.3.3:2381&quot; -initial-cluster-state new
+</code></pre>
+
+<p>这里模拟多端口代表多服务器,需要注意的是<code>-listen-client-urls http://0.0.0.0:2379</code>,<code>-listen-peer-urls http://0.0.0.0:2380</code>,这两个参数是服务内端口号,对应的是-p中的<code>2479:2379</code>中后面的2379,所以这里的监听不需要改变.</p>
+
+<h1 id="集群验证">集群验证</h1>
+
+<h2 id="验证集群members-在集群中的每台机器上查看members-得出的结果应该是相同的">验证集群members。在集群中的每台机器上查看members，得出的结果应该是相同的</h2>
+
+<pre><code>[root@localhost ~]# curl -L http://192.168.3.3:2479/v2/members
+{&quot;members&quot;:[{&quot;id&quot;:&quot;4b316424559e0f9d&quot;,&quot;name&quot;:&quot;etcd0&quot;,&quot;peerURLs&quot;:[&quot;http://192.168.3.3:2380&quot;],&quot;clientURLs&quot;:[&quot;http://192.168.3.3:2479&quot;]},{&quot;id&quot;:&quot;6204f98420b429cc&quot;,&quot;name&quot;:&quot;etcd1&quot;,&quot;peerURLs&quot;:[&quot;http://192.168.3.3:2381&quot;],&quot;clientURLs&quot;:[&quot;http://192.168.3.3:2480&quot;]}]}
+</code></pre>
+
+<h2 id="某台机器上添加数据-其他机器上查看数据-得出的结果应该是相同的">某台机器上添加数据，其他机器上查看数据，得出的结果应该是相同的</h2>
+
+<p>A 服务器中执行</p>
+
+<pre><code>[root@localhost ~]# curl -L http://192.168.3.3:2479/v2/keys/message -XPUT -d value=&quot;Hello zhenyuyaodidiao&quot;
+{&quot;action&quot;:&quot;set&quot;,&quot;node&quot;:{&quot;key&quot;:&quot;/message&quot;,&quot;value&quot;:&quot;Hello zhenyuyaodidiao&quot;,&quot;modifiedIndex&quot;:13,&quot;createdIndex&quot;:13},&quot;prevNode&quot;:{&quot;key&quot;:&quot;/message&quot;,&quot;value&quot;:&quot;Hello world1&quot;,&quot;modifiedIndex&quot;:11,&quot;createdIndex&quot;:11}}
+</code></pre>
+
+<p>B 服务上执行</p>
+
+<pre><code>[root@localhost ~]#  curl -L http://192.168.3.3:2480/v2/keys/message
+{&quot;action&quot;:&quot;get&quot;,&quot;node&quot;:{&quot;key&quot;:&quot;/message&quot;,&quot;value&quot;:&quot;Hello zhenyuyaodidiao&quot;,&quot;modifiedIndex&quot;:13,&quot;createdIndex&quot;:13}}
+</code></pre>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fetcd%2finstall%2f - etcd%e5%85%a5%e9%97%a8%e7%b3%bb%e5%88%97%e4%b8%80%ef%bc%9aetcd%20%e5%9c%a8%20docker%20%e4%b8%ad%e4%bd%bf%e7%94%a8 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'etcd-install',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

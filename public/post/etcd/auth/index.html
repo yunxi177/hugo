@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>etcd入门系列三：身份验证访问控制 - 一二三四吾</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="yunxi" /><meta name="description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 1. 简介 etcd 默认是没有开启访问控制" /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
+
+
+
+<meta name="google-site-verification" content="UA-123407925-1" />
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://www.artacode.com/post/etcd/auth/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="etcd入门系列三：身份验证访问控制" />
+<meta property="og:description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 1. 简介 etcd 默认是没有开启访问控制" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.artacode.com/post/etcd/auth/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-11-24T12:05:50&#43;08:00" />
+<meta property="article:modified_time" content="2018-11-24T12:05:50&#43;08:00" />
+
+<meta itemprop="name" content="etcd入门系列三：身份验证访问控制">
+<meta itemprop="description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 1. 简介 etcd 默认是没有开启访问控制"><meta itemprop="datePublished" content="2018-11-24T12:05:50&#43;08:00" />
+<meta itemprop="dateModified" content="2018-11-24T12:05:50&#43;08:00" />
+<meta itemprop="wordCount" content="1489">
+<meta itemprop="keywords" content="etcd," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="etcd入门系列三：身份验证访问控制"/>
+<meta name="twitter:description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 1. 简介 etcd 默认是没有开启访问控制"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">一二三四吾</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">一二三四吾</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">etcd入门系列三：身份验证访问控制</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-11-24 </span>
+        <div class="post-category">
+            <a href="/categories/etcd/"> etcd </a>
+            </div>
+          <span class="more-meta"> 约 1489 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#etcd入门系列">etcd入门系列</a></li>
+    <li><a href="#1-简介">1. 简介</a></li>
+    <li><a href="#2-root-用户">2. root 用户</a></li>
+    <li><a href="#3-root-角色">3. root 角色</a></li>
+    <li><a href="#4-用户操作">4. 用户操作</a></li>
+    <li><a href="#5-角色操作">5. 角色操作</a></li>
+    <li><a href="#6-开启身份验证">6. 开启身份验证</a></li>
+    <li><a href="#7-参考连接">7. 参考连接</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="etcd入门系列">etcd入门系列</h1>
+<p><a href="http://www.artacode.com/posts/etcd/install/">一. etcd在docker中的安装与使用</a><br>
+<a href="http://www.artacode.com/posts/etcd/enable-https/">二. etcd 开启 https</a><br>
+<a href="http://www.artacode.com/posts/etcd/enable-https/">三. 身份验证访问控制</a><br>
+<a href="http://www.artacode.com/posts/etcd/certificates/">四. 开启客户端证书访问</a></p>
+<h1 id="1-简介">1. 简介</h1>
+<p>etcd 默认是没有开启访问控制的，如果我们开启外网访问的话就需要考虑访问控制的问题，etcd 提供了两种访问控制的方式：</p>
+<ol>
+<li>基于身份验证的访问控制</li>
+<li>基于证书的访问控制</li>
+</ol>
+<p>这节主要是选择第一种方式，进行的讲解，由于之前文章中是采用http接口的方式通讯，为了更全面的了解 <code>etcd</code> 的使用，本节使用官方提供的 <code>etcdctl</code> 工具进行与服务器之间的通讯。</p>
+<h1 id="2-root-用户">2. root 用户</h1>
+<p><code>root</code> 是 <code>etcd</code> 的超级管理员，拥有 <code>etcd</code> 的所有权限，在开启角色认证之前为们必须要先建立好 <code>root</code> 用户。还需要注意的是 <code>root</code> 用户必须拥有 <code>root</code> 的角色,允许在 <code>etcd</code> 的所有操作.</p>
+<h1 id="3-root-角色">3. root 角色</h1>
+<p><code>root</code> 角色可以赋予任何用户，拥有 <code>root</code> 角色的用户有全局读写权限和集群身份验证配置权限，此外，还具有修改集群成员身份，碎片整理，建立快照等权限。</p>
+<h1 id="4-用户操作">4. 用户操作</h1>
+<p>查看用户列表：</p>
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 user list
+</code></pre>
+<p>创建用户：</p>
+<pre><code> $ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 user add user1
+</code></pre>
+<p>用户可以被赋予角色，也可以被撤销角色：</p>
+<pre><code>#赋予权限
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 user grant --roles root user1
+# 撤销权限
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 user revoke --roles root user1
+</code></pre>
+<p>修改用户密码：</p>
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 user passwd user1
+</code></pre>
+<h1 id="5-角色操作">5. 角色操作</h1>
+<p>角色列表:</p>
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role list
+</code></pre>
+<p>创建角色:</p>
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role add myrolename
+</code></pre>
+<ul>
+<li>角色没有密码，仅仅是定义的一组访问权限</li>
+<li>角色的访问权限可以被赋予read（读）,write（写）,readwrite（读和写）权限</li>
+</ul>
+<p>赋予访问权限范例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 给 role1 角色赋予键 /foo 的读操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role grant role1 --path /foo --read
+# 给 role1 角色赋予键 /foo 的写操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role grant role1 --path /foo --write
+# 给 role1 角色赋予键 /foo 读写操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role grant role1 --path /foo --rw
+# 给 role1 角色赋予键 /foo 目录读写操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role grant role1 --path /foo/* --rw
+</code></pre></td></tr></table>
+</div>
+</div><p>收回访问权限范例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 收回 role1 角色对 /foo 的读操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role revoke role1 --path /foo --read
+# 收回 role1 角色对 /foo 的写操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role revoke role1 --path /foo --write
+# 收回 role1 角色对 /foo 的读写操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role revoke role1 --path /foo --rw
+# 收回 role1 角色对 /foo 目录的读写操作
+$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role revoke role1 --path /foo/* --rw
+
+</code></pre></td></tr></table>
+</div>
+</div><p>查看角色访问权限:</p>
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role get role1
+</code></pre>
+<p>删除角色 :</p>
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 role remove role1
+</code></pre>
+<h1 id="6-开启身份验证">6. 开启身份验证</h1>
+<p>1.增加root用户:</p>
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 user add root
+Password of root:
+</code></pre>
+<p>2.开启身份验证:</p>
+<pre><code>$ etcdctl --ca-file /root/cfssl/ca.pem --endpoints https://192.168.3.3:2379 etcdctl auth enable
+</code></pre>
+<p>至此，身份验证已经开启，执行下面命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">etcdctl --ca-file /root/cfssl/ca.pem  --endpoints https://192.168.3.3:2379 set /foo bar
+//返回bar
+</code></pre></td></tr></table>
+</div>
+</div><p>这里出现了一个问题，我们已经开启了身份访问验证，却仍然可以不通过任何身份进行操作，这是什么原因呢？其实是因为在 <code>Etcd</code> 开启 <code>Basic Auth</code> 之后，默认会启用两个角色 <code>root</code> 和 <code>guest</code>， <code>root</code> 和 <code>guest</code> 角色都拥有所有权限，当我们未指定身份的时候其实是通过 <code>guest</code> 角色进行的操作，这里需要注意的是两个角色都不要删除，否则你可能会遇到意想不到的Bug，既然无法删除，那么为们可以通过收回权限的方式对 <code>guest</code> 的权限进行限制，执行下面代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 ro
+le revoke guest --path &#39;/*&#39; --rw
+//返回：Role guest updated
+
+//查看guest最新的权限信息
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 ro
+le get guest
+
+
+//返回 ：
+ //       Role: guest
+//        KV Read:
+//        KV Write:
+// ok 收回权限成功
+</code></pre></td></tr></table>
+</div>
+</div><p>继续执行之前的set代码 ：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">etcdctl --ca-file /root/cfssl/ca.pem  --endpoints https://192.168.3.3:2379 set /foo bar
+//Error:  110: The request requires user authentication (Insufficient credentials) [0]
+</code></pre></td></tr></table>
+</div>
+</div><p>如我们所愿的已经不可以对 etcd 进行操作了，下面我们创建一个用户并赋予一个新建的角色试试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 创建user2用户
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 user add user2
+
+New password: 
+//返回 ：User user2 created
+
+# 创建role2角色
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 role add role2
+
+Role role2 created
+
+# 赋予role2 角色权限
+
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 ro
+le grant role2 --path /foo --rw
+Role role2 updated
+
+
+# 将用户user2赋予角色role2
+etcdctl --ca-file /root/cfssl/ca.pem --username root:passwod --endpoints https://192.168.3.3:2379 us
+er  grant --roles role2 user2
+
+User user2 updated
+
+# 设置 foo 值
+etcdctl --ca-file /root/cfssl/ca.pem --username user2:passwod --endpoints https://192.168.3.3:2379:2379 set foo bar
+
+bar
+</code></pre></td></tr></table>
+</div>
+</div><p>到此我们想要实现的功能都已实现，个人理解难免有些疏漏和不足，欢迎大神斧正。</p>
+<h1 id="7-参考连接">7. 参考连接</h1>
+<p><a href="https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/authentication.md">Role-based access control</a><br>
+<a href="https://juejin.im/post/5b986abff265da0ad947b52f">Etcd安全配置之Basic Auth认证</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">yunxi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-11-24
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/etcd/">etcd</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/etcd/certificates/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">etcd入门系列四：开启客户端证书访问</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/etcd/enable-https/">
+            <span class="next-text nav-default">etcd入门系列二：etcd开启https</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: 'etcd-auth',
+        title: 'etcd入门系列三：身份验证访问控制',
+        clientID: '7df62c8e117826bf4f9b',
+        clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+        repo: 'hugo',
+        owner: 'yunxi177',
+        admin: ['yunxi177'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+    <a class="theme-link" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">苏ICP备18046444号-1</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>yunxi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

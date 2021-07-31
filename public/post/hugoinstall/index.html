@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>hugo安装及部署 - 一二三四吾</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="yunxi" /><meta name="description" content="前言 Hugo是一个用Go编写的快速而现代的静态站点生成器，旨在使网站创建再次变得有趣。
+Hugo的优势就在于其生成的站点是静态的，因此网站的访问速度是非常快的，其次使用Hugo，可以让你专注于写文章，至于主题和seo Hugo已经很好的解决了这些问题。下面就来讲一下如何用Hugo生成一个站点并用github page部署
+" /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
+
+
+
+<meta name="google-site-verification" content="UA-123407925-1" />
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://www.artacode.com/post/hugoinstall/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="hugo安装及部署" />
+<meta property="og:description" content="前言
+Hugo是一个用Go编写的快速而现代的静态站点生成器，旨在使网站创建再次变得有趣。
+Hugo的优势就在于其生成的站点是静态的，因此网站的访问速度是非常快的，其次使用Hugo，可以让你专注于写文章，至于主题和seo Hugo已经很好的解决了这些问题。下面就来讲一下如何用Hugo生成一个站点并用github page部署" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.artacode.com/post/hugoinstall/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-08-06T19:27:54&#43;08:00" />
+<meta property="article:modified_time" content="2018-08-06T19:27:54&#43;08:00" />
+
+<meta itemprop="name" content="hugo安装及部署">
+<meta itemprop="description" content="前言
+Hugo是一个用Go编写的快速而现代的静态站点生成器，旨在使网站创建再次变得有趣。
+Hugo的优势就在于其生成的站点是静态的，因此网站的访问速度是非常快的，其次使用Hugo，可以让你专注于写文章，至于主题和seo Hugo已经很好的解决了这些问题。下面就来讲一下如何用Hugo生成一个站点并用github page部署"><meta itemprop="datePublished" content="2018-08-06T19:27:54&#43;08:00" />
+<meta itemprop="dateModified" content="2018-08-06T19:27:54&#43;08:00" />
+<meta itemprop="wordCount" content="1373">
+<meta itemprop="keywords" content="golang," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="hugo安装及部署"/>
+<meta name="twitter:description" content="前言
+Hugo是一个用Go编写的快速而现代的静态站点生成器，旨在使网站创建再次变得有趣。
+Hugo的优势就在于其生成的站点是静态的，因此网站的访问速度是非常快的，其次使用Hugo，可以让你专注于写文章，至于主题和seo Hugo已经很好的解决了这些问题。下面就来讲一下如何用Hugo生成一个站点并用github page部署"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">一二三四吾</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">一二三四吾</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">hugo安装及部署</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-08-06 </span>
+        <div class="post-category">
+            <a href="/categories/golang/"> golang </a>
+            </div>
+          <span class="more-meta"> 约 1373 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#安装hugo">安装Hugo</a></li>
+    <li><a href="#生成站点">生成站点</a></li>
+    <li><a href="#创建文章">创建文章</a></li>
+    <li><a href="#安装皮肤">安装皮肤</a></li>
+    <li><a href="#运行hugo">运行Hugo</a></li>
+    <li><a href="#部署">部署</a></li>
+    <li><a href="#绑定域名">绑定域名</a>
+      <ul>
+        <li><a href="#解析域名">解析域名</a>
+          <ul>
+            <li><a href="#解析www">解析www</a></li>
+            <li><a href="#解析顶级域名">解析顶级域名</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#配置github-pages的custom-domain">配置github pages的custom domain</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="前言">前言</h1>
+<p>Hugo是一个用Go编写的快速而现代的静态站点生成器，旨在使网站创建再次变得有趣。<br>
+Hugo的优势就在于其生成的站点是静态的，因此网站的访问速度是非常快的，其次使用Hugo，可以让你专注于写文章，至于主题和seo Hugo已经很好的解决了这些问题。下面就来讲一下如何用Hugo生成一个站点并用github page部署</p>
+<h1 id="安装hugo">安装Hugo</h1>
+<p>Hugo的安装方式</p>
+<ul>
+<li><a href="https://gohugo.io/getting-started/installing/#source" title="Hugo下载地址">源码安装</a></li>
+<li><a href="https://github.com/gohugoio/hugo/releases" title="Hugo下载地址">二进制安装</a></li>
+</ul>
+<p>本篇文章旨在让小白也能用Hugo搭建出来一个站点，所以选择最简单的方式（二进制）安装，下载地址：
+<a href="https://github.com/gohugoio/hugo/releases" title="Hugo下载地址">Hugo 二进制下载</a>
+选择你对应系统的文件下载即可。<br>
+将下载文件放在系统的PATH目录中，这样你可以在系统的任意位置实用Hugo命令。</p>
+<p><code>在 OS X，如果你有 Homebrew ，安装过程就更简单了：只需要运行 brew install hugo 。</code></p>
+<p>如果没有问题的话在命令行输入<code>hugo version</code>就可以显示出hugo的版本信息。</p>
+<h1 id="生成站点">生成站点</h1>
+<p>使用Hugo快速生成站点，比如希望生成到 /path/to/site 路径：
+<code>hugo new site /path/to/site</code>
+这样就在 /path/to/site 目录里生成了初始站点，进去目录：<code>cd /path/to/site</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">  ▸ archetypes/
+  ▸ content/ 
+  ▸ layouts/
+  ▸ resources/
+  ▸ static/
+  ▸ themes/
+    config.toml
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="创建文章">创建文章</h1>
+<p>创建一个 about 页面：<code>$ hugo new about.md</code>
+about.md 自动生成到了 content/about.md ，打开 about.md 看下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">+++
+date = &#34;2015-10-25T08:36:54-07:00&#34;
+draft = true
+title = &#34;about&#34;
+
++++
+
+正文内容
+</code></pre></td></tr></table>
+</div>
+</div><p>内容是 Markdown 格式的，+++ 之间的内容是 TOML 格式的，根据你的喜好，你可以换成 YAML 格式（使用 &mdash; 标记）或者 JSON 格式。<br>
+创建第一篇文章，放到 post 目录，方便之后生成聚合页面。
+<code>$ hugo new post/first.md</code>
+打开编辑 post/first.md ：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">---
+date: &#34;2015-10-25T08:36:54-07:00&#34;
+title: &#34;first&#34;
+ 
+---
+
+### Hello Hugo
+
+ 1. aaa
+ 1. bbb
+ 1. ccc
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="安装皮肤">安装皮肤</h1>
+<p>到 <a href="https://themes.gohugo.io/" title="皮肤列表">皮肤列表</a>   挑选一个心仪的皮肤，比如你觉得 Hyde 皮肤不错，找到相关的 GitHub 地址，进入themesmulu，在 themes 目录里把皮肤 git clone 下来：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 进入 themes 目录
+$ cd themes
+$ git clone https://github.com/spf13/hyde.git
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="运行hugo">运行Hugo</h1>
+<p>在你的站点根目录执行 Hugo 命令进行调试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ hugo server --theme=hyde --buildDrafts、
+</code></pre></td></tr></table>
+</div>
+</div><p>（注明：v0.15 版本之后，不再需要使用 &ndash;watch 参数了）</p>
+<p>浏览器里打开： http://localhost:1313</p>
+<h1 id="部署">部署</h1>
+<p>假设你需要部署在 GitHub Pages 上，首先在GitHub上创建一个Repository，命名为：login_name.github.io （login_name替换为你的github登录用户名）。</p>
+<p>在站点根目录执行 Hugo 命令生成最终页面：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ hugo --theme=hyde --baseUrl=&#34;http://login_name.github.io/&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>（注意，以上命令并不会生成草稿页面，如果未生成任何文章，请去掉文章头部的 draft=true 再重新生成。）</p>
+<p>如果一切顺利，所有静态页面都会生成到 public 目录，将pubilc目录里所有文件 push 到刚创建的Repository的 master 分支。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ cd public
+$ git init
+$ git remote add origin https://github.com/coderzh/login_name.github.io.git
+$ git add -A
+$ git commit -m &#34;first commit&#34;
+$ git push -u origin master
+</code></pre></td></tr></table>
+</div>
+</div><p>浏览器里访问：<code>http://login_name.github.io/</code></p>
+<h1 id="绑定域名">绑定域名</h1>
+<h2 id="解析域名">解析域名</h2>
+<h3 id="解析www">解析www</h3>
+<p>在域名服务商后台添加一条CNAME的解析记录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">记录类型：CNAME
+主机记录：www
+记录值：login_name.github.io
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="解析顶级域名">解析顶级域名</h3>
+<p>使用DNS提供程序配置记录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+</code></pre></td></tr></table>
+</div>
+</div><p>可以手动ping上面地址，找一个延迟最低的配置域名解析</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">记录类型：A
+主机记录：@
+记录值：185.199.109.153
+</code></pre></td></tr></table>
+</div>
+</div><p><code>警告：除非您的DNS提供商支持展CNAME平，否则请勿CNAME为自定义顶点域创建记录。这样做可能会导致该域上的其他服务（例如电子邮件）出现问题。</code></p>
+<h1 id="配置github-pages的custom-domain">配置github pages的custom domain</h1>
+<p>进入你的github pages的仓库，然后在设置里面将的你的域名的地址，添加到custom domain中，然后保存即可。如下图所示：
+<img src="http://o8ei86anm.bkt.clouddn.com/github.jpg" alt="设置custom domain" title="设置custom domain"></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">yunxi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-08-06
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/golang/">golang</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/freeradius/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">freeRADIUS搭建</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/swoftunit/">
+            <span class="next-text nav-default">swoft单元测试</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: 'hugo-install',
+        title: 'hugo安装及部署',
+        clientID: '7df62c8e117826bf4f9b',
+        clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+        repo: 'hugo',
+        owner: 'yunxi177',
+        admin: ['yunxi177'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+    <a class="theme-link" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">苏ICP备18046444号-1</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>yunxi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

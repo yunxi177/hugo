@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CI/CD on 一二三四吾</title>
+    <link>https://www.artacode.com/tags/ci/cd/</link>
+    <description>Recent content in CI/CD on 一二三四吾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language><atom:link href="https://www.artacode.com/tags/ci/cd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>jenkins pipeline 环境变量详解</title>
+      <link>https://www.artacode.com/post/ci-cd/environment-variables/</link>
+      <pubDate>Mon, 07 Jun 2021 17:16:46 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/ci-cd/environment-variables/</guid>
+      <description>关于 Jenkins 的环境变量，可以分为系统内置环境变量和自定义环境变量。系统内置环境变量是 Jenkins 内部定义的环境变量。自定义环境变量是用户自己定义的环境变量 系</description>
+    </item>
+    
+    <item>
+      <title>前端CI/CD落地实践</title>
+      <link>https://www.artacode.com/post/ci-cd/front-cicd/</link>
+      <pubDate>Mon, 29 Mar 2021 18:30:18 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/ci-cd/front-cicd/</guid>
+      <description>随着 nodejs 的兴起，前端开发也进入了 新的时代，webpack 的诞生，更是让其如虎添翼，构建出欣欣向荣的前端生态. 然而事物的发展总是在：发现问题-&amp;</description>
+    </item>
+    
+  </channel>
+</rss>

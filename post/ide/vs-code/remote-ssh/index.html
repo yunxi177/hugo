@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>vs code 调试远程代码 - 一二三四吾</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="yunxi" /><meta name="description" content="简介 Visual Studio Code Remote - SSH 可以打开远程计算机或容器中的文件(计算机或容器中需要运行 SSH Server),而且可已充分利用 VS Code 的一切特性.一旦连接上服务器," /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
+
+
+
+<meta name="google-site-verification" content="UA-123407925-1" />
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://www.artacode.com/post/ide/vs-code/remote-ssh/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="vs code 调试远程代码" />
+<meta property="og:description" content="简介 Visual Studio Code Remote - SSH 可以打开远程计算机或容器中的文件(计算机或容器中需要运行 SSH Server),而且可已充分利用 VS Code 的一切特性.一旦连接上服务器," />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.artacode.com/post/ide/vs-code/remote-ssh/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-06-19T20:31:23&#43;08:00" />
+<meta property="article:modified_time" content="2019-06-19T20:31:23&#43;08:00" />
+
+<meta itemprop="name" content="vs code 调试远程代码">
+<meta itemprop="description" content="简介 Visual Studio Code Remote - SSH 可以打开远程计算机或容器中的文件(计算机或容器中需要运行 SSH Server),而且可已充分利用 VS Code 的一切特性.一旦连接上服务器,"><meta itemprop="datePublished" content="2019-06-19T20:31:23&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-19T20:31:23&#43;08:00" />
+<meta itemprop="wordCount" content="888">
+<meta itemprop="keywords" content="IDE,工欲善其事，必先利其器," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="vs code 调试远程代码"/>
+<meta name="twitter:description" content="简介 Visual Studio Code Remote - SSH 可以打开远程计算机或容器中的文件(计算机或容器中需要运行 SSH Server),而且可已充分利用 VS Code 的一切特性.一旦连接上服务器,"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">一二三四吾</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">一二三四吾</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">vs code 调试远程代码</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-06-19 </span>
+        <div class="post-category">
+            <a href="/categories/ide/"> IDE </a>
+            <a href="/categories/%E5%B7%A5%E6%AC%B2%E5%96%84%E5%85%B6%E4%BA%8B%E5%BF%85%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8/"> 工欲善其事，必先利其器 </a>
+            </div>
+          <span class="more-meta"> 约 888 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#入门">入门</a></li>
+    <li><a href="#连接远程主机">连接远程主机</a>
+      <ul>
+        <li><a href="#连接配置">连接配置</a></li>
+        <li><a href="#用户名密码连接">用户名密码连接</a></li>
+        <li><a href="#密钥连接">密钥连接</a></li>
+      </ul>
+    </li>
+    <li><a href="#插件安装">插件安装</a></li>
+    <li><a href="#远程主机命令行使用">远程主机命令行使用</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#参考连接">参考连接</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="简介">简介</h1>
+<p><strong>Visual Studio Code Remote - SSH</strong> 可以打开远程计算机或容器中的文件(计算机或容器中需要运行 <code>SSH Server</code>),而且可已充分利用 <code>VS Code</code> 的一切特性.一旦连接上服务器,可以与任意位置的文件进行交  由于 <code>Remote-SSH</code> 扩展运行命令行和其他扩展是在远程主机上,因此本地不需要代码,就可以正常运行.<br>
+<img src="http://pic.artacode.com/architecture-ssh.png" alt="Remote-SSH示意图"></p>
+<h1 id="入门">入门</h1>
+<ol>
+<li>确保本机已经安装 <code>VS CODE</code></li>
+<li>确保本机已安装 <code>SSH client</code>, 并且确保远程主机已安装 <code>SSH server</code></li>
+<li>为本机 <code>VS CODE</code> 安装 <code> Remote Development</code> 扩展</li>
+</ol>
+<h1 id="连接远程主机">连接远程主机</h1>
+<h2 id="连接配置">连接配置</h2>
+<p><code>Ctrl + Shift + p</code> 输入 <code>Configure SSH Hosts...</code>   回车,设置远程主机信息,配置信息如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># Read more about SSH config files: https://linux.die.net/man/5/ssh_config
+Host oa-online
+    HostName 远程主机Ip
+    User root 
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>Host</code> 远程主机名称</li>
+<li><code>HostName</code> 远程主机IP</li>
+<li><code>User</code> 连接用户名</li>
+</ul>
+<h2 id="用户名密码连接">用户名密码连接</h2>
+<p>在配置文件 <code>settings.json</code> 加入 <code>&quot;remote.SSH.showLoginTerminal&quot;: true</code><br>
+<code>Ctrl + Shift + p</code> 输入 <code>Remote-SSH:Connect to Host...</code>   回车, 选择配置的远程主机,在命令行处输入远程主机密码,即可连接远程主机<br>
+此方式会导致每次都需要输入密码,相对来说比较麻烦,推荐方式二(SSH 密钥连接)</p>
+<h2 id="密钥连接">密钥连接</h2>
+<p>检查 <code>c盘-&gt;用户-&gt;自己的用户名-&gt;.ssh</code> 是否有<strong>id_rsa</strong> <strong>id_rsa.pub</strong>文件,如果没用使用 <code>ssh-keygen</code> 命令生成密钥文件
+将 <code>id_rsa.pub</code> 里的内容复制到远程主机的'~/.ssh/authorized_keys' 文件中
+<code>Ctrl + Shift + p</code> 输入 <code>Remote-SSH:Connect to Host...</code>   回车, 选择配置的远程主机,在命令行处输入远程主机密码,即可连接远程主机.</p>
+<h1 id="插件安装">插件安装</h1>
+<p><code>VS Code</code> 支持安装插件到远程主机,以增加远程代码调试的流畅性. <code>VS Code</code> 支持两种方式安装插件到远程主机</p>
+<ol>
+<li>同步本地已安装插件到远程主机</li>
+<li>搜索插件直接安装到远程主机</li>
+</ol>
+<p>需要注意安装插件到远程主机,需要在与远程主机建立好连接后,才可以进行远程主机插件的安装<br>
+搜索插件安装到远程主机<br>
+<img src="http://pic.artacode.com/%E5%AE%89%E8%A3%85%E6%8E%A8%E8%8D%90%E6%8F%92%E4%BB%B6%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA.png" alt="安装插件到远程主机">
+同步本地插件到远程主机<br>
+<img src="http://pic.artacode.com/%E6%8C%87%E5%AE%9A%E6%9C%AC%E5%9C%B0%E5%AE%89%E8%A3%85%E7%9A%84%E6%89%A9%E5%B1%95%E5%AE%89%E8%A3%85%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8.png" alt="同步本地插件到远程主机">
+本地插件列表及远程主机插件列表
+<img src="http://pic.artacode.com/%E6%89%A9%E5%B1%95.png" alt="本地插件列表及远程主机插件列表"></p>
+<h1 id="远程主机命令行使用">远程主机命令行使用</h1>
+<p><code>Ctrl + ~</code> 打开终端窗口,点 <code>+</code> 新建一个
+<code>VS Code</code> 连接到远程主机后,就可以直接使用终端窗口在远程主机上执行终端命令</p>
+<h1 id="总结">总结</h1>
+<p>随着 <code>Remote Development</code> 插件的上线标志者远程开发的时代到来,通过一些简单的了解 <code>VS Code</code> 对远程开发的实现已经是一个比较完善的阶段, 对于一个 <code>VS Code</code> 的重度使用者来说, 这也将一定程度减少对<code>Xshell</code> 与 <code>XFTP</code> 的依赖.<br>
+目前 <code>Remote Development</code> 还不支持 32 位系统, 据官方信息应该在很快的版本更新中就可以添加对 32 为远程主机的支持,期待 <code>VS Code</code> 将此功能越做越好.</p>
+<h1 id="参考连接">参考连接</h1>
+<p><a href="https://code.visualstudio.com/docs/remote/remote-overview">VS Code Remote Developmen</a><br>
+<a href="https://code.visualstudio.com/docs/remote/ssh">Remote Development using SSH</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">yunxi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-06-19
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ide/">IDE</a>
+          <a href="/tags/%E5%B7%A5%E6%AC%B2%E5%96%84%E5%85%B6%E4%BA%8B%E5%BF%85%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8/">工欲善其事，必先利其器</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux/desktop-shortcut/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">ubuntu 创建桌面快捷方式</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/cross-origin/jsonp/">
+            <span class="next-text nav-default">vue jsonp 跨域调用 腾讯地图 api报错</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: 'ide-vscode-remote-ssh',
+        title: 'vs code 调试远程代码',
+        clientID: '7df62c8e117826bf4f9b',
+        clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+        repo: 'hugo',
+        owner: 'yunxi177',
+        admin: ['yunxi177'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+    <a class="theme-link" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">苏ICP备18046444号-1</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>yunxi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

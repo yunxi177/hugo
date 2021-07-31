@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>centos 搭建 NFS - 一二三四吾</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="yunxi" /><meta name="description" content="查看系统是否已安装NFS 1 2 3 4 $ rpm -qa | grep nfs nfs-utils-lib-1.1.5-13.el6.i686 nfs-utils-1.2.3-78.el6_10.1.i686 如果没有安装,执行下面命令 1 $ yum -y install nfs-utils rpcbind NFS配置文件 NFS的常用目录 /etc/exports NFS服务的主要配置" /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
+
+
+
+<meta name="google-site-verification" content="UA-123407925-1" />
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://www.artacode.com/post/linux/nfs/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="centos 搭建 NFS" />
+<meta property="og:description" content="查看系统是否已安装NFS 1 2 3 4 $ rpm -qa | grep nfs nfs-utils-lib-1.1.5-13.el6.i686 nfs-utils-1.2.3-78.el6_10.1.i686 如果没有安装,执行下面命令 1 $ yum -y install nfs-utils rpcbind NFS配置文件 NFS的常用目录 /etc/exports NFS服务的主要配置" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.artacode.com/post/linux/nfs/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-08-04T21:17:55&#43;08:00" />
+<meta property="article:modified_time" content="2019-08-04T21:17:55&#43;08:00" />
+
+<meta itemprop="name" content="centos 搭建 NFS">
+<meta itemprop="description" content="查看系统是否已安装NFS 1 2 3 4 $ rpm -qa | grep nfs nfs-utils-lib-1.1.5-13.el6.i686 nfs-utils-1.2.3-78.el6_10.1.i686 如果没有安装,执行下面命令 1 $ yum -y install nfs-utils rpcbind NFS配置文件 NFS的常用目录 /etc/exports NFS服务的主要配置"><meta itemprop="datePublished" content="2019-08-04T21:17:55&#43;08:00" />
+<meta itemprop="dateModified" content="2019-08-04T21:17:55&#43;08:00" />
+<meta itemprop="wordCount" content="1103">
+<meta itemprop="keywords" content="linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="centos 搭建 NFS"/>
+<meta name="twitter:description" content="查看系统是否已安装NFS 1 2 3 4 $ rpm -qa | grep nfs nfs-utils-lib-1.1.5-13.el6.i686 nfs-utils-1.2.3-78.el6_10.1.i686 如果没有安装,执行下面命令 1 $ yum -y install nfs-utils rpcbind NFS配置文件 NFS的常用目录 /etc/exports NFS服务的主要配置"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">一二三四吾</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">一二三四吾</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">centos 搭建 NFS</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-08-04 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            </div>
+          <span class="more-meta"> 约 1103 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#查看系统是否已安装nfs">查看系统是否已安装NFS</a></li>
+    <li><a href="#nfs配置文件">NFS配置文件</a></li>
+    <li><a href="#配置-nfs-服务">配置 NFS 服务</a></li>
+    <li><a href="#设置防火墙">设置防火墙</a></li>
+    <li><a href="#重启-nfs-服务">重启 NFS 服务</a></li>
+    <li><a href="#客户端操作">客户端操作</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="查看系统是否已安装nfs">查看系统是否已安装NFS</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ rpm -qa | grep nfs
+
+nfs-utils-lib-1.1.5-13.el6.i686
+nfs-utils-1.2.3-78.el6_10.1.i686
+</code></pre></td></tr></table>
+</div>
+</div><p>如果没有安装,执行下面命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ yum -y install nfs-utils rpcbind
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="nfs配置文件">NFS配置文件</h1>
+<p>NFS的常用目录</p>
+<ul>
+<li>/etc/exports NFS服务的主要配置文件</li>
+<li>/usr/sbin/exportfs NFS服务的管理命令</li>
+<li>/usr/sbin/showmount 客户端的查看命令</li>
+<li>/var/lib/nfs/etab 记录NFS分享出来的目录的完整权限设定值</li>
+<li>/var/lib/nfs/xtab 记录曾经登录过的客户端信息</li>
+</ul>
+<h1 id="配置-nfs-服务">配置 NFS 服务</h1>
+<p>NFS服务的配置文件为 /etc/exports，这个文件是NFS的主要配置文件，不过系统并没有默认值，所以这个文件不一定会存在，可能要使用vim手动建立，然后在文件里面写入配置内容。
+/etc/exports文件内容格式：</p>
+<p>客户端1 选项（访问权限,用户映射,其他）<br>
+客户端2 选项（访问权限,用户映射,其他）</p>
+<p>例如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ vim /etc/exports
+
+写入下列语句
+/home/data your_ssl_server_ip/24(rw,sync,no_root_squash)
+
+</code></pre></td></tr></table>
+</div>
+</div><p>常用配置项说明:</p>
+<p>访问权限选项
+设置输出目录只读：ro
+设置输出目录读写：rw</p>
+<p>用户映射选项</p>
+<ul>
+<li>
+<p>all_squash：将远程访问的所有普通用户及所属组都映射为匿名用户或用户组（nfsnobody）；</p>
+</li>
+<li>
+<p>no_all_squash：与all_squash取反（默认设置）；</p>
+</li>
+<li>
+<p>root_squash：将root用户及所属组都映射为匿名用户或用户组（默认设置）；</p>
+</li>
+<li>
+<p>no_root_squash：与rootsquash取反；</p>
+</li>
+<li>
+<p>anonuid=xxx：将远程访问的所有用户都映射为匿名用户，并指定该用户为本地用户（UID=xxx）；</p>
+</li>
+<li>
+<p>anongid=xxx：将远程访问的所有用户组都映射为匿名用户组账户，并指定该匿名用户组账户为本地用户组账户（GID=xxx）；</p>
+</li>
+</ul>
+<p>其它选项:</p>
+<ul>
+<li>
+<p>secure：限制客户端只能从小于1024的tcp/ip端口连接nfs服务器（默认设置）；</p>
+</li>
+<li>
+<p>insecure：允许客户端从大于1024的tcp/ip端口连接服务器；</p>
+</li>
+<li>
+<p>sync：将数据同步写入内存缓冲区与磁盘中，效率低，但可以保证数据的一致性；</p>
+</li>
+<li>
+<p>async：将数据先保存在内存缓冲区中，必要时才写入磁盘；</p>
+</li>
+<li>
+<p>wdelay：检查是否有相关的写操作，如果有则将这些写操作一起执行，这样可以提高效率（默认设置）；</p>
+</li>
+<li>
+<p>no_wdelay：若有写操作则立即执行，应与sync配合使用；</p>
+</li>
+<li>
+<p>subtree：若输出目录是一个子目录，则nfs服务器将检查其父目录的权限(默认设置)；</p>
+</li>
+<li>
+<p>no_subtree：即使输出目录是一个子目录，nfs服务器也不检查其父目录的权限，这样可以提高效率；</p>
+</li>
+</ul>
+<h1 id="设置防火墙">设置防火墙</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ sudo vim /etc/sysconfig/iptables
+
+加入下面两句
+-A INPUT -p tcp -s your_client_ip/32 --dport 1:65535 -j ACCEPT
+-A INPUT -p udp -s your_client_ip/32 --dport 1:65535 -j ACCEPT
+
+向客户端开放所有端口(因为 NSF 端口是随机监听的所以需要对客户端开放所有端口)
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="重启-nfs-服务">重启 NFS 服务</h1>
+<p>注意重启顺序需要严格按照下面执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ service rpcbind restart
+$ service nfs restart
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="客户端操作">客户端操作</h1>
+<p>查看挂载信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ showmount -e IP
+</code></pre></td></tr></table>
+</div>
+</div><p>挂载目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ mount your_ssl_server_ip:/home/data /home/data
+</code></pre></td></tr></table>
+</div>
+</div><p>解除挂载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ unmount -l /your_mount_path
+</code></pre></td></tr></table>
+</div>
+</div><p>自动挂载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ sudo vim /etc/fstab
+your_ssl_server_ip:/home/data /home/data                nfs     defaults        0 0
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">yunxi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-08-04
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/golang/gin-bind-json-return-eof/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Gin_bind_json_return_eof</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/linux/bad-superblock/">
+            <span class="next-text nav-default">解决nfs挂载错误wrong fs type, bad option, bad superblock</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: 'linux-nfs',
+        title: 'centos 搭建 NFS',
+        clientID: '7df62c8e117826bf4f9b',
+        clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+        repo: 'hugo',
+        owner: 'yunxi177',
+        admin: ['yunxi177'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+    <a class="theme-link" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">苏ICP备18046444号-1</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>yunxi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

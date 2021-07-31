@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1"/>
+  <meta name="twitter:description" content="使用 gorm 插入数据时爆出 Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1 的错误信息，搜索之后发现原来是因为 msyql5.7 及以上不允许时间戳字段插入 ‘0000-00-00’ 数据，修复"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1
+                    </h1>
+                    <h2 class="headline">
+                    Dec 22, 2018 08:48
+                    · 875 words
+                    · 2 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/mysql">mysql</a>
+                          
+                              <a href="http://www.artacode.com/tags/gorm">gorm</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#方式一-sql-配置">方式一 sql 配置</a></li>
+<li><a href="#方式二-配置文件配置">方式二 配置文件配置</a></li>
+<li><a href="#sql-model-参数详解">sql_model 参数详解</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>使用 gorm 插入数据时爆出 <code>Error 1292: Incorrect datetime value: '0000-00-00' for column 'created_at' at row 1</code>  的错误信息，搜索之后发现原来是因为 msyql5.7 及以上不允许时间戳字段插入 ‘0000-00-00’ 数据，修复方法也比较简单，去掉sql_model 中的 <code>NO_ZERO_DATE</code> 配置即可</p>
+
+<h1 id="方式一-sql-配置">方式一 sql 配置</h1>
+
+<p>使用 <code>select @@GLOBAL.sql_mode;</code> 查出原有的配置信息，将配置信息去除 <code>NO_ZERO_DATE</code> 并复制</p>
+
+<p>使用 <code>SET GLOBAL sql_mode = '去除 NO_ZERO_DATE 后的剩余配置项'</code></p>
+
+<p>经过以上步骤就可以完成设置了。</p>
+
+<h1 id="方式二-配置文件配置">方式二 配置文件配置</h1>
+
+<p>打开 mysql 配置文件：
+    $ sodo vim /etc/my.cnf
+在 [mysqld] 配置项下插入 sql_mode 配置
+<code>sql_mode=ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+</code>
+重启 mysql 完成配置</p>
+
+<h1 id="sql-model-参数详解">sql_model 参数详解</h1>
+
+<pre><code>ONLY_FULL_GROUP_BY：
+对于GROUP BY聚合操作，如果在SELECT中的列，没有在GROUP BY中出现，那么这个SQL是不合法的，因为列不在GROUP BY从句中
+
+NO_AUTO_VALUE_ON_ZERO：
+该值影响自增长列的插入。默认设置下，插入0或NULL代表生成下一个自增长值。如果用户 希望插入的值为0，而该列又是自增长的，那么这个选项就有用了。
+
+STRICT_TRANS_TABLES：
+在该模式下，如果一个值不能插入到一个事务表中，则中断当前的操作，对非事务表不做限制
+
+NO_ZERO_IN_DATE：
+在严格模式下，不允许日期和月份为零
+
+NO_ZERO_DATE：
+设置该值，mysql数据库不允许插入零日期，插入零日期会抛出错误而不是警告。
+
+ERROR_FOR_DIVISION_BY_ZERO：
+在INSERT或UPDATE过程中，如果数据被零除，则产生错误而非警告。如 果未给出该模式，那么数据被零除时MySQL返回NULL
+
+NO_AUTO_CREATE_USER：
+禁止GRANT创建密码为空的用户
+
+NO_ENGINE_SUBSTITUTION：
+如果需要的存储引擎被禁用或未编译，那么抛出错误。不设置此值时，用默认的存储引擎替代，并抛出一个异常
+
+PIPES_AS_CONCAT：
+将&quot;||&quot;视为字符串的连接操作符而非或运算符，这和Oracle数据库是一样的，也和字符串的拼接函数Concat相类似
+ANSI_QUOTES：
+启用ANSI_QUOTES后，不能用双引号来引用字符串，因为它被解释为识别符
+
+</code></pre>
+
+<h1 id="参考链接">参考链接</h1>
+
+<p><a href="https://github.com/jinzhu/gorm/issues/595">Error 1292 on update a row</a></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fsql%2fgorm-err%2f - Error%201292%3a%20Incorrect%20datetime%20value%3a%20%270000-00-00%27%20for%20column%20%27created_at%27%20at%20row%201 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'sql-mysql-sql_mode',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

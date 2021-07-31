@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gorm on 一二三四吾</title>
+    <link>https://www.artacode.com/categories/gorm/</link>
+    <description>Recent content in gorm on 一二三四吾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 22 Dec 2018 08:48:49 +0800</lastBuildDate><atom:link href="https://www.artacode.com/categories/gorm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1</title>
+      <link>https://www.artacode.com/post/sql/gorm-err/</link>
+      <pubDate>Sat, 22 Dec 2018 08:48:49 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/sql/gorm-err/</guid>
+      <description>使用 gorm 插入数据时爆出 Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1 的错误信息，搜索之后发现原来是因为 msyql5.7 及以上不允许时间戳字段插入 ‘0000-00-00’ 数据，修复</description>
+    </item>
+    
+  </channel>
+</rss>

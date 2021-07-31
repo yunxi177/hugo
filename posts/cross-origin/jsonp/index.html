@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="vue jsonp 跨域调用 腾讯地图 api报错"/>
+  <meta name="twitter:description" content="今天帮助前端小伙伴解决了一下 jsonp 调用腾讯地图 WebService API 报错 Unexpected token : 的问题，这里记录一下解决过程 项目中使用 vue-jsonp 组件来解决跨域问题，使用流程如下 安装 jsonp npm install vue-jsonp"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>vue jsonp 跨域调用 腾讯地图 api报错 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        vue jsonp 跨域调用 腾讯地图 api报错
+                    </h1>
+                    <h2 class="headline">
+                    May 11, 2019 07:12
+                    · 699 words
+                    · 2 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/frontend">frontend</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#安装-jsonp">安装 jsonp</a></li>
+<li><a href="#main-js-引入-jsonp-组件">main.js 引入 jsonp 组件</a></li>
+<li><a href="#接口调用">接口调用</a></li>
+<li><a href="#问题排查">问题排查</a></li>
+<li><a href="#summary">summary</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>今天帮助前端小伙伴解决了一下 jsonp 调用腾讯地图 WebService API 报错 <code>Unexpected token :</code> 的问题，这里记录一下解决过程</p>
+
+<p>项目中使用 <code>vue-jsonp</code> 组件来解决跨域问题，使用流程如下</p>
+
+<h1 id="安装-jsonp">安装 jsonp</h1>
+
+<pre><code>npm install vue-jsonp
+</code></pre>
+
+<h1 id="main-js-引入-jsonp-组件">main.js 引入 jsonp 组件</h1>
+
+<pre><code class="language-vue">import Vue from 'vue'
+import VueJsonp from 'vue-jsonp'
+Vue.use(VueJsonp)
+</code></pre>
+
+<h1 id="接口调用">接口调用</h1>
+
+<pre><code>            const KEY =XXXXXXXXXXXXXX; //key 秘钥自己申请
+            let url = 'https://apis.map.qq.com/ws/geocoder/v1?&amp;poi_options=address_format=short&amp;get_poi=0';
+            let locationdata = lat+','+lng //纬度，经度
+            this.$jsonp(url,{
+              key:KEY,
+              location:locationdata
+            })
+            .then(json =&gt; {
+                let address = json.result.address;
+                console.log(address) //附近街道地址信息
+                    })
+                .catch(err =&gt; {
+                        console.log(err)
+                })
+          }
+</code></pre>
+
+<p>本来到了这里应该是完美无缺，开开心心的接受腾讯地图返回的信息就可以了，但是！！，出来了莫名其妙的问题，当请求接口是返回的确是 <code>Unexpected token :</code> 这样的错误。</p>
+
+<h1 id="问题排查">问题排查</h1>
+
+<p>本着发现问题解决问题的程序员精神，开始了百度 ，谷歌的混合双打，依然没有找到问题的原因，只因为当时搜索的关键词为 <code>Unexpected token :</code>  虽然我本身不是做前端，但是我也清除这种错误一抓一大把，很难精准的把握到错误的具体位置，既然问题出现在了 <code>jsonp</code> 中那就了解一下 <code>jsonp</code> 的实现原理，和跨域原理，果然有重大发现下图中的一段话一句惊醒梦中人</p>
+
+<p><img src="http://pic.artacode.com/企业微信截图_20190511145411.png" alt="" /></p>
+
+<p>既然 <code>jsonp</code> 是要配合接口域名实现的服务端做配合那么，是不是腾讯那边也需要我来告诉它一下，我是通过 <code>jsonp</code> 调用的呢？于是果断查了一下接口文档，然后结果不出所料，接口中需要加入 <code>output</code> 参数来告诉腾讯地图访问请求为 <code>jsonp</code> 具体文档如下图</p>
+
+<p><img src="http://pic.artacode.com/企业微信截图_20190511145801.png" alt="" /></p>
+
+<p>当我告诉前端小伙伴传入此参数时，果然接口正常访问了，到此问题解决。</p>
+
+<h1 id="summary">summary</h1>
+
+<p>出现这种问题最主要的问题是没有仔细的阅读文档，只关注了自己需要传值部分，忽略了一些参数，有些还是比较重要的参数（像这次）。</p>
+
+<p>其次就是我本身基础没有足够的扎实，对 <code>jsonp</code> 实现原理不熟悉，导致问题出现了，没有通过代码检查解决问题，而是通过百度和谷歌解决问题。</p>
+
+<p>此次时间我个人也是一个惊醒，首先就是一定要仔细看接口文档，其二就是对知识要不求甚解，以前对 <code>jsonp</code> 了解太少，不够深刻，导致问题出现并不能精准定位。</p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fcross-origin%2fjsonp%2f - vue%20jsonp%20%e8%b7%a8%e5%9f%9f%e8%b0%83%e7%94%a8%20%e8%85%be%e8%ae%af%e5%9c%b0%e5%9b%be%20api%e6%8a%a5%e9%94%99 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'cross-origin-jsonp',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>VS Code golang debug 配置 - 一二三四吾</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="yunxi" /><meta name="description" content="实现效果 安装 delve windows go get -u github.com/go-delve/delve/cmd/dlv linux 方式一： go get -u github.com/go-delve/delve/cmd/dlv 方式二 1 2 3 $ git clone https://github.com/go-delve/delve.git $GOPATH/src/github.com/go-delve/delve $ cd $GOPATH/src/github.com/go-delve/delve $ make install 注意: 若果你go版本为1.5需要设置GO15VENDOREXPE" /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
+
+
+
+<meta name="google-site-verification" content="UA-123407925-1" />
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://www.artacode.com/post/ide/vs-code/debug-go/" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="VS Code golang debug 配置" />
+<meta property="og:description" content="实现效果 安装 delve windows go get -u github.com/go-delve/delve/cmd/dlv linux 方式一： go get -u github.com/go-delve/delve/cmd/dlv 方式二 1 2 3 $ git clone https://github.com/go-delve/delve.git $GOPATH/src/github.com/go-delve/delve $ cd $GOPATH/src/github.com/go-delve/delve $ make install 注意: 若果你go版本为1.5需要设置GO15VENDOREXPE" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.artacode.com/post/ide/vs-code/debug-go/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-03-25T18:24:21&#43;08:00" />
+<meta property="article:modified_time" content="2019-03-25T18:24:21&#43;08:00" />
+
+<meta itemprop="name" content="VS Code golang debug 配置">
+<meta itemprop="description" content="实现效果 安装 delve windows go get -u github.com/go-delve/delve/cmd/dlv linux 方式一： go get -u github.com/go-delve/delve/cmd/dlv 方式二 1 2 3 $ git clone https://github.com/go-delve/delve.git $GOPATH/src/github.com/go-delve/delve $ cd $GOPATH/src/github.com/go-delve/delve $ make install 注意: 若果你go版本为1.5需要设置GO15VENDOREXPE"><meta itemprop="datePublished" content="2019-03-25T18:24:21&#43;08:00" />
+<meta itemprop="dateModified" content="2019-03-25T18:24:21&#43;08:00" />
+<meta itemprop="wordCount" content="1036">
+<meta itemprop="keywords" content="IDE,工欲善其事，必先利其器," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="VS Code golang debug 配置"/>
+<meta name="twitter:description" content="实现效果 安装 delve windows go get -u github.com/go-delve/delve/cmd/dlv linux 方式一： go get -u github.com/go-delve/delve/cmd/dlv 方式二 1 2 3 $ git clone https://github.com/go-delve/delve.git $GOPATH/src/github.com/go-delve/delve $ cd $GOPATH/src/github.com/go-delve/delve $ make install 注意: 若果你go版本为1.5需要设置GO15VENDOREXPE"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">一二三四吾</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">一二三四吾</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">VS Code golang debug 配置</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-03-25 </span>
+        <div class="post-category">
+            <a href="/categories/ide/"> IDE </a>
+            <a href="/categories/%E5%B7%A5%E6%AC%B2%E5%96%84%E5%85%B6%E4%BA%8B%E5%BF%85%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8/"> 工欲善其事，必先利其器 </a>
+            </div>
+          <span class="more-meta"> 约 1036 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#实现效果">实现效果</a></li>
+    <li><a href="#安装-delve">安装 delve</a>
+      <ul>
+        <li><a href="#windows">windows</a></li>
+        <li><a href="#linux">linux</a></li>
+        <li><a href="#osx">OSX</a></li>
+      </ul>
+    </li>
+    <li><a href="#设置-launchjson-配置文件">设置 launch.json 配置文件</a>
+      <ul>
+        <li><a href="#在-debug-配置中使用-vs-code-变量">在 debug 配置中使用 VS Code 变量</a></li>
+        <li><a href="#使用构建标记build-tags">使用构建标记(build tags)</a></li>
+      </ul>
+    </li>
+    <li><a href="#debug-配置代码片段">debug 配置代码片段</a>
+      <ul>
+        <li><a href="#调试当前文件配置片段">调试当前文件配置片段</a></li>
+        <li><a href="#调试单个测试用例配置片段">调试单个测试用例配置片段</a></li>
+        <li><a href="#调试包中所有的测试用例配置片段">调试包中所有的测试用例配置片段</a></li>
+        <li><a href="#调试构建二进制文件配置片段">调试构建二进制文件配置片段</a></li>
+      </ul>
+    </li>
+    <li><a href="#远程调试">远程调试</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="实现效果">实现效果</h1>
+<p><img src="http://pic.artacode.com/18.gif" alt=""></p>
+<h1 id="安装-delve">安装 delve</h1>
+<h2 id="windows">windows</h2>
+<p><code>go get -u github.com/go-delve/delve/cmd/dlv</code></p>
+<h2 id="linux">linux</h2>
+<p>方式一：<br>
+<code>go get -u github.com/go-delve/delve/cmd/dlv</code><br>
+方式二</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ git clone https://github.com/go-delve/delve.git $GOPATH/src/github.com/go-delve/delve
+$ cd $GOPATH/src/github.com/go-delve/delve
+$ make install
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注意: 若果你go版本为1.5需要设置<code>GO15VENDOREXPERIMENT=1</code></p>
+</blockquote>
+<h2 id="osx">OSX</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ go get -u github.com/go-delve/delve/cmd/dlv
+</code></pre></td></tr></table>
+</div>
+</div><p>执行上述代码前，确保你电脑上有编译工具</p>
+<h1 id="设置-launchjson-配置文件">设置 launch.json 配置文件</h1>
+<p><code>ctrl+shift+p</code> 输入 <code>Debug: Open launch.json</code> 打开 <code>launch.json</code> 文件，如果第一次打开,会新建一个配置文件，默认配置内容如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+	&#34;version&#34;: &#34;0.2.0&#34;,
+	&#34;configurations&#34;: [
+		{
+			&#34;name&#34;: &#34;Launch&#34;,
+			&#34;type&#34;: &#34;go&#34;,
+			&#34;request&#34;: &#34;launch&#34;,
+			&#34;mode&#34;: &#34;auto&#34;,
+			&#34;program&#34;: &#34;${fileDirname}&#34;,
+			&#34;env&#34;: {},
+			&#34;args&#34;: []
+		}
+	]
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>常见属性如下</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>调试界面下拉选择项的名称</td>
+</tr>
+<tr>
+<td>type</td>
+<td>设置为go无需改动，是 vs code 用于计算调试代码需要用哪个扩展</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>可以设置为 <code>auto</code>, <code>debug</code>, <code>remote</code>, <code>test</code>, <code>exec</code> 中的一个</td>
+</tr>
+<tr>
+<td>program</td>
+<td>调试程序的路径（绝对路径）</td>
+</tr>
+<tr>
+<td>env</td>
+<td>调试时使用的环境变量。例如:<code>{ &quot;ENVNAME&quot;: &quot;ENVVALUE&quot; }</code></td>
+</tr>
+<tr>
+<td>envFile</td>
+<td>包含环境变量文件的绝对路径，在 <code>env</code> 中设置的属性会覆盖 <code>envFile</code> 中的配置</td>
+</tr>
+<tr>
+<td>args</td>
+<td>传给正在调试程序命令行参数数组</td>
+</tr>
+<tr>
+<td>showLog</td>
+<td>布尔值，是否将调试信息输出</td>
+</tr>
+<tr>
+<td>logOutput</td>
+<td>配置调试输出的组件（<code>debugger</code>, <code>gdbwire</code>, <code>lldbout</code>, <code>debuglineerr</code>, <code>rpc</code>）,使用,分隔， <code>showLog</code> 设置为 <code>true</code> 时，此项配置生效</td>
+</tr>
+<tr>
+<td>buildFlags</td>
+<td>构建 go 程序时传给 go 编译器的标志</td>
+</tr>
+<tr>
+<td>remotePath</td>
+<td>远程调试程序的绝对路径，当 <code>mode </code> 设置为 <code>remote</code> 时有效</td>
+</tr>
+</tbody>
+</table>
+<h2 id="在-debug-配置中使用-vs-code-变量">在 debug 配置中使用 VS Code 变量</h2>
+<ul>
+<li>${workspaceFolder} 调试 VS Code 打开工作空间的根目录下的所有文件</li>
+<li>${file} 调试当前文件</li>
+<li>${fileDirname} 调试当前文件所在目录下的所有文件</li>
+</ul>
+<h2 id="使用构建标记build-tags">使用构建标记(build tags)</h2>
+<p>如果需要使用构建标记（e.g. go build -tags=whatever_tag）在参数 <code>buildFlags </code> 里写入 <code>-tags=whatever_tag&quot;</code> 即可，支持多标签，使用单引号将标签包围,例如： <code>&quot;-tags='first_tag second_tag third_tag'&quot;</code></p>
+<h1 id="debug-配置代码片段">debug 配置代码片段</h1>
+<p>可以在 <code>launch.json</code> 文件中，使用 <code>Go</code> 关键词调出 <code>debug</code> 配置项的代码片段。</p>
+<h2 id="调试当前文件配置片段">调试当前文件配置片段</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+	&#34;name&#34;: &#34;Launch file&#34;,
+	&#34;type&#34;: &#34;go&#34;,
+	&#34;request&#34;: &#34;launch&#34;,
+	&#34;mode&#34;: &#34;auto&#34;,
+	&#34;program&#34;: &#34;${file}&#34;
+}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="调试单个测试用例配置片段">调试单个测试用例配置片段</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+	&#34;name&#34;: &#34;Launch test function&#34;,
+	&#34;type&#34;: &#34;go&#34;,
+	&#34;request&#34;: &#34;launch&#34;,
+	&#34;mode&#34;: &#34;test&#34;,
+	&#34;program&#34;: &#34;${workspaceFolder}&#34;,
+	&#34;args&#34;: [
+		&#34;-test.run&#34;,
+		&#34;MyTestFunction&#34;
+	]
+}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="调试包中所有的测试用例配置片段">调试包中所有的测试用例配置片段</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+	&#34;name&#34;: &#34;Launch test package&#34;,
+	&#34;type&#34;: &#34;go&#34;,
+	&#34;request&#34;: &#34;launch&#34;,
+	&#34;mode&#34;: &#34;test&#34;,
+	&#34;program&#34;: &#34;${workspaceFolder}&#34;
+}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="调试构建二进制文件配置片段">调试构建二进制文件配置片段</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+	&#34;name&#34;: &#34;Launch executable&#34;,
+	&#34;type&#34;: &#34;go&#34;,
+	&#34;request&#34;: &#34;launch&#34;,
+	&#34;mode&#34;: &#34;exec&#34;,
+	&#34;program&#34;: &#34;absolute-path-to-the-executable&#34;
+}
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="远程调试">远程调试</h1>
+<p>远程调试需要在服务器上期一个无头的  <code>Delve</code>  服务<br>
+例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ dlv debug --headless --listen=:2345 --log --api-version=2
+</code></pre></td></tr></table>
+</div>
+</div><p>如果需要传给参数到程序中则需要将参数传入到 <code>Delve</code> 服务中
+例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">dlv debug --headless --listen=:2345 --log -- -myArg=123
+</code></pre></td></tr></table>
+</div>
+</div><p><code>launch.json</code> 配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{
+	&#34;name&#34;: &#34;Launch remote&#34;,
+	&#34;type&#34;: &#34;go&#34;,
+	&#34;request&#34;: &#34;launch&#34;,
+	&#34;mode&#34;: &#34;remote&#34;,
+	&#34;remotePath&#34;: &#34;服务器调试文件的目录（绝对路径）&#34;,
+	&#34;port&#34;: 2345,
+	&#34;host&#34;: &#34;127.0.0.1&#34;,
+	&#34;program&#34;: &#34;本地调试文件所在的目录（绝对路径）&#34;,
+	&#34;env&#34;: {}
+}
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>将上述配置中的 <code>host</code> 和 <code>port</code> 修改 <code>Delve</code> 服务所在的服务器ip和其监听的端口号。</li>
+<li><code>remotePath</code>  应该配置为调试文件的绝对路径</li>
+<li><code>program </code>  需要配置本地机器文件所在的绝对路径，是 <code>remotePath</code> 的一个副本</li>
+</ul>
+<p>配置完成后，点击调试按钮，<code>VS Code</code> 将会项远程的 <code>dlv</code> 服务发出调试指令，而不是使用本机的 <code>dlv</code> 实例。</p>
+<h1 id="参考链接">参考链接</h1>
+<p><a href="https://github.com/Microsoft/vscode-go/wiki/Debugging-Go-code-using-VS-Code#sample-configuration-to-debug-a-single-test">Debugging Go code using VS Code</a><br>
+<a href="https://github.com/go-delve/delve/tree/master/Documentation/installation">Delve Installation</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">yunxi</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-03-25
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ide/">IDE</a>
+          <a href="/tags/%E5%B7%A5%E6%AC%B2%E5%96%84%E5%85%B6%E4%BA%8B%E5%BF%85%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8/">工欲善其事，必先利其器</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/electron/install/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">electron-vue  集成 element-ui</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/ide/vs-code/snippet/">
+            <span class="next-text nav-default">vscode 自定义代码片段</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: 'ide-vs-code-debugging-go',
+        title: 'VS Code golang debug 配置',
+        clientID: '7df62c8e117826bf4f9b',
+        clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+        repo: 'hugo',
+        owner: 'yunxi177',
+        admin: ['yunxi177'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
+  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+    <a class="theme-link" href="http://beian.miit.gov.cn/publish/query/indexFirst.action" target="_blank">苏ICP备18046444号-1</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>yunxi</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

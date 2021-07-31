@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>计算机网络 on 一二三四吾</title>
+    <link>http://www.artacode.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link>
+    <description>Recent content in 计算机网络 on 一二三四吾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 19 Aug 2018 11:05:29 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.artacode.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>freeRADIUS搭建</title>
+      <link>http://www.artacode.com/posts/freeradius/</link>
+      <pubDate>Sun, 19 Aug 2018 11:05:29 +0800</pubDate>
+      
+      <guid>http://www.artacode.com/posts/freeradius/</guid>
+      <description>系统要求 操作系统 CentOS 7.0 x86_64 网址：http://www.centos.org/ 所需软件 FreeRADIUS 3.0 网址：http://freeradius.org/ 目前最</description>
+    </item>
+    
+  </channel>
+</rss>

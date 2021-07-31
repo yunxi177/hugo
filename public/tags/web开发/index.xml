@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WEB开发 on 一二三四吾</title>
+    <link>https://www.artacode.com/tags/web%E5%BC%80%E5%8F%91/</link>
+    <description>Recent content in WEB开发 on 一二三四吾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 03 Aug 2019 19:37:51 +0800</lastBuildDate><atom:link href="https://www.artacode.com/tags/web%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>申请 let&#39;s encrypt 通配符 ssl 证书</title>
+      <link>https://www.artacode.com/post/web/wildcard-https/</link>
+      <pubDate>Sat, 03 Aug 2019 19:37:51 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/web/wildcard-https/</guid>
+      <description>在&amp;lt;使用 let&amp;rsquo;s encrypt 为网站开启 https&amp;gt;一问中,讲述了,如何用 let&amp;rsquo;s encrypt 为网站开启 https 协议,这篇内容讲一下如何申请 let&amp;rsquo;s encrypt 通配符证书 什么是通配符证</description>
+    </item>
+    
+    <item>
+      <title>使用 let&#39;s encrypt 为网站开启 https</title>
+      <link>https://www.artacode.com/post/web/enable-https/</link>
+      <pubDate>Tue, 30 Jul 2019 20:54:18 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/web/enable-https/</guid>
+      <description>启用可用通道 1 2 $ yum -y install yum-utils $ yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional 安装 Certbot 1 $ sudo yum install certbot python2-certbot-nginx 获取 nginx 服务器证书 1 $ sudo certbot certonly --nginx 遇到问题 certbot 未找到 nginx 二进制文件 The nginx plugin is not working; there may be problems with your existing configuration.</description>
+    </item>
+    
+  </channel>
+</rss>

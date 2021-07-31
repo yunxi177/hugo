@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="vim-plug 安装"/>
+  <meta name="twitter:description" content="vim-plug 是一个极简的 vim 插件管理器 安装 vim-plug 的安装十分简单只需要一行命令就可以搞定 vim Linux curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim Windows (PowerShell) md ~\vimfiles\autoload $uri = &#39;https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&#39; (New-Object Net.WebClient).DownloadFile( $uri, $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath( &quot;~\vimfiles\autoload\plug.vim&quot; ) ) Neovim Linux curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim Windows (PowerShell) md ~\AppData\Local\nvim\autoload $uri"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>vim-plug 安装 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        vim-plug 安装
+                    </h1>
+                    <h2 class="headline">
+                    Apr 21, 2019 07:33
+                    · 1019 words
+                    · 3 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/%E5%B7%A5%E6%AC%B2%E5%96%84%E5%85%B6%E4%BA%8B%E5%BF%85%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8">工欲善其事，必先利其器</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#安装">安装</a>
+<ul>
+<li><a href="#vim">vim</a>
+<ul>
+<li><a href="#linux">Linux</a></li>
+<li><a href="#windows-powershell">Windows (PowerShell)</a></li>
+</ul></li>
+<li><a href="#neovim">Neovim</a>
+<ul>
+<li><a href="#linux-1">Linux</a></li>
+<li><a href="#windows-powershell-1">Windows (PowerShell)</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#使用">使用</a></li>
+<li><a href="#命令行">命令行</a></li>
+<li><a href="#插件选项-plug-options">插件选项（Plug options）</a></li>
+<li><a href="#全局选项">全局选项</a></li>
+<li><a href="#快捷键绑定">快捷键绑定</a></li>
+<li><a href="#插件按需加载">插件按需加载</a></li>
+<li><a href="#post-update-hooks">Post-update Hooks</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<p>vim-plug 是一个极简的 vim 插件管理器</p>
+
+<p><img src="http://pic.artacode.com/installer.gif" alt="" /></p>
+
+<h1 id="安装">安装</h1>
+
+<p>vim-plug 的安装十分简单只需要一行命令就可以搞定</p>
+
+<h2 id="vim">vim</h2>
+
+<h3 id="linux">Linux</h3>
+
+<pre><code>curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+</code></pre>
+
+<h3 id="windows-powershell">Windows (PowerShell)</h3>
+
+<pre><code>md ~\vimfiles\autoload
+$uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+(New-Object Net.WebClient).DownloadFile(
+  $uri,
+  $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(
+    &quot;~\vimfiles\autoload\plug.vim&quot;
+  )
+)
+</code></pre>
+
+<h2 id="neovim">Neovim</h2>
+
+<h3 id="linux-1">Linux</h3>
+
+<pre><code>curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+</code></pre>
+
+<h3 id="windows-powershell-1">Windows (PowerShell)</h3>
+
+<pre><code>md ~\AppData\Local\nvim\autoload
+$uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+(New-Object Net.WebClient).DownloadFile(
+  $uri,
+  $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath(
+    &quot;~\AppData\Local\nvim\autoload\plug.vim&quot;
+  )
+)
+</code></pre>
+
+<h1 id="使用">使用</h1>
+
+<p>在 vim 配置文件 <code>~/vimrc</code> 或 Neovim 配置文件 <code>~/.config/nvim/init.vim</code> 中增加 vim-plug 配置项</p>
+
+<ol>
+<li>开始部分 <code>call plug#begin()</code></li>
+<li><code>Plug</code> 命令用于定义使用的插件列表</li>
+<li>结束部分 <code>call plug#end()</code> 更新 <code>&amp;runtimepath</code> 并且初始化插件系统
+
+<ol>
+<li>自动执行 <code>filetype plugin indent on</code> 和 <code>syntax enable</code>. 你也可以在调用后恢复设置，例如: <code>filetype indent off</code>, <code>syntax off</code>&hellip;</li>
+</ol></li>
+</ol>
+
+<p>用例：</p>
+
+<pre><code>&quot; 指定插件目录
+&quot; - Neovim 为: ~/.local/share/nvim/plugged
+&quot; - 避免使用 Vim 标准目录名，例如：`plugin`
+call plug#begin('~/.vim/plugged')
+
+&quot; 所有配置均使用单引号
+
+&quot; 简化符号; fetches https://github.com/junegunn/vim-easy-align
+Plug 'junegunn/vim-easy-align'
+
+&quot; 允许使用任何有效的 git URL
+Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+&quot; Multiple Plug commands can be written in a single line using | separators
+&quot; 多个插件可以使用一个单引号书写，中间用 | 分隔
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+&quot; 按需加载（紧在使用时加载）
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+&quot; 使用其他分支
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+
+&quot; 使用指定tag
+Plug 'fatih/vim-go', { 'tag': '*' }
+
+&quot; 插件选项
+Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+
+&quot; 挂更新后钩子
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+&quot; 非托管插件 (手动安装和更新)
+Plug '~/my-prototype-plugin'
+
+&quot; 初始化插件系统
+call plug#end()
+</code></pre>
+
+<p>安装插件</p>
+
+<ol>
+<li>重载 <code>.vimrc</code></li>
+<li>打开 vim  <code>$ vim</code></li>
+<li><code>:PlugInstall</code> 安装配置的插件</li>
+</ol>
+
+<h1 id="命令行">命令行</h1>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>PlugInstall [name ...] [#threads]</code></td>
+<td>安装插件</td>
+</tr>
+
+<tr>
+<td><code>PlugUpdate [name ...] [#threads]</code></td>
+<td>安装或更新插件</td>
+</tr>
+
+<tr>
+<td><code>PlugClean[!]</code></td>
+<td>清除不常用目录</td>
+</tr>
+
+<tr>
+<td><code>PlugUpgrade</code></td>
+<td>更新 vim-plug 自身</td>
+</tr>
+
+<tr>
+<td><code>PlugStatus</code></td>
+<td>检查插件状态</td>
+</tr>
+
+<tr>
+<td><code>PlugDiff</code></td>
+<td>检查上次更新和挂起更新的修改</td>
+</tr>
+
+<tr>
+<td><code>PlugSnapshot[!] [output path]</code></td>
+<td>生成插件快照</td>
+</tr>
+</tbody>
+</table>
+
+<h1 id="插件选项-plug-options">插件选项（Plug options）</h1>
+
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>branch/tag/commit</code></td>
+<td>使用仓库的  Branch/tag/commit</td>
+</tr>
+
+<tr>
+<td><code>rtp</code></td>
+<td>包含 vim 插件的子目录</td>
+</tr>
+
+<tr>
+<td><code>dir</code></td>
+<td>自定义插件目录</td>
+</tr>
+
+<tr>
+<td><code>as</code></td>
+<td>自定义插件名称</td>
+</tr>
+
+<tr>
+<td><code>do</code></td>
+<td>更新后钩子</td>
+</tr>
+
+<tr>
+<td><code>on</code></td>
+<td>根据命令或插件映射按需加载</td>
+</tr>
+
+<tr>
+<td><code>for</code></td>
+<td>根据文件类型按需加载</td>
+</tr>
+
+<tr>
+<td><code>frozen</code></td>
+<td>除非显示制定，否则不更新</td>
+</tr>
+</tbody>
+</table>
+
+<h1 id="全局选项">全局选项</h1>
+
+<table>
+<thead>
+<tr>
+<th>标识</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>g:plug_threads</code></td>
+<td>16</td>
+<td>默认使用线程数</td>
+</tr>
+
+<tr>
+<td><code>g:plug_timeout</code></td>
+<td>60</td>
+<td>任务执行的超时时间</td>
+</tr>
+
+<tr>
+<td><code>g:plug_retries</code></td>
+<td>2</td>
+<td>超时情况下重试次数</td>
+</tr>
+
+<tr>
+<td><code>g:plug_shallow</code></td>
+<td>1</td>
+<td>使用浅拷贝</td>
+</tr>
+
+<tr>
+<td><code>g:plug_window</code></td>
+<td><code>vertical topleft new</code></td>
+<td>打开插件窗口命令</td>
+</tr>
+
+<tr>
+<td><code>g:plug_pwindow</code></td>
+<td><code>above 12new</code></td>
+<td>打开 <code>PlugDiff</code> 预览窗口的命令</td>
+</tr>
+
+<tr>
+<td><code>g:plug_url_format</code></td>
+<td><code>https://git::@github.com/%s.git</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h1 id="快捷键绑定">快捷键绑定</h1>
+
+<ul>
+<li>D - <code>PlugDiff</code></li>
+<li>S - <code>PlugStatus</code></li>
+<li>R - 重试失败的更新或安装任务</li>
+<li>U - 更新选中插件</li>
+<li>q - 关闭窗口</li>
+<li>:PlugStatus
+
+<ul>
+<li>L - 加载插件</li>
+</ul></li>
+<li>PlugDiff
+
+<ul>
+<li>X - 还原更新</li>
+</ul></li>
+</ul>
+
+<h1 id="插件按需加载">插件按需加载</h1>
+
+<pre><code>&quot; NERD tree 在 NERDTreeToggle 第一调用时加载
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+
+&quot; 多命令
+Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
+
+&quot; 当 clojure 文件打开时加载
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+&quot; 多文件类型
+Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
+
+&quot; 两种情况下都可以按需加载
+Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
+
+&quot; 插件按需加载时执行代码
+Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+autocmd! User goyo.vim echom 'Goyo is now loaded!'
+</code></pre>
+
+<p><code>for</code> 选项通常是不需要的，因为大多数特定文件类型的插件通常代码不是很多</p>
+
+<h1 id="post-update-hooks">Post-update Hooks</h1>
+
+<p>有很多插件在安装或更新后需要额外的操作。这种情况下可以使用 <code>do</code> 选项来定义要执行的任务</p>
+
+<pre><code>Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+</code></pre>
+
+<p>如果 value 以 <code>:</code> 开头的话，将认为是 vim 命令</p>
+
+<pre><code>Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+</code></pre>
+
+<p>在 <code>do</code> 选项中的值要确保转义 | 和 &ldquo;&rdquo;  否则会被识别为分隔符，或注释的开头</p>
+
+<pre><code>Plug 'junegunn/fzf', { 'do': 'yes \| ./install' }
+
+</code></pre>
+
+<p>如果使用变量方式传入 <code>do</code> 选项中，则可以避免转义</p>
+
+<pre><code>let g:fzf_install = 'yes | ./install'
+Plug 'junegunn/fzf', { 'do': g:fzf_install }
+</code></pre>
+
+<h1 id="参考链接">参考链接</h1>
+
+<p><a href="https://github.com/junegunn/vim-plug">vim-plug</a></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fide%2fvim%2fvim-plug-install%2f - vim-plug%20%e5%ae%89%e8%a3%85 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'ide-vim-plug-install',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

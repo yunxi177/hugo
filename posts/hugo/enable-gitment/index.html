@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="hugo集成girment插件"/>
+  <meta name="twitter:description" content="起因 使 hugo 搭建博客已经有半年了，一直觉得用 markdown 才写博客才程序员应该有的范，所以看到 hugo 就觉得自己应该有一个这样的博客，后面就自己搭建起来。最近，写"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>hugo集成girment插件 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        hugo集成girment插件
+                    </h1>
+                    <h2 class="headline">
+                    Nov 27, 2018 18:57
+                    · 846 words
+                    · 2 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/hugo">hugo</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#起因">起因</a></li>
+<li><a href="#1-简介">1. 简介</a></li>
+<li><a href="#2-注册">2. 注册</a></li>
+<li><a href="#3-引入">3. 引入</a></li>
+<li><a href="#4-总结">4. 总结</a></li>
+<li><a href="#5-参考链接">5. 参考链接</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h1 id="起因">起因</h1>
+
+<p>使 <code>hugo</code> 搭建博客已经有半年了，一直觉得用 <code>markdown</code> 才写博客才程序员应该有的范，所以看到 <code>hugo</code> 就觉得自己应该有一个这样的博客，后面就自己搭建起来。最近，写博客的频率越来越高，也越来越觉得交互对一个博客的重要性，于是集成评论系统的优先级变得越来越高。<br />
+最开始也想着直接集成现有的国内评论插件，后台喜欢的评论插件死的死，不死的也半死，于是把目光放在了 <code>gitment</code> 上，对于 <code>gitment</code> 的集成相对简单，其中也有一些小坑，于是便有了这篇文章,希望能够帮到有同样想法的小伙伴。</p>
+
+<h1 id="1-简介">1. 简介</h1>
+
+<p>Gitment 是一款基于 GitHub Issues 的评论系统，支持在前端直接引入，不需要任何后端代码。可以在页面进行登录、查看、评论、点赞等操作，同时有完整的 Markdown / GFM 和代码高亮支持。尤为适合各种基于 GitHub Pages 的静态博客或项目页面Gitment是一款基于 GitHub Issues 的评论系统，支持在前端直接引入，不需要任何后端代码。可以在页面进行登录、查看、评论、点赞等操作，同时有完整的 Markdown / GFM 和代码高亮支持。尤为适合各种基于 GitHub Pages 的静态博客或项目页面。</p>
+
+<h1 id="2-注册">2. 注册</h1>
+
+<p>到<a href="https://github.com/settings/applications/new">https://github.com/settings/applications/new</a> ,中注册一个新的<code>OAuth Application</code> 其中 <code>Authorization callback URL</code> 写你的网站域名就可以了，例如我这里填写的是：<a href="http://www.artacode.com/">http://www.artacode.com/</a>
+注册完成后会得到 <code>Client ID</code> 和 <code>Client Secret</code> 两个值用于为们后面引入 gitment</p>
+
+<h1 id="3-引入">3. 引入</h1>
+
+<p>增加评论开关：</p>
+
+<pre><code>sudo vim $HUGO_PATH/config.toml
+
+...
+[params]
+    enableGitment = true
+...
+
+//保存退出
+</code></pre>
+
+<p>在 <code>themes/beautifulhugo/layouts/_default/single.html</code> 文件中，合适的位置增加如下代码</p>
+
+<pre><code>{{ if .Site.Params.enableGitment }}
+&lt;div id=&quot;git-comments&quot;&gt;&lt;/div&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://imsun.github.io/gitment/style/default.css&quot;&gt;
+&lt;script src=&quot;https://imsun.github.io/gitment/dist/gitment.browser.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  var gitment = new Gitment({
+    id: '{{ .Params.gitmentId }}',  // 可选, 默认为 location.href
+    owner: '你的 GitHub ID',
+    repo: '存储评论的仓库名称',
+    oauth: {
+      client_id: '你的 client ID',
+      client_secret: '你的 client secret',
+    }
+  })
+  gitment.render('git-comments')
+&lt;/script&gt;
+{{ end }}
+
+</code></pre>
+
+<p>值得注意的<code>repo</code> 必须是<code>owner</code> 下的仓库名称，还有一点就是 id 的长度是有限制的，所以为们需要自己定义一个唯一的id，本站是使用了页面变量 gitmentId 来作为评论的 id 如下是本文的 meta</p>
+
+<pre><code>+++
+title = &quot;hugo集成girment插件&quot;
+date = 2018-11-27T18:57:45+08:00
+tags = [&quot;hugo&quot;]
+categories = [&quot;hugo&quot;]
+gitmentId = &quot;hugo-enable-gitment&quot;
++++
+</code></pre>
+
+<h1 id="4-总结">4. 总结</h1>
+
+<p>gitment 是一款非常优秀的评论插件，加上本神也支持 <code>markdown</code> 语法， 对于程序员来说可以说是量身打造。还等什么，来试以下把。</p>
+
+<h1 id="5-参考链接">5. 参考链接</h1>
+
+<p><a href="https://github.com/imsun/gitment">gitment</a></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fhugo%2fenable-gitment%2f - hugo%e9%9b%86%e6%88%90girment%e6%8f%92%e4%bb%b6 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'hugo-enable-gitment',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

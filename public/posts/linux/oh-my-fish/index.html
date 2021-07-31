@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="Oh My Fish 一个可以让你赏心悦目的 fish shell 框架"/>
+  <meta name="twitter:description" content="安装 fish shell 以 ubuntu 为例 sudo apt-add-repository ppa:fish-shell/release-3 sudo apt-get update sudo apt-get install fish 其他系统安装点击链接 安装 oh my fish curl -L https://get.oh-my.fish | fish 运行上述命令，就尅安装 oh my fish 了，接下来来讲解一下 oh my fish 的基本使用"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>Oh My Fish 一个可以让你赏心悦目的 fish shell 框架 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Oh My Fish 一个可以让你赏心悦目的 fish shell 框架
+                    </h1>
+                    <h2 class="headline">
+                    May 3, 2019 22:37
+                    · 518 words
+                    · 2 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/linux">linux</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#安装-fish-shell">安装 fish shell</a></li>
+<li><a href="#安装-oh-my-fish">安装 oh my fish</a></li>
+<li><a href="#操作说明">操作说明</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h1 id="安装-fish-shell">安装 fish shell</h1>
+
+<p>以 ubuntu 为例</p>
+
+<pre><code>sudo apt-add-repository ppa:fish-shell/release-3
+sudo apt-get update
+sudo apt-get install fish
+</code></pre>
+
+<p>其他系统安装<a href="https://github.com/fish-shell/fish-shell">点击链接</a></p>
+
+<h1 id="安装-oh-my-fish">安装 oh my fish</h1>
+
+<pre><code>curl -L https://get.oh-my.fish | fish
+</code></pre>
+
+<p>运行上述命令，就尅安装 oh my fish 了，接下来来讲解一下 oh my fish 的基本使用方式</p>
+
+<h1 id="操作说明">操作说明</h1>
+
+<p><code>omf update [omf] [&lt;package&gt;...]</code><br />
+更新 oh my fish 包仓库以及所有安装过的包
+- 执行该命令未加任何参数的时候则更新自身和所有安装过的包
+- 仅仅更新 oh my fish <code>omf update omf.</code>
+- 对于选择更新，你仍然可以在更新包的列表中加入 “omf” 来更新 oh my fish 自身</p>
+
+<p><code>omf install [&lt;name&gt;|&lt;url&gt;]</code><br />
+安装一个或更多的包</p>
+
+<ul>
+<li>执行 <code>omf install URL</code> 可以直接通过 URL 安装包</li>
+<li>如何没传入参数，则冲 bundle 中安装缺少的包<br />
+<br /></li>
+</ul>
+
+<p><code>omf repositories [list|add|remove]</code></p>
+
+<p>管理用户安装包的仓库。包仓库是用户 <code>omf install</code> 等命令使用包的来源.默认情况下官方包总是安装后好并且可用的。</p>
+
+<p><code>omf list</code><br />
+已安装包的列表<br />
+<code>omf theme &lt;theme&gt;</code>&rsquo;<br />
+使用主题，如果想列出可使用主题列表使用 <code>omf theme</code> , 你也可已在安装主题前 <a href="https://github.com/oh-my-fish/oh-my-fish/blob/master/docs/Themes.md">预览主题</a></p>
+
+<p><code>omf remove &lt;name&gt;</code><br />
+删除主题或者已经安装的包</p>
+
+<p><code>omf reload</code><br />
+使用 <code>exec</code> 用一个全新的 sell 进程代替当前进程，以重载 oh my fish 和 所有插件</p>
+
+<p><code>omf new plugin | theme &lt;name&gt;</code><br />
+构建新的插件或主题</p>
+
+<p><code>omf search -t|--theme / -p|--package &lt;name&gt;</code></p>
+
+<p>可以按照 主题名或包名或包名+主题名 搜索。 支持模糊查询，如果不确定保命可以直接搜搜  <code>omf search simple.</code>&lsquo;</p>
+
+<p><code>omf channel</code><br />
+获取或更改更新管道,有两个可以用的管道</p>
+
+<ol>
+<li><code>stable</code> 管道使用最新标记版本的 oh my fish 提供稳定版更新　　</li>
+<li><code>dev</code> 提供正在开发中的最新更改</li>
+</ol>
+
+<p>根据设置的更新通道则决定　<code>omf uodate</code> 更新到什么版本</p>
+
+<p><code>omf destroy</code><br />
+卸载　oh my fish</p>
+
+<p>＃　参考链接
+<a href="https://github.com/oh-my-fish/oh-my-fish">oh-my-fish</a></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2flinux%2foh-my-fish%2f - Oh%20My%20Fish%20%e4%b8%80%e4%b8%aa%e5%8f%af%e4%bb%a5%e8%ae%a9%e4%bd%a0%e8%b5%8f%e5%bf%83%e6%82%a6%e7%9b%ae%e7%9a%84%20fish%20shell%20%e6%a1%86%e6%9e%b6 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'linux-oh-my-fish-install',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

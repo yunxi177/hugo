@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hugo on 一二三四吾</title>
+    <link>https://www.artacode.com/tags/hugo/</link>
+    <description>Recent content in hugo on 一二三四吾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 29 Nov 2018 18:44:33 +0800</lastBuildDate><atom:link href="https://www.artacode.com/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>gitalk评论插件自动初始化</title>
+      <link>https://www.artacode.com/post/hugo/auto-init-gitalk/</link>
+      <pubDate>Thu, 29 Nov 2018 18:44:33 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/hugo/auto-init-gitalk/</guid>
+      <description>这只是个预告，耐心等待把。😀</description>
+    </item>
+    
+    <item>
+      <title>hugo集成girment插件</title>
+      <link>https://www.artacode.com/post/hugo/enable-gitment/</link>
+      <pubDate>Tue, 27 Nov 2018 18:57:45 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/hugo/enable-gitment/</guid>
+      <description>起因 使 hugo 搭建博客已经有半年了，一直觉得用 markdown 才写博客才程序员应该有的范，所以看到 hugo 就觉得自己应该有一个这样的博客，后面就自己搭建起来。最近，写</description>
+    </item>
+    
+  </channel>
+</rss>

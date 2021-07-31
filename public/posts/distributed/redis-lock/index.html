@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="redis实现分布式锁"/>
+  <meta name="twitter:description" content="起因 消息队列处理任务中，由于消息队列中有相同的处理请求并且消费端存在多个，因此出现了并发消费的问题，于是产生了利用分布式锁来锁定消费，保证同"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>redis实现分布式锁 &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        redis实现分布式锁
+                    </h1>
+                    <h2 class="headline">
+                    Dec 14, 2018 17:47
+                    · 1311 words
+                    · 3 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F">分布式</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#起因">起因</a></li>
+<li><a href="#选型">选型</a></li>
+<li><a href="#背景介绍">背景介绍</a></li>
+<li><a href="#分布时锁实现">分布时锁实现</a>
+<ul>
+<li><a href="#雏形">雏形</a></li>
+<li><a href="#进一步完善">进一步完善</a></li>
+</ul></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#参考文献">参考文献</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h1 id="起因">起因</h1>
+
+<p>消息队列处理任务中，由于消息队列中有相同的处理请求并且消费端存在多个，因此出现了并发消费的问题，于是产生了利用分布式锁来锁定消费，保证同一时间只有一个请求在处理，找了一下分布式锁的实现方式常见的有：
+- 基于数据库
+- 基于Zookeeper
+- 基于redis</p>
+
+<h1 id="选型">选型</h1>
+
+<p>基于数据库相对来说，更直观，实现起来也比较简单，至于要设置一个唯一索引，在插入时判断是否正常插入，不能插入则说明获取锁失败，缺点是会增加数据库开销，增加数据库压力，所以此方案PASS。基于Zookeeper实现分布式锁，会引新的软件，将会增加原有系统的复杂度，因而此方案也PASS。基于 redis 本身是对内存的操作，相对来说效率会非常高，并且原有系统也已经存在了 redis ，因而也不会增加原系统的复杂度，所以选择了 redis 来实现分布式锁。</p>
+
+<h1 id="背景介绍">背景介绍</h1>
+
+<p><strong>SETNX key value</strong></p>
+
+<blockquote>
+<p>将 key 的值设为 value ，当且仅当 key 不存在。若给的 key 已经存在，则 SETNX 不做任何动作。SETNX 是『SET if Not eXists』(如果不存在，则 SET)的简写。</p>
+</blockquote>
+
+<pre><code>redis&gt; EXISTS job                # job 不存在
+(integer) 0
+
+redis&gt; SETNX job &quot;programmer&quot;    # job 设置成功
+(integer) 1
+
+redis&gt; SETNX job &quot;code-farmer&quot;   # 尝试覆盖 job ，失败
+(integer) 0
+
+redis&gt; GET job                   # 没有被覆盖
+&quot;programmer&quot;
+
+</code></pre>
+
+<p>当 <code>key</code> 不存在时，返回 1， 如果设置的 <code>key</code> 存在时则返回 0 ，该操作本身具有原子性，因此可以利用 redis 此特性进行分布式锁实现的基础。</p>
+
+<h1 id="分布时锁实现">分布时锁实现</h1>
+
+<h2 id="雏形">雏形</h2>
+
+<p>上面介绍了 <code>SETNX</code> 用法，我们可以使用以下步骤实现分布式锁：
+1. 当 A 请求过来, 将锁的状态设置为true: $redis-&gt;setNx(&ldquo;lock&rdquo;, &ldquo;true&rdquo;)，返回 1 设置成功
+2. 在 A 请求未结束时， B 、C 请求到来获取锁的状态$redis-&gt;setNx(&ldquo;lock&rdquo;, &ldquo;true&rdquo;)，返回 0 设置失败， 则直接返回请求结果，等待下次执行。
+3. A 执行完毕，释放锁。</p>
+
+<p>上面的分布式锁存在一个问题，就是 <code>setNx</code> 并没有一个过期时间的设置，这样如果在步骤 1 中 A 请求异常退出并没有释放锁就会导致死锁的情况。</p>
+
+<h2 id="进一步完善">进一步完善</h2>
+
+<p>要解决上述死锁的问题，我们就需要引入一个过期时间的机制，当一段时间内锁没有进行释放，则自动将锁释放。在锁 <code>lock</code> 中将值设置为过期的时间戳，当设置 <code>lock</code> 值返回 0 时，需要多一步判断，就时将 <code>lock</code> 中的值取出来与当前时间戳对比，如果小于当前时间戳则原有锁失效，该请求成功过的锁。需要注意的时这里获取过期时间戳并不能直接用 <code>get</code> 命令，因为如果用 <code>get</code> 当 B、C 同时获取锁的时，会出现 B 和 C 同时拿到过期的时间戳，这样就会导致 B、C 都认为自己拿到了锁，导致锁失效。<br />
+使用 <code>getset</code> 把新的时间戳写入锁，把原来锁的值取出，这样我们只需要把从 <code>getset</code> 中获取的值与当前时间比较。如果比当前时间大说明已经有其他的请求取到锁，当前请求获取锁失败，如果比当前时间戳小，说明本次请求获取锁成功
+具体操作步骤如下：</p>
+
+<ol>
+<li>A 请求 $redis-&gt;setNx(&ldquo;lock&rdquo;, current timestamp) 返回 1 成功获取锁</li>
+<li>B 请求 <code>$redis-&gt;setNx(&quot;lock&quot;, currentTimestamp)</code> 返回 0 未拿到锁，获取锁的过期时间， <code>$expireTime = $redis-&gt;getSet(&quot;lock&quot;, currentTimestamp)</code> ，判断锁是否过期 <code>$expireTime &lt; current timestamp</code>, 过期时间小于当前时间，则锁过期，B 成功获取锁</li>
+</ol>
+
+<h1 id="总结">总结</h1>
+
+<p>任何方案都不能是尽善尽美，都有着自身的优势与局限性，我们开发者需要做的是衡量利弊选择对项目有利的解决方案来解决问题，遇到问题解决问题，不断迭代，直到整个方案趋于稳态。这里也非常感谢，在整个实现过程中，和我一起商讨的小伙伴，感谢你们的帮助。</p>
+
+<h1 id="参考文献">参考文献</h1>
+
+<p><a href="http://redisdoc.com/string/setnx.html">setnx命令</a><br />
+<a href="http://doc.redisfans.com/string/getset.html">getset</a></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fdistributed%2fredis-lock%2f - redis%e5%ae%9e%e7%8e%b0%e5%88%86%e5%b8%83%e5%bc%8f%e9%94%81 by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'distributed-redis-lock',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

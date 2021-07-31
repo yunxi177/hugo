@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="etcd入门系列二：etcd开启https"/>
+  <meta name="twitter:description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 上节(etcd在docker中"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>etcd入门系列二：etcd开启https &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        etcd入门系列二：etcd开启https
+                    </h1>
+                    <h2 class="headline">
+                    Nov 21, 2018 13:44
+                    · 1160 words
+                    · 3 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/etcd">etcd</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#etcd入门系列">etcd入门系列</a></li>
+<li><a href="#1-生成签名">1 生成签名</a>
+<ul>
+<li><a href="#1-1-下载-cfssl">1.1 下载 cfssl</a></li>
+<li><a href="#1-2-初始化证书">1.2 初始化证书</a></li>
+<li><a href="#1-3-证书介绍">1.3 证书介绍</a></li>
+<li><a href="#1-4-配置-ca-选项">1.4 配置 CA 选项</a></li>
+<li><a href="#1-5-生成服务器证书">1.5 生成服务器证书</a></li>
+</ul></li>
+<li><a href="#2-启动etcd服务">2 启动etcd服务</a></li>
+<li><a href="#3-验证请求是否正确">3 验证请求是否正确</a>
+<ul>
+<li><a href="#3-1-不带证书请求">3.1 不带证书请求</a></li>
+<li><a href="#3-2-带证书请求">3.2 带证书请求</a></li>
+</ul></li>
+<li><a href="#参考文章">参考文章</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h1 id="etcd入门系列">etcd入门系列</h1>
+
+<p><a href="http://www.artacode.com/posts/etcd/install/">一. etcd在docker中的安装与使用</a><br />
+<a href="http://www.artacode.com/posts/etcd/enable-https/">二. etcd 开启 https</a><br />
+<a href="http://www.artacode.com/posts/etcd/enable-https/">三. 身份验证访问控制</a><br />
+<a href="http://www.artacode.com/posts/etcd/certificates/">四. 开启客户端证书访问</a></p>
+
+<p>上节(<a href="http://www.artacode.com/posts/etcd/install/">etcd在docker中使用</a>)etcd已经可以正常使用,这节讲讲如何开启htpps</p>
+
+<h1 id="1-生成签名">1 生成签名</h1>
+
+<h2 id="1-1-下载-cfssl">1.1 下载 cfssl</h2>
+
+<pre><code>mkdir ~/bin
+curl -s -L -o ~/bin/cfssl https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
+curl -s -L -o ~/bin/cfssljson https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
+chmod +x ~/bin/{cfssl,cfssljson}
+export PATH=$PATH:~/bin
+</code></pre>
+
+<p>需要注意的是,这里是以linux的64位为例,如果你是其他系统,请修改成对应系统的cfssl包</p>
+
+<h2 id="1-2-初始化证书">1.2 初始化证书</h2>
+
+<p>使用<code>cfssl</code>模板生成<code>ca-config.json</code>,<code>ca-csr.json</code></p>
+
+<pre><code>mkdir ~/cfssl
+cd ~/cfssl
+cfssl print-defaults config &gt; ca-config.json
+cfssl print-defaults csr &gt; ca-csr.json
+</code></pre>
+
+<h2 id="1-3-证书介绍">1.3 证书介绍</h2>
+
+<ul>
+<li>客户端证书(client certificate):用于服务器对客户端进行身份验证.例如 <code>etcdctl</code>, <code>etcd proxy</code>, <code>docker</code> 等客户端.</li>
+<li>服务器证书(server certificate):服务器端使用,用于客户端验证服务器身份.例如 <code>docker</code> 服务器, <code>kube-apiserver</code></li>
+<li>对等证书(peer certificate):用于etcd集群间的双向通讯</li>
+</ul>
+
+<h2 id="1-4-配置-ca-选项">1.4 配置 CA 选项</h2>
+
+<p>现在我在 <code>ca-config.json</code> 配置文件中配置签名选项,默认设置中已经有了如下配置项:
+- profiles: :www与服务器认证(TLS Web服务器认证)X509 V3扩展和客户端与客户端认证(TLS Web客户端认证)X509 V3扩展
+- expiry: 有效期,默认值为8760h</p>
+
+<p>接下来将<code>www</code>改为名为server,<code>expiry</code> 改为 43800 h <code>ca-config.json</code> 修改后内容如下:</p>
+
+<pre><code>{
+    &quot;signing&quot;: {
+        &quot;default&quot;: {
+            &quot;expiry&quot;: &quot;43800h&quot;
+        },
+        &quot;profiles&quot;: {
+            &quot;server&quot;: {
+                &quot;expiry&quot;: &quot;43800h&quot;,
+                &quot;usages&quot;: [
+                    &quot;signing&quot;,
+                    &quot;key encipherment&quot;,
+                    &quot;server auth&quot;
+                ]
+            },
+            &quot;client&quot;: {
+                &quot;expiry&quot;: &quot;43800h&quot;,
+                &quot;usages&quot;: [
+                    &quot;signing&quot;,
+                    &quot;key encipherment&quot;,
+                    &quot;client auth&quot;
+                ]
+            }
+        }
+    }
+}
+
+</code></pre>
+
+<p>你也可以修改 <code>ca-csr.json</code> json证书签名请求</p>
+
+<pre><code>{
+    &quot;CN&quot;: &quot;My own CA&quot;,
+    &quot;key&quot;: {
+        &quot;algo&quot;: &quot;rsa&quot;,
+        &quot;size&quot;: 2048
+    },
+    &quot;names&quot;: [
+        {
+            &quot;C&quot;: &quot;US&quot;,
+            &quot;L&quot;: &quot;CA&quot;,
+            &quot;O&quot;: &quot;My Company Name&quot;,
+            &quot;ST&quot;: &quot;San Francisco&quot;,
+            &quot;OU&quot;: &quot;Org Unit 1&quot;,
+            &quot;OU&quot;: &quot;Org Unit 2&quot;
+        }
+    ]
+}
+</code></pre>
+
+<p>使用定义好的签名生成 CA 证书</p>
+
+<pre><code>cfssl gencert -initca ca-csr.json | cfssljson -bare ca -
+</code></pre>
+
+<p>将会生成如下文件:</p>
+
+<pre><code>ca-key.pem
+ca.csr
+ca.pem
+</code></pre>
+
+<h2 id="1-5-生成服务器证书">1.5 生成服务器证书</h2>
+
+<pre><code>cfssl print-defaults csr &gt; server.json
+</code></pre>
+
+<p>得到<code>server.json</code>文件, 更改 <code>Common Name(CN)</code> 和 <code>hosts</code>值如下:</p>
+
+<pre><code>  &quot;CN&quot;: &quot;coreos1&quot;,
+    &quot;hosts&quot;: [
+        &quot;192.168.3.3&quot;,//替换成你自己的服务器地址或者域名
+        &quot;ext.example.com&quot;,
+        &quot;coreos1.local&quot;,
+        &quot;coreos1&quot;
+    ],
+</code></pre>
+
+<p>接下来生成服务器证书和私钥</p>
+
+<pre><code>cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=server server.json | cfssljson -bare server
+</code></pre>
+
+<p>生成文件如下:</p>
+
+<pre><code>server-key.pem
+server.csr
+server.pem
+</code></pre>
+
+<h1 id="2-启动etcd服务">2 启动etcd服务</h1>
+
+<pre><code>docker run -v /root/cfssl:/root/cfssl -p 2379:2379 \
+ --name etcd etcd /usr/local/bin/etcd \
+ -name etcd0 \
+ --cert-file=/root/cfssl/server.pem --key-file=/root/cfssl/server-key.pem \
+ -advertise-client-urls https://192.168.3.3:2379 \
+ -listen-client-urls https://0.0.0.0:2379
+</code></pre>
+
+<h1 id="3-验证请求是否正确">3 验证请求是否正确</h1>
+
+<h2 id="3-1-不带证书请求">3.1 不带证书请求</h2>
+
+<pre><code>curl https://192.168.3.3:2379/v2/keys/foo -XPUT -d value=bar -v
+</code></pre>
+
+<p>输出错误如下:</p>
+
+<pre><code>客户端错误:
+* About to connect() to 192.168.3.3 port 2379 (#0)
+*   Trying 192.168.3.3...
+* Connected to 192.168.3.3 (192.168.3.3) port 2379 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* Server certificate:
+*   subject: CN=example.net,L=CA,ST=San Francisco,C=US
+*   start date: Nov 21 06:40:00 2018 GMT
+*   expire date: Nov 21 06:40:00 2019 GMT
+*   common name: example.net
+*   issuer: CN=example.net,L=CA,ST=San Francisco,C=US
+* NSS error -8179 (SEC_ERROR_UNKNOWN_ISSUER)
+* Peer's Certificate issuer is not recognized.
+* Closing connection 0
+curl: (60) Peer's Certificate issuer is not recognized.
+More details here: http://curl.haxx.se/docs/sslcerts.html
+
+curl performs SSL certificate verification by default, using a &quot;bundle&quot;
+ of Certificate Authority (CA) public keys (CA certs). If the default
+ bundle file isn't adequate, you can specify an alternate file
+ using the --cacert option.
+If this HTTPS server uses a certificate signed by a CA represented in
+ the bundle, the certificate verification probably failed due to a
+ problem with the certificate (it might be expired, or the name might
+ not match the domain name in the URL).
+If you'd like to turn off curl's verification of the certificate, use
+ the -k (or --insecure) option.
+ 
+ 
+ 
+ 
+服务端:
+rejected connection from &quot;192.168.3.3:46692&quot; (error &quot;remote error: tls: unknown certificate authority&quot;, ServerName &quot;&quot;)
+</code></pre>
+
+<h2 id="3-2-带证书请求">3.2 带证书请求</h2>
+
+<pre><code>curl --cacert /root/cfssl/ca.pem https://192.168.3.3:2379/v2/keys/foo -XPUT -d value=bar -v
+</code></pre>
+
+<p>请求结果如下:</p>
+
+<pre><code>&gt; PUT /v2/keys/foo HTTP/1.1
+&gt; User-Agent: curl/7.29.0
+&gt; Host: 192.168.3.3:2379
+&gt; Accept: */*
+&gt; Content-Length: 9
+&gt; Content-Type: application/x-www-form-urlencoded
+&gt; 
+* upload completely sent off: 9 out of 9 bytes
+&lt; HTTP/1.1 200 OK
+&lt; Content-Type: application/json
+&lt; X-Etcd-Cluster-Id: cdf818194e3a8c32
+&lt; X-Etcd-Index: 5
+&lt; X-Raft-Index: 6
+&lt; X-Raft-Term: 2
+&lt; Date: Wed, 21 Nov 2018 06:49:58 GMT
+&lt; Content-Length: 163
+&lt; 
+{&quot;action&quot;:&quot;set&quot;,&quot;node&quot;:{&quot;key&quot;:&quot;/foo&quot;,&quot;value&quot;:&quot;bar&quot;,&quot;modifiedIndex&quot;:5,&quot;createdIndex&quot;:5},&quot;prevNode&quot;:{&quot;key&quot;:&quot;/foo&quot;,&quot;value&quot;:&quot;bar&quot;,&quot;modifiedIndex&quot;:4,&quot;createdIndex&quot;:4}}
+* Connection #0 to host 192.168.3.3 left intact
+
+</code></pre>
+
+<p>配置HTTPS成功</p>
+
+<h1 id="参考文章">参考文章</h1>
+
+<p><a href="https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/security.md">security</a><br />
+<a href="https://github.com/coreos/docs/blob/master/os/generate-self-signed-certificates.md#certificate-types-which-are-used-inside-container-linux">generate-self-signed-certificates</a></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2fetcd%2fenable-https%2f - etcd%e5%85%a5%e9%97%a8%e7%b3%bb%e5%88%97%e4%ba%8c%ef%bc%9aetcd%e5%bc%80%e5%90%afhttps by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'etcd-enable-https',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

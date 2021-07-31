@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="http://www.artacode.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="electron-vue  集成 element-ui"/>
+  <meta name="twitter:description" content="简介 什么是 electron Electron 是由 Github 开发，用 HTML，CSS 和 JavaScript 来构建跨平台桌面应用程序的一个开源库。 Electron 通过将 Chromium 和 Node.js 合并到同一个运行时环境中，并将其打包为 Mac"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Argericy"/>
+  
+
+
+
+		
+		<meta name="author" content="Argericy">
+		<meta name="description" content="想成为一名艺术家的码农">
+		<meta name="generator" content="Hugo 0.55.6" />
+		<title>electron-vue  集成 element-ui &middot; 一二三四吾</title>
+		<link rel="shortcut icon" href="http://www.artacode.com/images/favicon.ico">
+		<link rel="stylesheet" href="http://www.artacode.com/css/style.css">
+		<link rel="stylesheet" href="http://www.artacode.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="http://www.artacode.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="http://www.artacode.com/index.xml" rel="alternate" type="application/rss+xml" title="一二三四吾" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://www.artacode.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='http://www.artacode.com/posts'>Archive</a>
+	<a href='http://www.artacode.com/tags'>Tags</a>
+	<a href='http://www.artacode.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="http://www.artacode.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        electron-vue  集成 element-ui
+                    </h1>
+                    <h2 class="headline">
+                    Apr 4, 2019 20:21
+                    · 631 words
+                    · 2 minute read· <span id="busuanzi_value_page_pv"></span>views
+                    
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="http://www.artacode.com/tags/electron">electron</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#简介">简介</a>
+<ul>
+<li><a href="#什么是-electron">什么是 electron</a></li>
+<li><a href="#什么是-electron-vue">什么是 electron-vue</a></li>
+<li><a href="#什么是-elecment-ui">什么是 elecment ui</a></li>
+</ul></li>
+<li><a href="#安装-electron-vue">安装 electron-vue</a></li>
+<li><a href="#安装-element-ui">安装 element-ui</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    
+
+<h1 id="简介">简介</h1>
+
+<h2 id="什么是-electron">什么是 electron</h2>
+
+<p>Electron  是由 Github 开发，用  HTML，CSS 和 JavaScript 来构建跨平台桌面应用程序的一个开源库。 Electron 通过将 Chromium 和 Node.js 合并到同一个运行时环境中，并将其打包为 Mac  ，Windows 和 Linux 系统下的应用来实现这一目的。</p>
+
+<p>Electron  于 2013 年作为构建  Github 上可编程的文本编辑器 Atom 的框架而被开发出来。这两个项目在2014春季开源。</p>
+
+<p>目前它已成为开源开发者、初创企业和老牌公司常用的开发工具</p>
+
+<h2 id="什么是-electron-vue">什么是 electron-vue</h2>
+
+<p>electron-vue 是为了要避免使用 vue 手动建立起 electron 应用程序。electron-vue 充分利用 vue-cli 作为脚手架工具，加上拥有 vue-loader 的 webpack、electron-packager 或是 electron-builder，以及一些最常用的插件，如vue-router、vuex 等等</p>
+
+<h2 id="什么是-elecment-ui">什么是 elecment ui</h2>
+
+<p>Element UI 是一套采用 Vue 2.0 作为基础框架实现的组件库，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的组件库，提供了配套设计资源，帮助你的网站快速成型</p>
+
+<h1 id="安装-electron-vue">安装 electron-vue</h1>
+
+<pre><code># 安装 vue-cli 和 脚手架样板代码
+npm install -g vue-cli  //如果你已经安装忽略此处
+vue init simulatedgreg/electron-vue my-project
+
+# 安装依赖并运行你的程序
+cd my-project
+yarn # 或者 npm install
+yarn run dev # 或者 npm run dev
+</code></pre>
+
+<p>运行结果如下:<br />
+<img src="http://pic.artacode.com/TIM截图20190404174833.png" alt="" /></p>
+
+<h1 id="安装-element-ui">安装 element-ui</h1>
+
+<pre><code>npm i element-ui -S
+</code></pre>
+
+<p>在 <code>/my-project/src/renderer/main.js</code> 中引入 element ui</p>
+
+<pre><code>// element-ui
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
+</code></pre>
+
+<p>此时就可以在任意 .vue 文件中添加和使用 element-ui 元素了。</p>
+
+<pre><code>&lt;el-button @click=&quot;message&quot; type=&quot;success&quot; icon=&quot;el-icon-search&quot; round&gt;默认按钮&lt;/el-button&gt;
+</code></pre>
+
+<p>运行效果如下:<br />
+<img src="http://pic.artacode.com/2.png" alt="" /></p>
+
+<h1 id="总结">总结</h1>
+
+<p>整个安装过程并不复杂，
+为什么是 <code>electron</code> 以我目前的技术栈来讲 <code>electron</code> 是最容易上手的开发桌面程序的一个途径，尽管他也有这样或那样的缺点，但总归来说还是瑕不掩瑜，此番安装成功，接下来就开始了 <code>electron</code> 开发之旅</p>
+
+<h1 id="参考链接">参考链接</h1>
+
+<p><a href="https://simulatedgreg.gitbooks.io/electron-vue/content/cn/">electron-vue 文档</a><br />
+<a href="http://element.eleme.io/#/zh-CN/component/installation">element ui</a></p>
+
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fwww.artacode.com%2fposts%2felectron%2finstall%2f - electron-vue%20%20%e9%9b%86%e6%88%90%20element-ui by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+	        
+                <div id="gitalk-container"></div>
+   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+  clientID: '7df62c8e117826bf4f9b',
+  clientSecret: 'd4de6ff8c99044fae0ef8466c107f48e754780fa',
+  repo: 'hugo',
+  owner: 'yunxi177',
+  admin: ['yunxi177'],
+  id: 'electron-vue-add-element-ui',      
+  distractionFreeMode: false  
+})
+
+gitalk.render('gitalk-container')
+</script>
+
+
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/yunxi177">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Argericy
+    
+    </p>
+    <p class="small">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量 <a id="busuanzi_value_site_pv"></a> 次</span>
+        <span>您是本站的第 <a id="busuanzi_value_site_uv"></a> 位访客</span>
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+        </section>
+
+        <script src="http://www.artacode.com/js/jquery-3.3.1.min.js"></script>
+<script src="http://www.artacode.com/js/main.js"></script>
+<script src="http://www.artacode.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-123407925-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<script>
+var baiduAnalytics = '118e166eca53816aaead0948042f2989';
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + baiduAnalytics;
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+    </body>
+</html>

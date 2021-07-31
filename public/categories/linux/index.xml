@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on 一二三四吾</title>
+    <link>https://www.artacode.com/categories/linux/</link>
+    <description>Recent content in linux on 一二三四吾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 05 May 2020 17:03:42 +0800</lastBuildDate><atom:link href="https://www.artacode.com/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux Manjaro 安装指南</title>
+      <link>https://www.artacode.com/post/linux/manjaro-install/</link>
+      <pubDate>Tue, 05 May 2020 17:03:42 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/linux/manjaro-install/</guid>
+      <description>Linux 历史 1994 年 3 月，Linux1.0 版正式发布，Marc Ewing 成立 Red Hat 软件公司，成为最著名的 Linux 经销商之一。早期 Linux 的引导管理程序（boot loader</description>
+    </item>
+    
+    <item>
+      <title>snapcraft 下载软件慢，解决办法</title>
+      <link>https://www.artacode.com/post/linux/snap-slow/</link>
+      <pubDate>Fri, 01 May 2020 08:39:20 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/linux/snap-slow/</guid>
+      <description>由于国内网络原因，snap 安装软件会非常的慢，而且会有中断的情况，可以通过给 snap 设置代理的设置代理的方式解决此问题，具体操作如下： $ sudo systemctl edit snapd 编</description>
+    </item>
+    
+    <item>
+      <title>centos 搭建 NFS</title>
+      <link>https://www.artacode.com/post/linux/nfs/</link>
+      <pubDate>Sun, 04 Aug 2019 21:17:55 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/linux/nfs/</guid>
+      <description>查看系统是否已安装NFS 1 2 3 4 $ rpm -qa | grep nfs nfs-utils-lib-1.1.5-13.el6.i686 nfs-utils-1.2.3-78.el6_10.1.i686 如果没有安装,执行下面命令 1 $ yum -y install nfs-utils rpcbind NFS配置文件 NFS的常用目录 /etc/exports NFS服务的主要配置</description>
+    </item>
+    
+    <item>
+      <title>解决nfs挂载错误wrong fs type, bad option, bad superblock</title>
+      <link>https://www.artacode.com/post/linux/bad-superblock/</link>
+      <pubDate>Sat, 03 Aug 2019 19:54:26 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/linux/bad-superblock/</guid>
+      <description>1 2 3 4 5 6 7 [root@localhost]# mount -t nfs 192.168.0.106:/home/nfs1 mount: wrong fs type, bad option, bad superblock on 192.168.0.106:/home/nfs1, missing codepage or helper program, or other error (for several filesystems (e.g. nfs, cifs) you might need a /sbin/mount.&amp;lt;type&amp;gt; helper program) In some cases useful info is found in syslog - try dmesg | tail or so 解决办法： 1 apt-get install nfs-common 或者</description>
+    </item>
+    
+    <item>
+      <title>ubuntu 创建桌面快捷方式</title>
+      <link>https://www.artacode.com/post/linux/desktop-shortcut/</link>
+      <pubDate>Sat, 20 Jul 2019 16:57:01 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/linux/desktop-shortcut/</guid>
+      <description>安装 1 sudo apt-get install --no-install-recommends gnome-panel 使用 gnome-desktop-item-edit &amp;ndash;create-new ~/Desktop</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 终端oh my fish的agnoster主题乱码</title>
+      <link>https://www.artacode.com/post/linux/oh-my-fish-agnoster/</link>
+      <pubDate>Sat, 04 May 2019 07:33:28 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/linux/oh-my-fish-agnoster/</guid>
+      <description>执行以下命令来安装缺失的字体： wget https://raw.githubusercontent.com/powerline/powerline/develop/font/10-powerline-symbols.conf wget https://raw.githubusercontent.com/powerline/powerline/develop/font/PowerlineSymbols.otf sudo mkdir /usr/share/fonts/OTF sudo cp 10-powerline-symbols.conf /usr/share/fonts/OTF/ sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/ sudo mv PowerlineSymbols.otf /usr/share/fonts/OTF/ 然后重启终端,恢复正常</description>
+    </item>
+    
+    <item>
+      <title>Oh My Fish 一个可以让你赏心悦目的 fish shell 框架</title>
+      <link>https://www.artacode.com/post/linux/oh-my-fish/</link>
+      <pubDate>Fri, 03 May 2019 22:37:27 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/linux/oh-my-fish/</guid>
+      <description>安装 fish shell 以 ubuntu 为例 1 2 3 sudo apt-add-repository ppa:fish-shell/release-3 sudo apt-get update sudo apt-get install fish 其他系统安装点击链接 安装 oh my fish 1 curl -L https://get.oh-my.fish | fish 运行上述命令，就尅安装 oh my fish 了，接下来来讲解一下 oh my fish 的</description>
+    </item>
+    
+    <item>
+      <title>virtualbox 分享文件夹，无权访问问题</title>
+      <link>https://www.artacode.com/post/linux/not-permission/</link>
+      <pubDate>Sun, 24 Feb 2019 14:26:03 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/linux/not-permission/</guid>
+      <description>背景 在 windows 下使用 virtualbox 安装 linux 系统 实现 windows 下开发虚拟机里跑测试的效果 起因 由于项目使用文件目录是可以在 windows 和 linux 下共享的，因此使用 virtualbox 共享文件夹功能来实现项目</description>
+    </item>
+    
+    <item>
+      <title>Centos 服务配置详解</title>
+      <link>https://www.artacode.com/post/linux/centos-service/</link>
+      <pubDate>Thu, 20 Dec 2018 17:11:12 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/linux/centos-service/</guid>
+      <description>systemd 介绍 CentOS 7的服务systemctl脚本存放在：/usr/lib/systemd/，有系统（system）和用户（user）之分，即：/usr</description>
+    </item>
+    
+    <item>
+      <title>Supervisor 安装与使用</title>
+      <link>https://www.artacode.com/post/supervisor/</link>
+      <pubDate>Tue, 04 Sep 2018 11:22:14 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/supervisor/</guid>
+      <description>简介 supervisor管理进程，是通过fork/exec的方式将这些被管理的进程当作supervisor的子进程来启动，所以我们只需要将要</description>
+    </item>
+    
+  </channel>
+</rss>

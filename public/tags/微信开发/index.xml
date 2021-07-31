@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>微信开发 on 一二三四吾</title>
+    <link>https://www.artacode.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/</link>
+    <description>Recent content in 微信开发 on 一二三四吾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 10 May 2019 21:02:48 +0800</lastBuildDate><atom:link href="https://www.artacode.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>微信公众号 jssdk 报错</title>
+      <link>https://www.artacode.com/post/wechat/jssdk-config/</link>
+      <pubDate>Fri, 10 May 2019 21:02:48 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/wechat/jssdk-config/</guid>
+      <description>引入 wx-js-sdk 1 import wx from &amp;#39;weixin-js-sdk&amp;#39;; 设置微信 config 部分代码： 1 2 3 4 5 6 7 8 this.$axios.get(&amp;#34;后台获取 config 地址&amp;#34;, {}).then((response) =&amp;gt; { ... wx.config(configData); wx.ready(() =&amp;gt; { this.getLocation(); })</description>
+    </item>
+    
+    <item>
+      <title>公众号通过api发送小程序消息</title>
+      <link>https://www.artacode.com/post/wechat/push-mini/</link>
+      <pubDate>Mon, 17 Dec 2018 18:34:50 +0800</pubDate>
+      
+      <guid>https://www.artacode.com/post/wechat/push-mini/</guid>
+      <description>接口调用请求说明 1 2 http请求方式: POST https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESS_TOKEN 发送普通消息的小程序链接 1 2 3 4 5 6 7 8 { &amp;#34;touser&amp;#34;:&amp;#34;OPENID&amp;#34;, &amp;#34;msgtype&amp;#34;:&amp;#34;text&amp;#34;, &amp;#34;text&amp;#34;: { &amp;#34;content&amp;#34;:&amp;#34;文</description>
+    </item>
+    
+    <item>
+      <title>微信分享</title>
+      <link>https://www.artacode.com/post/wxshare/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.artacode.com/post/wxshare/</guid>
+      <description>&lt;h3 id=&#34;微信分享步骤&#34;&gt;微信分享步骤&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;引入jｓ&lt;/li&gt;
+&lt;li&gt;设置白名单&lt;/li&gt;
+&lt;li&gt;引入sdk&lt;/li&gt;
+&lt;li&gt;实现分享功能&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
