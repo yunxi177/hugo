@@ -23,31 +23,31 @@
 <meta name="google-site-verification" content="UA-123407925-1" />
 
 
-<meta name="generator" content="Hugo 0.83.1 with theme even" />
+<meta name="generator" content="Hugo 0.86.1 with theme even" />
 
 
-<link rel="canonical" href="https://www.artacode.com/post/etcd/certificates/" />
+<link rel="canonical" href="https://yunxi177.github.io/hugo/post/etcd/certificates/" />
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="manifest" href="../../../manifest.json">
+<link rel="mask-icon" href="../../../safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="../../../sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="etcd入门系列四：开启客户端证书访问" />
 <meta property="og:description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 1. 生成客户端证书 生成clien" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.artacode.com/post/etcd/certificates/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2018-11-25T14:26:14&#43;08:00" />
-<meta property="article:modified_time" content="2018-11-25T14:26:14&#43;08:00" />
+<meta property="og:url" content="https://yunxi177.github.io/hugo/post/etcd/certificates/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-11-25T14:26:14+08:00" />
+<meta property="article:modified_time" content="2018-11-25T14:26:14+08:00" />
 
 <meta itemprop="name" content="etcd入门系列四：开启客户端证书访问">
-<meta itemprop="description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 1. 生成客户端证书 生成clien"><meta itemprop="datePublished" content="2018-11-25T14:26:14&#43;08:00" />
-<meta itemprop="dateModified" content="2018-11-25T14:26:14&#43;08:00" />
+<meta itemprop="description" content="etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 1. 生成客户端证书 生成clien"><meta itemprop="datePublished" content="2018-11-25T14:26:14+08:00" />
+<meta itemprop="dateModified" content="2018-11-25T14:26:14+08:00" />
 <meta itemprop="wordCount" content="393">
 <meta itemprop="keywords" content="etcd," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="etcd入门系列四：开启客户端证书访问"/>
@@ -66,7 +66,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">一二三四吾</a>
+    <a href="../../../" class="logo">一二三四吾</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -76,15 +76,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="../../../">
         <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
+      </a><a href="../../../post/">
         <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
+      </a><a href="../../../tags/">
         <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
+      </a><a href="../../../categories/">
         <li class="mobile-menu-item">Categories</li>
-      </a><a href="/about/">
+      </a><a href="../../../about/">
         <li class="mobile-menu-item">About</li>
       </a>
   </ul>
@@ -92,21 +92,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">一二三四吾</a>
+  <a href="../../../" class="logo">一二三四吾</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
+        <a class="menu-item-link" href="../../../">Home</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
+        <a class="menu-item-link" href="../../../post/">Archives</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
+        <a class="menu-item-link" href="../../../tags/">Tags</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
+        <a class="menu-item-link" href="../../../categories/">Categories</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
+        <a class="menu-item-link" href="../../../about/">About</a>
       </li>
   </ul>
 </nav>
@@ -123,11 +123,11 @@
       <div class="post-meta">
         <span class="post-time"> 2018-11-25 </span>
         <div class="post-category">
-            <a href="/categories/etcd/"> etcd </a>
+            <a href="../../../categories/etcd/"> etcd </a>
             </div>
           <span class="more-meta"> 约 393 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="../../../img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -157,13 +157,13 @@
 <p>编辑 client.json 的修改 <code>CN</code> 值为 cliet</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">...
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">...
     &#34;CN&#34;: &#34;client&#34;,
     &#34;hosts&#34;: [&#34;&#34;],
 ...
@@ -175,12 +175,12 @@
 <p>将会得到如下文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">client-key.pem
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">client-key.pem
 client.csr
 client.pem
 </code></pre></td></tr></table>
@@ -188,10 +188,10 @@ client.pem
 </div><h1 id="2-开启客户端证书检测">2. 开启客户端证书检测</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">docker run -v /root/cfssl:/root/cfssl -p 2379:2379  --name etcd-net etcd /usr/local/bin/etcd  -name etcd-net  --client-cert-auth --trusted-ca-file=/root/cfssl/ca.pem --cert-file=/root/cfssl/server.pem --key-file=/root/cfssl/server-key.pem  -advertise-client-urls https://0.0.0.0:2379  -listen-client-urls https://0.0.0.0:2379
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">docker run -v /root/cfssl:/root/cfssl -p 2379:2379  --name etcd-net etcd /usr/local/bin/etcd  -name etcd-net  --client-cert-auth --trusted-ca-file=/root/cfssl/ca.pem --cert-file=/root/cfssl/server.pem --key-file=/root/cfssl/server-key.pem  -advertise-client-urls https://0.0.0.0:2379  -listen-client-urls https://0.0.0.0:2379
 </code></pre></td></tr></table>
 </div>
 </div><p><code>--client-cert-auth:</code>当这个选项被设置时，etcd 将为受信任CA签名的客户端证书检查所有的传入的 HTTPS 请求，不能提供有效客户端证书的请求将会失败。<br>
@@ -205,12 +205,12 @@ client.pem
 接下来，带着之前生成的证书尝试重新发送请求</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">etcdctl --ca-file /root/cfssl/ca.pem --cert-file /root/cfssl/client.pem --key-file /root/cfssl/client-key.pem --endpoints https://192.168.3.3:2379 set foo 1
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">etcdctl --ca-file /root/cfssl/ca.pem --cert-file /root/cfssl/client.pem --key-file /root/cfssl/client-key.pem --endpoints https://192.168.3.3:2379 set foo 1
 
 //返回值：1
 </code></pre></td></tr></table>
@@ -236,15 +236,15 @@ client.pem
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/etcd/">etcd</a>
+          <a href="../../../tags/etcd/">etcd</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/hugo/enable-gitment/">
+        <a class="prev" href="../../../post/hugo/enable-gitment/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">hugo集成girment插件</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/etcd/auth/">
+        <a class="next" href="../../../post/etcd/auth/">
             <span class="next-text nav-default">etcd入门系列三：身份验证访问控制</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -282,7 +282,7 @@ client.pem
       <div class="social-links">
       <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
       <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
-  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://yunxi177.github.io/hugo/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -297,9 +297,9 @@ client.pem
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="../../../img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="../../../img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
@@ -322,7 +322,7 @@ client.pem
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="../../../js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
   <script type="text/javascript">
     window.MathJax = {
       tex: {

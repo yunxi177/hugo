@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>electron on 一二三四吾</title>
-    <link>https://www.artacode.com/categories/electron/</link>
+    <link>https://yunxi177.github.io/hugo/categories/electron/</link>
     <description>Recent content in electron on 一二三四吾</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 13 Apr 2019 07:28:08 +4700</lastBuildDate><atom:link href="https://www.artacode.com/categories/electron/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Apr 2019 07:28:08 +4700</lastBuildDate><atom:link href="https://yunxi177.github.io/hugo/categories/electron/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>electron 改变窗体大小</title>
-      <link>https://www.artacode.com/post/electron/change-window-from-render/</link>
+      <link>https://yunxi177.github.io/hugo/post/electron/change-window-from-render/</link>
       <pubDate>Sat, 13 Apr 2019 07:28:08 +4700</pubDate>
       
-      <guid>https://www.artacode.com/post/electron/change-window-from-render/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/electron/change-window-from-render/</guid>
       <description>相关链接: electron-vue 集成 element-ui 在开发 electron 的时候遇到了需要在 render 中修改 BrowserWindow 窗口大小的方式，经过一番尝试，有两种方法实现: 通过 ipcRenderer 与 ipcMain 的通讯来实现 通过 render 的 remote 模块来实</description>
     </item>
     
     <item>
       <title>electron-vue  集成 element-ui</title>
-      <link>https://www.artacode.com/post/electron/install/</link>
+      <link>https://yunxi177.github.io/hugo/post/electron/install/</link>
       <pubDate>Thu, 04 Apr 2019 20:21:44 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/electron/install/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/electron/install/</guid>
       <description>简介 什么是 electron Electron 是由 Github 开发，用 HTML，CSS 和 JavaScript 来构建跨平台桌面应用程序的一个开源库。 Electron 通过将 Chromium 和 Node.js 合并到同一个运行时环境中，并将其打包为 Mac</description>
     </item>
     

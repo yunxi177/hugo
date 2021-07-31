@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://www.artacode.com/sitemap.xml
+Sitemap: https://yunxi177.github.io/hugo/sitemap.xml

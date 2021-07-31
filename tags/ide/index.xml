@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>IDE on 一二三四吾</title>
-    <link>https://www.artacode.com/tags/ide/</link>
+    <link>https://yunxi177.github.io/hugo/tags/ide/</link>
     <description>Recent content in IDE on 一二三四吾</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 19 Jun 2019 20:31:23 +0800</lastBuildDate><atom:link href="https://www.artacode.com/tags/ide/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Jun 2019 20:31:23 +0800</lastBuildDate><atom:link href="https://yunxi177.github.io/hugo/tags/ide/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>vs code 调试远程代码</title>
-      <link>https://www.artacode.com/post/ide/vs-code/remote-ssh/</link>
+      <link>https://yunxi177.github.io/hugo/post/ide/vs-code/remote-ssh/</link>
       <pubDate>Wed, 19 Jun 2019 20:31:23 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/ide/vs-code/remote-ssh/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/ide/vs-code/remote-ssh/</guid>
       <description>简介 Visual Studio Code Remote - SSH 可以打开远程计算机或容器中的文件(计算机或容器中需要运行 SSH Server),而且可已充分利用 VS Code 的一切特性.一旦连接上服务器,</description>
     </item>
     
     <item>
       <title>VS Code golang debug 配置</title>
-      <link>https://www.artacode.com/post/ide/vs-code/debug-go/</link>
+      <link>https://yunxi177.github.io/hugo/post/ide/vs-code/debug-go/</link>
       <pubDate>Mon, 25 Mar 2019 18:24:21 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/ide/vs-code/debug-go/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/ide/vs-code/debug-go/</guid>
       <description>实现效果 安装 delve windows go get -u github.com/go-delve/delve/cmd/dlv linux 方式一： go get -u github.com/go-delve/delve/cmd/dlv 方式二 1 2 3 $ git clone https://github.com/go-delve/delve.git $GOPATH/src/github.com/go-delve/delve $ cd $GOPATH/src/github.com/go-delve/delve $ make install 注意: 若果你go版本为1.5需要设置GO15VENDOREXPE</description>
     </item>
     
     <item>
       <title>vscode 自定义代码片段</title>
-      <link>https://www.artacode.com/post/ide/vs-code/snippet/</link>
+      <link>https://yunxi177.github.io/hugo/post/ide/vs-code/snippet/</link>
       <pubDate>Sat, 09 Mar 2019 17:54:58 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/ide/vs-code/snippet/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/ide/vs-code/snippet/</guid>
       <description>实现效果 起因 最近在写一个全新的项目，在项目中频繁创建各种类，这就导致很多重复的东西需要频繁的写，例如类名，命名空间，继承关系&amp;hellip;</description>
     </item>
     

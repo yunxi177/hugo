@@ -23,32 +23,32 @@
 <meta name="google-site-verification" content="UA-123407925-1" />
 
 
-<meta name="generator" content="Hugo 0.83.1 with theme even" />
+<meta name="generator" content="Hugo 0.86.1 with theme even" />
 
 
-<link rel="canonical" href="https://www.artacode.com/post/ide/vim/vim-plug-install/" />
+<link rel="canonical" href="https://yunxi177.github.io/hugo/post/ide/vim/vim-plug-install/" />
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="manifest" href="../../../../manifest.json">
+<link rel="mask-icon" href="../../../../safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="../../../../sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="vim-plug 安装" />
 <meta property="og:description" content="vim-plug 是一个极简的 vim 插件管理器 安装 vim-plug 的安装十分简单只需要一行命令就可以搞定 vim Linux 1 2 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim Windows (PowerShell) 1 2 3 4 5 6 7 8 md ~\vimfiles\autoload $uri = &#39;https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&#39; (New-Object Net.WebClient).DownloadFile( $uri, $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath( &#34;~\vimfiles\autoload\plug.vim&#34; ) ) Neovim Linux 1" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.artacode.com/post/ide/vim/vim-plug-install/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2019-04-21T07:33:57&#43;08:00" />
-<meta property="article:modified_time" content="2019-04-21T07:33:57&#43;08:00" />
+<meta property="og:url" content="https://yunxi177.github.io/hugo/post/ide/vim/vim-plug-install/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-04-21T07:33:57+08:00" />
+<meta property="article:modified_time" content="2019-04-21T07:33:57+08:00" />
 
 <meta itemprop="name" content="vim-plug 安装">
-<meta itemprop="description" content="vim-plug 是一个极简的 vim 插件管理器 安装 vim-plug 的安装十分简单只需要一行命令就可以搞定 vim Linux 1 2 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim Windows (PowerShell) 1 2 3 4 5 6 7 8 md ~\vimfiles\autoload $uri = &#39;https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&#39; (New-Object Net.WebClient).DownloadFile( $uri, $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath( &#34;~\vimfiles\autoload\plug.vim&#34; ) ) Neovim Linux 1"><meta itemprop="datePublished" content="2019-04-21T07:33:57&#43;08:00" />
-<meta itemprop="dateModified" content="2019-04-21T07:33:57&#43;08:00" />
-<meta itemprop="wordCount" content="1102">
+<meta itemprop="description" content="vim-plug 是一个极简的 vim 插件管理器 安装 vim-plug 的安装十分简单只需要一行命令就可以搞定 vim Linux 1 2 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim Windows (PowerShell) 1 2 3 4 5 6 7 8 md ~\vimfiles\autoload $uri = &#39;https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&#39; (New-Object Net.WebClient).DownloadFile( $uri, $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath( &#34;~\vimfiles\autoload\plug.vim&#34; ) ) Neovim Linux 1"><meta itemprop="datePublished" content="2019-04-21T07:33:57+08:00" />
+<meta itemprop="dateModified" content="2019-04-21T07:33:57+08:00" />
+<meta itemprop="wordCount" content="1494">
 <meta itemprop="keywords" content="工欲善其事，必先利其器," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="vim-plug 安装"/>
 <meta name="twitter:description" content="vim-plug 是一个极简的 vim 插件管理器 安装 vim-plug 的安装十分简单只需要一行命令就可以搞定 vim Linux 1 2 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim Windows (PowerShell) 1 2 3 4 5 6 7 8 md ~\vimfiles\autoload $uri = &#39;https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&#39; (New-Object Net.WebClient).DownloadFile( $uri, $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath( &#34;~\vimfiles\autoload\plug.vim&#34; ) ) Neovim Linux 1"/>
@@ -66,7 +66,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">一二三四吾</a>
+    <a href="../../../../" class="logo">一二三四吾</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -76,15 +76,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="../../../../">
         <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
+      </a><a href="../../../../post/">
         <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
+      </a><a href="../../../../tags/">
         <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
+      </a><a href="../../../../categories/">
         <li class="mobile-menu-item">Categories</li>
-      </a><a href="/about/">
+      </a><a href="../../../../about/">
         <li class="mobile-menu-item">About</li>
       </a>
   </ul>
@@ -92,21 +92,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">一二三四吾</a>
+  <a href="../../../../" class="logo">一二三四吾</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
+        <a class="menu-item-link" href="../../../../">Home</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
+        <a class="menu-item-link" href="../../../../post/">Archives</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
+        <a class="menu-item-link" href="../../../../tags/">Tags</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
+        <a class="menu-item-link" href="../../../../categories/">Categories</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
+        <a class="menu-item-link" href="../../../../about/">About</a>
       </li>
   </ul>
 </nav>
@@ -123,11 +123,11 @@
       <div class="post-meta">
         <span class="post-time"> 2019-04-21 </span>
         <div class="post-category">
-            <a href="/categories/%E5%B7%A5%E6%AC%B2%E5%96%84%E5%85%B6%E4%BA%8B%E5%BF%85%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8/"> 工欲善其事，必先利其器 </a>
+            <a href="../../../../categories/%E5%B7%A5%E6%AC%B2%E5%96%84%E5%85%B6%E4%BA%8B%E5%BF%85%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8/"> 工欲善其事，必先利其器 </a>
             </div>
-          <span class="more-meta"> 约 1102 字 </span>
+          <span class="more-meta"> 约 1494 字 </span>
           <span class="more-meta"> 预计阅读 3 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="../../../../img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -173,18 +173,18 @@
 <h3 id="linux">Linux</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="windows-powershell">Windows (PowerShell)</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -194,7 +194,7 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">md ~\vimfiles\autoload
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">md ~\vimfiles\autoload
 $uri = &#39;https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&#39;
 (New-Object Net.WebClient).DownloadFile(
   $uri,
@@ -208,18 +208,18 @@ $uri = &#39;https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&
 <h3 id="linux-1">Linux</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="windows-powershell-1">Windows (PowerShell)</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -229,7 +229,7 @@ $uri = &#39;https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">md ~\AppData\Local\nvim\autoload
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">md ~\AppData\Local\nvim\autoload
 $uri = &#39;https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&#39;
 (New-Object Net.WebClient).DownloadFile(
   $uri,
@@ -253,7 +253,7 @@ $uri = &#39;https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&
 <p>用例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -293,45 +293,45 @@ $uri = &#39;https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&
 </span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34; 指定插件目录
-&#34; - Neovim 为: ~/.local/share/nvim/plugged
-&#34; - 避免使用 Vim 标准目录名，例如：`plugin`
-call plug#begin(&#39;~/.vim/plugged&#39;)
-
-&#34; 所有配置均使用单引号
-
-&#34; 简化符号; fetches https://github.com/junegunn/vim-easy-align
-Plug &#39;junegunn/vim-easy-align&#39;
-
-&#34; 允许使用任何有效的 git URL
-Plug &#39;https://github.com/junegunn/vim-github-dashboard.git&#39;
-
-&#34; Multiple Plug commands can be written in a single line using | separators
-&#34; 多个插件可以使用一个单引号书写，中间用 | 分隔
-Plug &#39;SirVer/ultisnips&#39; | Plug &#39;honza/vim-snippets&#39;
-
-&#34; 按需加载（紧在使用时加载）
-Plug &#39;scrooloose/nerdtree&#39;, { &#39;on&#39;:  &#39;NERDTreeToggle&#39; }
-Plug &#39;tpope/vim-fireplace&#39;, { &#39;for&#39;: &#39;clojure&#39; }
-
-&#34; 使用其他分支
-Plug &#39;rdnetto/YCM-Generator&#39;, { &#39;branch&#39;: &#39;stable&#39; }
-
-&#34; 使用指定tag
-Plug &#39;fatih/vim-go&#39;, { &#39;tag&#39;: &#39;*&#39; }
-
-&#34; 插件选项
-Plug &#39;nsf/gocode&#39;, { &#39;tag&#39;: &#39;v.20150303&#39;, &#39;rtp&#39;: &#39;vim&#39; }
-
-&#34; 挂更新后钩子
-Plug &#39;junegunn/fzf&#39;, { &#39;dir&#39;: &#39;~/.fzf&#39;, &#39;do&#39;: &#39;./install --all&#39; }
-
-&#34; 非托管插件 (手动安装和更新)
-Plug &#39;~/my-prototype-plugin&#39;
-
-&#34; 初始化插件系统
-call plug#end()
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="s2">&#34; 指定插件目录
+</span><span class="s2">&#34;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Neovim</span><span class="w"> </span><span class="err">为</span><span class="p">:</span><span class="w"> </span><span class="o">~/</span><span class="p">.</span><span class="n">local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">nvim</span><span class="o">/</span><span class="n">plugged</span><span class="w">
+</span><span class="w"></span><span class="s2">&#34; - 避免使用 Vim 标准目录名，例如：`plugin`
+</span><span class="s2">call plug#begin(&#39;~/.vim/plugged&#39;)
+</span><span class="s2">
+</span><span class="s2">&#34;</span><span class="w"> </span><span class="err">所有配置均使用单引号</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="s2">&#34; 简化符号; fetches https://github.com/junegunn/vim-easy-align
+</span><span class="s2">Plug &#39;junegunn/vim-easy-align&#39;
+</span><span class="s2">
+</span><span class="s2">&#34;</span><span class="w"> </span><span class="err">允许使用任何有效的</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">URL</span><span class="w">
+</span><span class="w"></span><span class="n">Plug</span><span class="w"> </span><span class="s1">&#39;https://github.com/junegunn/vim-github-dashboard.git&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="s2">&#34; Multiple Plug commands can be written in a single line using | separators
+</span><span class="s2">&#34;</span><span class="w"> </span><span class="err">多个插件可以使用一个单引号书写，中间用</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">分隔</span><span class="w">
+</span><span class="w"></span><span class="n">Plug</span><span class="w"> </span><span class="s1">&#39;SirVer/ultisnips&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Plug</span><span class="w"> </span><span class="s1">&#39;honza/vim-snippets&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="s2">&#34; 按需加载（紧在使用时加载）
+</span><span class="s2">Plug &#39;scrooloose/nerdtree&#39;, { &#39;on&#39;:  &#39;NERDTreeToggle&#39; }
+</span><span class="s2">Plug &#39;tpope/vim-fireplace&#39;, { &#39;for&#39;: &#39;clojure&#39; }
+</span><span class="s2">
+</span><span class="s2">&#34;</span><span class="w"> </span><span class="err">使用其他分支</span><span class="w">
+</span><span class="w"></span><span class="n">Plug</span><span class="w"> </span><span class="s1">&#39;rdnetto/YCM-Generator&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="s1">&#39;branch&#39;</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;stable&#39;</span><span class="w"> </span><span class="err">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="s2">&#34; 使用指定tag
+</span><span class="s2">Plug &#39;fatih/vim-go&#39;, { &#39;tag&#39;: &#39;*&#39; }
+</span><span class="s2">
+</span><span class="s2">&#34;</span><span class="w"> </span><span class="err">插件选项</span><span class="w">
+</span><span class="w"></span><span class="n">Plug</span><span class="w"> </span><span class="s1">&#39;nsf/gocode&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="s1">&#39;tag&#39;</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;v.20150303&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;rtp&#39;</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;vim&#39;</span><span class="w"> </span><span class="err">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="s2">&#34; 挂更新后钩子
+</span><span class="s2">Plug &#39;junegunn/fzf&#39;, { &#39;dir&#39;: &#39;~/.fzf&#39;, &#39;do&#39;: &#39;./install --all&#39; }
+</span><span class="s2">
+</span><span class="s2">&#34;</span><span class="w"> </span><span class="err">非托管插件</span><span class="w"> </span><span class="p">(</span><span class="err">手动安装和更新</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="n">Plug</span><span class="w"> </span><span class="s1">&#39;~/my-prototype-plugin&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="s2">&#34; 初始化插件系统
+</span><span class="s2">call plug#end()
+</span></code></pre></td></tr></table>
 </div>
 </div><p>安装插件</p>
 <ol>
@@ -489,7 +489,7 @@ call plug#end()
 <h1 id="插件按需加载">插件按需加载</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -509,7 +509,7 @@ call plug#end()
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34; NERD tree 在 NERDTreeToggle 第一调用时加载
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&#34; NERD tree 在 NERDTreeToggle 第一调用时加载
 Plug &#39;scrooloose/nerdtree&#39;, { &#39;on&#39;: &#39;NERDTreeToggle&#39; }
 
 &#34; 多命令
@@ -534,42 +534,42 @@ autocmd! User goyo.vim echom &#39;Goyo is now loaded!&#39;
 <p>有很多插件在安装或更新后需要额外的操作。这种情况下可以使用 <code>do</code> 选项来定义要执行的任务</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">Plug &#39;Shougo/vimproc.vim&#39;, { &#39;do&#39;: &#39;make&#39; }
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Plug &#39;Shougo/vimproc.vim&#39;, { &#39;do&#39;: &#39;make&#39; }
 Plug &#39;Valloric/YouCompleteMe&#39;, { &#39;do&#39;: &#39;./install.py&#39; }
 </code></pre></td></tr></table>
 </div>
 </div><p>如果 value 以 <code>:</code> 开头的话，将认为是 vim 命令</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">Plug &#39;fatih/vim-go&#39;, { &#39;do&#39;: &#39;:GoInstallBinaries&#39; }
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Plug &#39;fatih/vim-go&#39;, { &#39;do&#39;: &#39;:GoInstallBinaries&#39; }
 </code></pre></td></tr></table>
 </div>
 </div><p>在 <code>do</code> 选项中的值要确保转义 | 和 &quot;&quot;  否则会被识别为分隔符，或注释的开头</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">Plug &#39;junegunn/fzf&#39;, { &#39;do&#39;: &#39;yes \| ./install&#39; }
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Plug &#39;junegunn/fzf&#39;, { &#39;do&#39;: &#39;yes \| ./install&#39; }
 
 </code></pre></td></tr></table>
 </div>
 </div><p>如果使用变量方式传入 <code>do</code> 选项中，则可以避免转义</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">let g:fzf_install = &#39;yes | ./install&#39;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">let g:fzf_install = &#39;yes | ./install&#39;
 Plug &#39;junegunn/fzf&#39;, { &#39;do&#39;: g:fzf_install }
 </code></pre></td></tr></table>
 </div>
@@ -595,15 +595,15 @@ Plug &#39;junegunn/fzf&#39;, { &#39;do&#39;: g:fzf_install }
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/%E5%B7%A5%E6%AC%B2%E5%96%84%E5%85%B6%E4%BA%8B%E5%BF%85%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8/">工欲善其事，必先利其器</a>
+          <a href="../../../../tags/%E5%B7%A5%E6%AC%B2%E5%96%84%E5%85%B6%E4%BA%8B%E5%BF%85%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8/">工欲善其事，必先利其器</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/docker/faq/">
+        <a class="prev" href="../../../../post/docker/faq/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">docker 常见错误</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/electron/change-window-from-render/">
+        <a class="next" href="../../../../post/electron/change-window-from-render/">
             <span class="next-text nav-default">electron 改变窗体大小</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -641,7 +641,7 @@ Plug &#39;junegunn/fzf&#39;, { &#39;do&#39;: g:fzf_install }
       <div class="social-links">
       <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
       <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
-  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://yunxi177.github.io/hugo/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -656,9 +656,9 @@ Plug &#39;junegunn/fzf&#39;, { &#39;do&#39;: g:fzf_install }
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="../../../../img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="../../../../img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
@@ -681,7 +681,7 @@ Plug &#39;junegunn/fzf&#39;, { &#39;do&#39;: g:fzf_install }
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="../../../../js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
   <script type="text/javascript">
     window.MathJax = {
       tex: {

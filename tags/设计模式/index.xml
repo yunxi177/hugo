@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>设计模式 on 一二三四吾</title>
-    <link>https://www.artacode.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+    <link>https://yunxi177.github.io/hugo/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
     <description>Recent content in 设计模式 on 一二三四吾</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 19 Jun 2021 17:35:46 +0800</lastBuildDate><atom:link href="https://www.artacode.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Jun 2021 17:35:46 +0800</lastBuildDate><atom:link href="https://yunxi177.github.io/hugo/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>golang设计模式之单例模式</title>
-      <link>https://www.artacode.com/post/golang/design-pattern/singletion/</link>
+      <link>https://yunxi177.github.io/hugo/post/golang/design-pattern/singletion/</link>
       <pubDate>Sat, 19 Jun 2021 17:35:46 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/golang/design-pattern/singletion/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/golang/design-pattern/singletion/</guid>
       <description>日常开发中经常会遇到单例模式的使用场景，单例模式可以保证我们初始化出来的结构体只有一个，在一些请求上下文，mysql 连接池..场景经常有着不</description>
     </item>
     

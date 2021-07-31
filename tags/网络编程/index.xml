@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>网络编程 on 一二三四吾</title>
-    <link>https://www.artacode.com/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</link>
+    <link>https://yunxi177.github.io/hugo/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</link>
     <description>Recent content in 网络编程 on 一二三四吾</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 24 Jul 2019 06:37:53 +0800</lastBuildDate><atom:link href="https://www.artacode.com/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 24 Jul 2019 06:37:53 +0800</lastBuildDate><atom:link href="https://yunxi177.github.io/hugo/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Uninx 网络编程环境搭建</title>
-      <link>https://www.artacode.com/post/network/init/</link>
+      <link>https://yunxi177.github.io/hugo/post/network/init/</link>
       <pubDate>Wed, 24 Jul 2019 06:37:53 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/network/init/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/network/init/</guid>
       <description>1，安装编译器，为了齐全还是安装一下build-essential 1 sudo apt-get install build-essential 2，下载书中的头文件及示例源码 Source Code 3，解压unpv13e.tar</description>
     </item>
     
     <item>
       <title>freeRADIUS搭建</title>
-      <link>https://www.artacode.com/post/freeradius/</link>
+      <link>https://yunxi177.github.io/hugo/post/freeradius/</link>
       <pubDate>Sun, 19 Aug 2018 11:05:29 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/freeradius/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/freeradius/</guid>
       <description>系统要求 操作系统 CentOS 7.0 x86_64 网址：http://www.centos.org/ 所需软件 FreeRADIUS 3.0 网址：http://freeradius.org/ 目前最</description>
     </item>
     

@@ -2,53 +2,53 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>php on 一二三四吾</title>
-    <link>https://www.artacode.com/categories/php/</link>
+    <link>https://yunxi177.github.io/hugo/categories/php/</link>
     <description>Recent content in php on 一二三四吾</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 16 Jun 2021 17:49:39 +0800</lastBuildDate><atom:link href="https://www.artacode.com/categories/php/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Jun 2021 17:49:39 +0800</lastBuildDate><atom:link href="https://yunxi177.github.io/hugo/categories/php/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>golang base64 编码与 PHP 输出不一致</title>
-      <link>https://www.artacode.com/post/golang/base64-ascii/</link>
+      <link>https://yunxi177.github.io/hugo/post/golang/base64-ascii/</link>
       <pubDate>Wed, 16 Jun 2021 17:49:39 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/golang/base64-ascii/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/golang/base64-ascii/</guid>
       <description>最近开发中，将一个 php 算法，移植到 golang 中，发现 base64 算法生成的字符串不一致，经过排查发现是由于 ASCII 控制字符导致的原因，加下来看代码 1 2 3 4 5 6 7 8 9 &amp;lt;?php</description>
     </item>
     
     <item>
       <title>Composer 私有仓库搭建</title>
-      <link>https://www.artacode.com/post/php/composer/private-repo/</link>
+      <link>https://yunxi177.github.io/hugo/post/php/composer/private-repo/</link>
       <pubDate>Thu, 01 Apr 2021 18:00:46 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/php/composer/private-repo/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/php/composer/private-repo/</guid>
       <description>Composer 是 PHP 的软件包管理系统，它提供用于管理 PHP 软件和依赖库关系的标准格式。作为日常开发，Composer 能够满足我们的日常需求，但有些情况下，我们</description>
     </item>
     
     <item>
       <title>PHP-FFMpeg 安装</title>
-      <link>https://www.artacode.com/post/php/ffmpeg-install/</link>
+      <link>https://yunxi177.github.io/hugo/post/php/ffmpeg-install/</link>
       <pubDate>Fri, 28 Aug 2020 13:49:19 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/php/ffmpeg-install/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/php/ffmpeg-install/</guid>
       <description>安装 FFMPEG 1 wget http://download.bt.cn/install/ext/ffmpeg.sh &amp;amp;&amp;amp; sh ffmpeg.sh 安装完后可输入以下命令是否安装成功 1 ffmpeg -version 删除禁用函数 proc_open， exec, system 安装 PHP-FFMpeg 1 composer require php-ffmpeg/php-ffmpeg 常见问题 Executable not found, proposed : avprobe, ffprobe php-fpm 在执行 FFMPEG</description>
     </item>
     
     <item>
       <title>CSV 中文解析异常</title>
-      <link>https://www.artacode.com/post/php/csv-parse-error/</link>
+      <link>https://yunxi177.github.io/hugo/post/php/csv-parse-error/</link>
       <pubDate>Sat, 06 Jun 2020 14:42:50 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/php/csv-parse-error/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/php/csv-parse-error/</guid>
       <description>最近在做导入 csv 数据的时候出现了，未按预期导出的情况，具体情况见下图： 如图所示，商家地址部分和商家电话部分，没有正常解析。后来在PHP官网找到</description>
     </item>
     
     <item>
       <title>编译安装php常见问题</title>
-      <link>https://www.artacode.com/post/php/make-install-faq/</link>
+      <link>https://yunxi177.github.io/hugo/post/php/make-install-faq/</link>
       <pubDate>Sun, 24 Feb 2019 15:04:42 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/php/make-install-faq/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/php/make-install-faq/</guid>
       <description>configure: error: libxml2 not found. 详细错误如下: 1 2 3 configure: error: libxml2 not found. Please check your libxml2 installation. make: *** No targets specified and no makefile found. Stop. make: *** No rule to make target &amp;#39;install&amp;#39;. Stop. 解决方法： 1 $ sudo apt-get install libxml2-dev configure: error: png.h not found. 详细错误如下: 1 2 3</description>
     </item>
     

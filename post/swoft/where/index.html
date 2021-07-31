@@ -16,42 +16,42 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="yunxi" /><meta name="description" content="open/close where 理解 openWhere 为where条件的左边括号即( closeWhere 为where条件的右边括号即) 实例 1 2 3 4 5 6 7 8 9 //默认连接符为AND Query::table(&amp;#34;order&amp;#34;)-&amp;gt;openWhere()-&amp;gt;where(&amp;#39;id&amp;#39;,&amp;#39;1&amp;#39;)-&amp;gt;where(&amp;#39;state&amp;#39;, 3)-&amp;gt;closeWhere()-&amp;gt;openWhere()-&amp;gt;where(&amp;#39;id&amp;#39;, 3)-&amp;gt;where(&amp;#39;state&amp;#39;, 2)-&amp;gt;closeWhere()-&amp;gt;one()-&amp;gt;getResult(); //执行结果为:" /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
+<meta name="author" content="yunxi" /><meta name="description" content="open/close where 理解 openWhere 为where条件的左边括号即( closeWhere 为where条件的右边括号即) 实例 1 2 3 4 5 6 7 8 9 //默认连接符为ANDQuery::table" /><meta name="keywords" content="一二三四吾, 编程, PHP, Golang" />
 
 
 
 <meta name="google-site-verification" content="UA-123407925-1" />
 
 
-<meta name="generator" content="Hugo 0.83.1 with theme even" />
+<meta name="generator" content="Hugo 0.86.1 with theme even" />
 
 
-<link rel="canonical" href="https://www.artacode.com/post/swoft/where/" />
+<link rel="canonical" href="https://yunxi177.github.io/hugo/post/swoft/where/" />
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="manifest" href="../../../manifest.json">
+<link rel="mask-icon" href="../../../safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="../../../sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="swoft openWhere使用指南" />
-<meta property="og:description" content="open/close where 理解 openWhere 为where条件的左边括号即( closeWhere 为where条件的右边括号即) 实例 1 2 3 4 5 6 7 8 9 //默认连接符为AND Query::table(&#34;order&#34;)-&gt;openWhere()-&gt;where(&#39;id&#39;,&#39;1&#39;)-&gt;where(&#39;state&#39;, 3)-&gt;closeWhere()-&gt;openWhere()-&gt;where(&#39;id&#39;, 3)-&gt;where(&#39;state&#39;, 2)-&gt;closeWhere()-&gt;one()-&gt;getResult(); //执行结果为:" />
+<meta property="og:description" content="open/close where 理解 openWhere 为where条件的左边括号即( closeWhere 为where条件的右边括号即) 实例 1 2 3 4 5 6 7 8 9 //默认连接符为ANDQuery::table" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.artacode.com/post/swoft/where/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2018-11-15T10:47:05&#43;08:00" />
-<meta property="article:modified_time" content="2018-11-15T10:47:05&#43;08:00" />
+<meta property="og:url" content="https://yunxi177.github.io/hugo/post/swoft/where/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-11-15T10:47:05+08:00" />
+<meta property="article:modified_time" content="2018-11-15T10:47:05+08:00" />
 
 <meta itemprop="name" content="swoft openWhere使用指南">
-<meta itemprop="description" content="open/close where 理解 openWhere 为where条件的左边括号即( closeWhere 为where条件的右边括号即) 实例 1 2 3 4 5 6 7 8 9 //默认连接符为AND Query::table(&#34;order&#34;)-&gt;openWhere()-&gt;where(&#39;id&#39;,&#39;1&#39;)-&gt;where(&#39;state&#39;, 3)-&gt;closeWhere()-&gt;openWhere()-&gt;where(&#39;id&#39;, 3)-&gt;where(&#39;state&#39;, 2)-&gt;closeWhere()-&gt;one()-&gt;getResult(); //执行结果为:"><meta itemprop="datePublished" content="2018-11-15T10:47:05&#43;08:00" />
-<meta itemprop="dateModified" content="2018-11-15T10:47:05&#43;08:00" />
-<meta itemprop="wordCount" content="138">
+<meta itemprop="description" content="open/close where 理解 openWhere 为where条件的左边括号即( closeWhere 为where条件的右边括号即) 实例 1 2 3 4 5 6 7 8 9 //默认连接符为ANDQuery::table"><meta itemprop="datePublished" content="2018-11-15T10:47:05+08:00" />
+<meta itemprop="dateModified" content="2018-11-15T10:47:05+08:00" />
+<meta itemprop="wordCount" content="821">
 <meta itemprop="keywords" content="swoft," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="swoft openWhere使用指南"/>
-<meta name="twitter:description" content="open/close where 理解 openWhere 为where条件的左边括号即( closeWhere 为where条件的右边括号即) 实例 1 2 3 4 5 6 7 8 9 //默认连接符为AND Query::table(&#34;order&#34;)-&gt;openWhere()-&gt;where(&#39;id&#39;,&#39;1&#39;)-&gt;where(&#39;state&#39;, 3)-&gt;closeWhere()-&gt;openWhere()-&gt;where(&#39;id&#39;, 3)-&gt;where(&#39;state&#39;, 2)-&gt;closeWhere()-&gt;one()-&gt;getResult(); //执行结果为:"/>
+<meta name="twitter:description" content="open/close where 理解 openWhere 为where条件的左边括号即( closeWhere 为where条件的右边括号即) 实例 1 2 3 4 5 6 7 8 9 //默认连接符为ANDQuery::table"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -66,7 +66,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">一二三四吾</a>
+    <a href="../../../" class="logo">一二三四吾</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -76,15 +76,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="../../../">
         <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
+      </a><a href="../../../post/">
         <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
+      </a><a href="../../../tags/">
         <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
+      </a><a href="../../../categories/">
         <li class="mobile-menu-item">Categories</li>
-      </a><a href="/about/">
+      </a><a href="../../../about/">
         <li class="mobile-menu-item">About</li>
       </a>
   </ul>
@@ -92,21 +92,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">一二三四吾</a>
+  <a href="../../../" class="logo">一二三四吾</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
+        <a class="menu-item-link" href="../../../">Home</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
+        <a class="menu-item-link" href="../../../post/">Archives</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
+        <a class="menu-item-link" href="../../../tags/">Tags</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
+        <a class="menu-item-link" href="../../../categories/">Categories</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
+        <a class="menu-item-link" href="../../../about/">About</a>
       </li>
   </ul>
 </nav>
@@ -123,11 +123,11 @@
       <div class="post-meta">
         <span class="post-time"> 2018-11-15 </span>
         <div class="post-category">
-            <a href="/categories/swoft/"> swoft </a>
+            <a href="../../../categories/swoft/"> swoft </a>
             </div>
-          <span class="more-meta"> 约 138 字 </span>
-          <span class="more-meta"> 预计阅读 1 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+          <span class="more-meta"> 约 821 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="../../../img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -151,7 +151,7 @@
 <h1 id="实例">实例</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -162,16 +162,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">//默认连接符为AND
-Query::table(&#34;order&#34;)-&gt;openWhere()-&gt;where(&#39;id&#39;,&#39;1&#39;)-&gt;where(&#39;state&#39;, 3)-&gt;closeWhere()-&gt;openWhere()-&gt;where(&#39;id&#39;, 3)-&gt;where(&#39;state&#39;, 2)-&gt;closeWhere()-&gt;one()-&gt;getResult();
-//执行结果为:
-SELECT * FROM `order_1` WHERE ( `id` = &#39;1&#39; AND  `state` = &#39;3&#39;) AND ( `id` = &#39;3&#39; AND  `state` = &#39;2&#39;) LIMIT 0,1
-
-//设置连接符为or
-Query::table(&#34;order&#34;)-&gt;openWhere()-&gt;where(&#39;id&#39;,&#39;1&#39;)-&gt;where(&#39;state&#39;, 3)-&gt;closeWhere()-&gt;openWhere(QueryBuilder::LOGICAL_OR)-&gt;where(&#39;id&#39;, 3)-&gt;where(&#39;state&#39;, 2)-&gt;closeWhere()-&gt;one()-&gt;getResult();
-//执行结果
-SELECT * FROM `order_1` WHERE ( `id` = &#39;1&#39; AND  `state` = &#39;3&#39;) OR ( `id` = &#39;3&#39; AND  `state` = &#39;2&#39;) LIMIT 0,1
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="o">//</span><span class="err">默认连接符为</span><span class="n">AND</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="p">::</span><span class="k">table</span><span class="p">(</span><span class="s2">&#34;order&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">openWhere</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">where</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="k">where</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">closeWhere</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">openWhere</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">where</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="k">where</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">closeWhere</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">one</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">getResult</span><span class="p">();</span><span class="w">
+</span><span class="w"></span><span class="o">//</span><span class="err">执行结果为</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">order_1</span><span class="o">`</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w">  </span><span class="o">`</span><span class="n">state</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w">  </span><span class="o">`</span><span class="n">state</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">//</span><span class="err">设置连接符为</span><span class="n">or</span><span class="w">
+</span><span class="w"></span><span class="n">Query</span><span class="p">::</span><span class="k">table</span><span class="p">(</span><span class="s2">&#34;order&#34;</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">openWhere</span><span class="p">()</span><span class="o">-&gt;</span><span class="k">where</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="k">where</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">closeWhere</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">openWhere</span><span class="p">(</span><span class="n">QueryBuilder</span><span class="p">::</span><span class="n">LOGICAL_OR</span><span class="p">)</span><span class="o">-&gt;</span><span class="k">where</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="k">where</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">closeWhere</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">one</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">getResult</span><span class="p">();</span><span class="w">
+</span><span class="w"></span><span class="o">//</span><span class="err">执行结果</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">order_1</span><span class="o">`</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w">  </span><span class="o">`</span><span class="n">state</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w">  </span><span class="o">`</span><span class="n">state</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="w">
+</span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -193,15 +193,15 @@ SELECT * FROM `order_1` WHERE ( `id` = &#39;1&#39; AND  `state` = &#39;3&#39;) O
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/swoft/">swoft</a>
+          <a href="../../../tags/swoft/">swoft</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/windows/modify-command-title/">
+        <a class="prev" href="../../../post/windows/modify-command-title/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">Windows修改命令行标题</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/golang/sqlite3-error/">
+        <a class="next" href="../../../post/golang/sqlite3-error/">
             <span class="next-text nav-default">Sqlite3 stdlib.h: No such file or directory</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -239,7 +239,7 @@ SELECT * FROM `order_1` WHERE ( `id` = &#39;1&#39; AND  `state` = &#39;3&#39;) O
       <div class="social-links">
       <a href="mailto:yunxi177@gmail.com" class="iconfont icon-email" title="email"></a>
       <a href="https://github.com/yunxi177" class="iconfont icon-github" title="github"></a>
-  <a href="https://www.artacode.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://yunxi177.github.io/hugo/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -254,9 +254,9 @@ SELECT * FROM `order_1` WHERE ( `id` = &#39;1&#39; AND  `state` = &#39;3&#39;) O
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="../../../img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="../../../img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
@@ -279,7 +279,7 @@ SELECT * FROM `order_1` WHERE ( `id` = &#39;1&#39; AND  `state` = &#39;3&#39;) O
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="../../../js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
   <script type="text/javascript">
     window.MathJax = {
       tex: {

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>计算机基础 on 一二三四吾</title>
-    <link>https://www.artacode.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</link>
+    <link>https://yunxi177.github.io/hugo/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</link>
     <description>Recent content in 计算机基础 on 一二三四吾</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 12 Oct 2020 10:30:54 +0800</lastBuildDate><atom:link href="https://www.artacode.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Oct 2020 10:30:54 +0800</lastBuildDate><atom:link href="https://yunxi177.github.io/hugo/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Base64编码的前世今生</title>
-      <link>https://www.artacode.com/post/base/base64/</link>
+      <link>https://yunxi177.github.io/hugo/post/base/base64/</link>
       <pubDate>Mon, 12 Oct 2020 10:30:54 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/base/base64/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/base/base64/</guid>
       <description>Base64是一种基于64个可打印字符来表示二进制数据的表示方法。由于2的6次方等于64，所以每6个比特为一个单元，对应某个可打印字符。三个</description>
     </item>
     

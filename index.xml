@@ -2,530 +2,530 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>一二三四吾</title>
-    <link>https://www.artacode.com/</link>
+    <link>https://yunxi177.github.io/hugo/</link>
     <description>Recent content on 一二三四吾</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 19 Jun 2021 17:35:46 +0800</lastBuildDate><atom:link href="https://www.artacode.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Jun 2021 17:35:46 +0800</lastBuildDate><atom:link href="https://yunxi177.github.io/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
-      <link>https://www.artacode.com/about/</link>
+      <link>https://yunxi177.github.io/hugo/about/</link>
       <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
       
-      <guid>https://www.artacode.com/about/</guid>
+      <guid>https://yunxi177.github.io/hugo/about/</guid>
       <description>用专业能力，将复杂的问题简单化</description>
     </item>
     
     <item>
       <title>golang设计模式之单例模式</title>
-      <link>https://www.artacode.com/post/golang/design-pattern/singletion/</link>
+      <link>https://yunxi177.github.io/hugo/post/golang/design-pattern/singletion/</link>
       <pubDate>Sat, 19 Jun 2021 17:35:46 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/golang/design-pattern/singletion/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/golang/design-pattern/singletion/</guid>
       <description>日常开发中经常会遇到单例模式的使用场景，单例模式可以保证我们初始化出来的结构体只有一个，在一些请求上下文，mysql 连接池..场景经常有着不</description>
     </item>
     
     <item>
       <title>golang base64 编码与 PHP 输出不一致</title>
-      <link>https://www.artacode.com/post/golang/base64-ascii/</link>
+      <link>https://yunxi177.github.io/hugo/post/golang/base64-ascii/</link>
       <pubDate>Wed, 16 Jun 2021 17:49:39 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/golang/base64-ascii/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/golang/base64-ascii/</guid>
       <description>最近开发中，将一个 php 算法，移植到 golang 中，发现 base64 算法生成的字符串不一致，经过排查发现是由于 ASCII 控制字符导致的原因，加下来看代码 1 2 3 4 5 6 7 8 9 &amp;lt;?php</description>
     </item>
     
     <item>
       <title>jenkins pipeline 环境变量详解</title>
-      <link>https://www.artacode.com/post/ci-cd/environment-variables/</link>
+      <link>https://yunxi177.github.io/hugo/post/ci-cd/environment-variables/</link>
       <pubDate>Mon, 07 Jun 2021 17:16:46 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/ci-cd/environment-variables/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/ci-cd/environment-variables/</guid>
       <description>关于 Jenkins 的环境变量，可以分为系统内置环境变量和自定义环境变量。系统内置环境变量是 Jenkins 内部定义的环境变量。自定义环境变量是用户自己定义的环境变量 系</description>
     </item>
     
     <item>
       <title>nginx location 优先级</title>
-      <link>https://www.artacode.com/post/nginx/location-priority/</link>
+      <link>https://yunxi177.github.io/hugo/post/nginx/location-priority/</link>
       <pubDate>Wed, 19 May 2021 13:52:44 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/nginx/location-priority/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/nginx/location-priority/</guid>
       <description>location 优先级介绍 location 匹配方式有以下几种 location = /path/a/exact.png {}: 精确匹配 location ^~ /path/a/ {}: 优先前缀匹配（符合最长匹配原则） location ~ /Path?/ {} ： 区分大小写正则匹配（首次匹配原则） location ~* /path?/ {}</description>
     </item>
     
     <item>
       <title>nginx 单站点多证书配置</title>
-      <link>https://www.artacode.com/post/nginx/multi-cert/</link>
+      <link>https://yunxi177.github.io/hugo/post/nginx/multi-cert/</link>
       <pubDate>Tue, 18 May 2021 16:03:21 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/nginx/multi-cert/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/nginx/multi-cert/</guid>
       <description>问题 在同一 server 中同时设置了， a.com, b.com.c.com 三个域名，若三个域名都需要 https 访问，应当如何配置呢？ 示例配置如下： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 server { listen 443 ssl; server_name a.com b.com</description>
     </item>
     
     <item>
       <title>Composer 私有仓库搭建</title>
-      <link>https://www.artacode.com/post/php/composer/private-repo/</link>
+      <link>https://yunxi177.github.io/hugo/post/php/composer/private-repo/</link>
       <pubDate>Thu, 01 Apr 2021 18:00:46 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/php/composer/private-repo/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/php/composer/private-repo/</guid>
       <description>Composer 是 PHP 的软件包管理系统，它提供用于管理 PHP 软件和依赖库关系的标准格式。作为日常开发，Composer 能够满足我们的日常需求，但有些情况下，我们</description>
     </item>
     
     <item>
       <title>前端CI/CD落地实践</title>
-      <link>https://www.artacode.com/post/ci-cd/front-cicd/</link>
+      <link>https://yunxi177.github.io/hugo/post/ci-cd/front-cicd/</link>
       <pubDate>Mon, 29 Mar 2021 18:30:18 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/ci-cd/front-cicd/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/ci-cd/front-cicd/</guid>
       <description>随着 nodejs 的兴起，前端开发也进入了 新的时代，webpack 的诞生，更是让其如虎添翼，构建出欣欣向荣的前端生态. 然而事物的发展总是在：发现问题-&amp;</description>
     </item>
     
     <item>
       <title>Base64编码的前世今生</title>
-      <link>https://www.artacode.com/post/base/base64/</link>
+      <link>https://yunxi177.github.io/hugo/post/base/base64/</link>
       <pubDate>Mon, 12 Oct 2020 10:30:54 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/base/base64/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/base/base64/</guid>
       <description>Base64是一种基于64个可打印字符来表示二进制数据的表示方法。由于2的6次方等于64，所以每6个比特为一个单元，对应某个可打印字符。三个</description>
     </item>
     
     <item>
       <title>PHP-FFMpeg 安装</title>
-      <link>https://www.artacode.com/post/php/ffmpeg-install/</link>
+      <link>https://yunxi177.github.io/hugo/post/php/ffmpeg-install/</link>
       <pubDate>Fri, 28 Aug 2020 13:49:19 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/php/ffmpeg-install/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/php/ffmpeg-install/</guid>
       <description>安装 FFMPEG 1 wget http://download.bt.cn/install/ext/ffmpeg.sh &amp;amp;&amp;amp; sh ffmpeg.sh 安装完后可输入以下命令是否安装成功 1 ffmpeg -version 删除禁用函数 proc_open， exec, system 安装 PHP-FFMpeg 1 composer require php-ffmpeg/php-ffmpeg 常见问题 Executable not found, proposed : avprobe, ffprobe php-fpm 在执行 FFMPEG</description>
     </item>
     
     <item>
       <title>CSV 中文解析异常</title>
-      <link>https://www.artacode.com/post/php/csv-parse-error/</link>
+      <link>https://yunxi177.github.io/hugo/post/php/csv-parse-error/</link>
       <pubDate>Sat, 06 Jun 2020 14:42:50 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/php/csv-parse-error/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/php/csv-parse-error/</guid>
       <description>最近在做导入 csv 数据的时候出现了，未按预期导出的情况，具体情况见下图： 如图所示，商家地址部分和商家电话部分，没有正常解析。后来在PHP官网找到</description>
     </item>
     
     <item>
       <title>Linux Manjaro 安装指南</title>
-      <link>https://www.artacode.com/post/linux/manjaro-install/</link>
+      <link>https://yunxi177.github.io/hugo/post/linux/manjaro-install/</link>
       <pubDate>Tue, 05 May 2020 17:03:42 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/linux/manjaro-install/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/linux/manjaro-install/</guid>
       <description>Linux 历史 1994 年 3 月，Linux1.0 版正式发布，Marc Ewing 成立 Red Hat 软件公司，成为最著名的 Linux 经销商之一。早期 Linux 的引导管理程序（boot loader</description>
     </item>
     
     <item>
       <title>snapcraft 下载软件慢，解决办法</title>
-      <link>https://www.artacode.com/post/linux/snap-slow/</link>
+      <link>https://yunxi177.github.io/hugo/post/linux/snap-slow/</link>
       <pubDate>Fri, 01 May 2020 08:39:20 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/linux/snap-slow/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/linux/snap-slow/</guid>
       <description>由于国内网络原因，snap 安装软件会非常的慢，而且会有中断的情况，可以通过给 snap 设置代理的设置代理的方式解决此问题，具体操作如下： $ sudo systemctl edit snapd 编</description>
     </item>
     
     <item>
       <title>git 删除 commit 信息</title>
-      <link>https://www.artacode.com/post/git/del-commit/</link>
+      <link>https://yunxi177.github.io/hugo/post/git/del-commit/</link>
       <pubDate>Mon, 28 Oct 2019 20:38:00 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/git/del-commit/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/git/del-commit/</guid>
       <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 #Clone your git repo git clone &amp;lt;repo url&amp;gt;; #Entre your local repo cd lestatzhang.github.io; #Checkout git checkout --orphan latest_branch; #Add all the files git add -A; #Commit the changes git commit -am &amp;#34;Reinitialize&amp;#34;; #Delete the branch git branch -D master; #Rename the current branch to master git branch -m master; #Finally, force update your</description>
     </item>
     
     <item>
       <title>Gin_bind_json_return_eof</title>
-      <link>https://www.artacode.com/post/golang/gin-bind-json-return-eof/</link>
+      <link>https://yunxi177.github.io/hugo/post/golang/gin-bind-json-return-eof/</link>
       <pubDate>Wed, 23 Oct 2019 12:03:46 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/golang/gin-bind-json-return-eof/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/golang/gin-bind-json-return-eof/</guid>
       <description>在一次开发中,通过中间件访问请求中的post参数,于是使用 ioutil.ReadAll 来读取body中的内容并做相应的验证,代码如下: 1 2 3 var pj map[string]interface{} body := c.Request.Body data, _ := ioutil.ReadAll(body) 一开始</description>
     </item>
     
     <item>
       <title>centos 搭建 NFS</title>
-      <link>https://www.artacode.com/post/linux/nfs/</link>
+      <link>https://yunxi177.github.io/hugo/post/linux/nfs/</link>
       <pubDate>Sun, 04 Aug 2019 21:17:55 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/linux/nfs/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/linux/nfs/</guid>
       <description>查看系统是否已安装NFS 1 2 3 4 $ rpm -qa | grep nfs nfs-utils-lib-1.1.5-13.el6.i686 nfs-utils-1.2.3-78.el6_10.1.i686 如果没有安装,执行下面命令 1 $ yum -y install nfs-utils rpcbind NFS配置文件 NFS的常用目录 /etc/exports NFS服务的主要配置</description>
     </item>
     
     <item>
       <title>解决nfs挂载错误wrong fs type, bad option, bad superblock</title>
-      <link>https://www.artacode.com/post/linux/bad-superblock/</link>
+      <link>https://yunxi177.github.io/hugo/post/linux/bad-superblock/</link>
       <pubDate>Sat, 03 Aug 2019 19:54:26 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/linux/bad-superblock/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/linux/bad-superblock/</guid>
       <description>1 2 3 4 5 6 7 [root@localhost]# mount -t nfs 192.168.0.106:/home/nfs1 mount: wrong fs type, bad option, bad superblock on 192.168.0.106:/home/nfs1, missing codepage or helper program, or other error (for several filesystems (e.g. nfs, cifs) you might need a /sbin/mount.&amp;lt;type&amp;gt; helper program) In some cases useful info is found in syslog - try dmesg | tail or so 解决办法： 1 apt-get install nfs-common 或者</description>
     </item>
     
     <item>
       <title>申请 let&#39;s encrypt 通配符 ssl 证书</title>
-      <link>https://www.artacode.com/post/web/wildcard-https/</link>
+      <link>https://yunxi177.github.io/hugo/post/web/wildcard-https/</link>
       <pubDate>Sat, 03 Aug 2019 19:37:51 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/web/wildcard-https/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/web/wildcard-https/</guid>
       <description>在&amp;lt;使用 let&amp;rsquo;s encrypt 为网站开启 https&amp;gt;一问中,讲述了,如何用 let&amp;rsquo;s encrypt 为网站开启 https 协议,这篇内容讲一下如何申请 let&amp;rsquo;s encrypt 通配符证书 什么是通配符证</description>
     </item>
     
     <item>
       <title>使用 let&#39;s encrypt 为网站开启 https</title>
-      <link>https://www.artacode.com/post/web/enable-https/</link>
+      <link>https://yunxi177.github.io/hugo/post/web/enable-https/</link>
       <pubDate>Tue, 30 Jul 2019 20:54:18 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/web/enable-https/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/web/enable-https/</guid>
       <description>启用可用通道 1 2 $ yum -y install yum-utils $ yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional 安装 Certbot 1 $ sudo yum install certbot python2-certbot-nginx 获取 nginx 服务器证书 1 $ sudo certbot certonly --nginx 遇到问题 certbot 未找到 nginx 二进制文件 The nginx plugin is not working; there may be problems with your existing configuration.</description>
     </item>
     
     <item>
       <title>windows 命令行设置环境变量</title>
-      <link>https://www.artacode.com/post/windows/env_variable/</link>
+      <link>https://yunxi177.github.io/hugo/post/windows/env_variable/</link>
       <pubDate>Wed, 24 Jul 2019 15:36:24 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/windows/env_variable/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/windows/env_variable/</guid>
       <description>powershell 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 #Powershell设置环境变量 #查看所有环境变量 ls env: #搜索环境变量 ls env:NODE* #查看单个环境变量 $env:NODE_ENV #添加/更新</description>
     </item>
     
     <item>
       <title>Uninx 网络编程环境搭建</title>
-      <link>https://www.artacode.com/post/network/init/</link>
+      <link>https://yunxi177.github.io/hugo/post/network/init/</link>
       <pubDate>Wed, 24 Jul 2019 06:37:53 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/network/init/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/network/init/</guid>
       <description>1，安装编译器，为了齐全还是安装一下build-essential 1 sudo apt-get install build-essential 2，下载书中的头文件及示例源码 Source Code 3，解压unpv13e.tar</description>
     </item>
     
     <item>
       <title>exec.Command 返回 “exit status 1” 获取详细错误信息</title>
-      <link>https://www.artacode.com/post/golang/command-debug/</link>
+      <link>https://yunxi177.github.io/hugo/post/golang/command-debug/</link>
       <pubDate>Sat, 20 Jul 2019 17:04:20 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/golang/command-debug/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/golang/command-debug/</guid>
       <description>1 2 3 4 5 6 7 cmd := exec.Command(&amp;#34;find&amp;#34;, &amp;#34;/&amp;#34;, &amp;#34;-maxdepth&amp;#34;, &amp;#34;1&amp;#34;, &amp;#34;-exec&amp;#34;, &amp;#34;wc&amp;#34;, &amp;#34;-c&amp;#34;, &amp;#34;{}&amp;#34;, &amp;#34;\\&amp;#34;) output, err := cmd.CombinedOutput() if err != nil { fmt.Println(fmt.Sprint(err) + &amp;#34;: &amp;#34; + string(output)) return } fmt.Println(string(output))</description>
     </item>
     
     <item>
       <title>ubuntu 创建桌面快捷方式</title>
-      <link>https://www.artacode.com/post/linux/desktop-shortcut/</link>
+      <link>https://yunxi177.github.io/hugo/post/linux/desktop-shortcut/</link>
       <pubDate>Sat, 20 Jul 2019 16:57:01 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/linux/desktop-shortcut/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/linux/desktop-shortcut/</guid>
       <description>安装 1 sudo apt-get install --no-install-recommends gnome-panel 使用 gnome-desktop-item-edit &amp;ndash;create-new ~/Desktop</description>
     </item>
     
     <item>
       <title>vs code 调试远程代码</title>
-      <link>https://www.artacode.com/post/ide/vs-code/remote-ssh/</link>
+      <link>https://yunxi177.github.io/hugo/post/ide/vs-code/remote-ssh/</link>
       <pubDate>Wed, 19 Jun 2019 20:31:23 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/ide/vs-code/remote-ssh/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/ide/vs-code/remote-ssh/</guid>
       <description>简介 Visual Studio Code Remote - SSH 可以打开远程计算机或容器中的文件(计算机或容器中需要运行 SSH Server),而且可已充分利用 VS Code 的一切特性.一旦连接上服务器,</description>
     </item>
     
     <item>
       <title>vue jsonp 跨域调用 腾讯地图 api报错</title>
-      <link>https://www.artacode.com/post/cross-origin/jsonp/</link>
+      <link>https://yunxi177.github.io/hugo/post/cross-origin/jsonp/</link>
       <pubDate>Sat, 11 May 2019 07:12:56 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/cross-origin/jsonp/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/cross-origin/jsonp/</guid>
       <description>今天帮助前端小伙伴解决了一下 jsonp 调用腾讯地图 WebService API 报错 Unexpected token : 的问题，这里记录一下解决过程 项目中使用 vue-jsonp 组件来解决跨域问题，使用流程如下 安装 jsonp 1 npm install</description>
     </item>
     
     <item>
       <title>微信公众号 jssdk 报错</title>
-      <link>https://www.artacode.com/post/wechat/jssdk-config/</link>
+      <link>https://yunxi177.github.io/hugo/post/wechat/jssdk-config/</link>
       <pubDate>Fri, 10 May 2019 21:02:48 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/wechat/jssdk-config/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/wechat/jssdk-config/</guid>
       <description>引入 wx-js-sdk 1 import wx from &amp;#39;weixin-js-sdk&amp;#39;; 设置微信 config 部分代码： 1 2 3 4 5 6 7 8 this.$axios.get(&amp;#34;后台获取 config 地址&amp;#34;, {}).then((response) =&amp;gt; { ... wx.config(configData); wx.ready(() =&amp;gt; { this.getLocation(); })</description>
     </item>
     
     <item>
       <title>Ubuntu 终端oh my fish的agnoster主题乱码</title>
-      <link>https://www.artacode.com/post/linux/oh-my-fish-agnoster/</link>
+      <link>https://yunxi177.github.io/hugo/post/linux/oh-my-fish-agnoster/</link>
       <pubDate>Sat, 04 May 2019 07:33:28 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/linux/oh-my-fish-agnoster/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/linux/oh-my-fish-agnoster/</guid>
       <description>执行以下命令来安装缺失的字体： wget https://raw.githubusercontent.com/powerline/powerline/develop/font/10-powerline-symbols.conf wget https://raw.githubusercontent.com/powerline/powerline/develop/font/PowerlineSymbols.otf sudo mkdir /usr/share/fonts/OTF sudo cp 10-powerline-symbols.conf /usr/share/fonts/OTF/ sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/ sudo mv PowerlineSymbols.otf /usr/share/fonts/OTF/ 然后重启终端,恢复正常</description>
     </item>
     
     <item>
       <title>Oh My Fish 一个可以让你赏心悦目的 fish shell 框架</title>
-      <link>https://www.artacode.com/post/linux/oh-my-fish/</link>
+      <link>https://yunxi177.github.io/hugo/post/linux/oh-my-fish/</link>
       <pubDate>Fri, 03 May 2019 22:37:27 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/linux/oh-my-fish/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/linux/oh-my-fish/</guid>
       <description>安装 fish shell 以 ubuntu 为例 1 2 3 sudo apt-add-repository ppa:fish-shell/release-3 sudo apt-get update sudo apt-get install fish 其他系统安装点击链接 安装 oh my fish 1 curl -L https://get.oh-my.fish | fish 运行上述命令，就尅安装 oh my fish 了，接下来来讲解一下 oh my fish 的</description>
     </item>
     
     <item>
       <title>docker 常见错误</title>
-      <link>https://www.artacode.com/post/docker/faq/</link>
+      <link>https://yunxi177.github.io/hugo/post/docker/faq/</link>
       <pubDate>Sun, 28 Apr 2019 07:22:17 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/docker/faq/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/docker/faq/</guid>
       <description>/var/run/docker.sock: no such file or directory /var/run/docker.sock 的访问权限只 root 和 docker 用户组, 所以你需要把自己的用户添加到 docker 组 命令: $ sudo gpasswd -a ${uesrname} docker</description>
     </item>
     
     <item>
       <title>vim-plug 安装</title>
-      <link>https://www.artacode.com/post/ide/vim/vim-plug-install/</link>
+      <link>https://yunxi177.github.io/hugo/post/ide/vim/vim-plug-install/</link>
       <pubDate>Sun, 21 Apr 2019 07:33:57 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/ide/vim/vim-plug-install/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/ide/vim/vim-plug-install/</guid>
       <description>vim-plug 是一个极简的 vim 插件管理器 安装 vim-plug 的安装十分简单只需要一行命令就可以搞定 vim Linux 1 2 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim Windows (PowerShell) 1 2 3 4 5 6 7 8 md ~\vimfiles\autoload $uri = &amp;#39;https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&amp;#39; (New-Object Net.WebClient).DownloadFile( $uri, $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath( &amp;#34;~\vimfiles\autoload\plug.vim&amp;#34; ) ) Neovim Linux 1</description>
     </item>
     
     <item>
       <title>electron 改变窗体大小</title>
-      <link>https://www.artacode.com/post/electron/change-window-from-render/</link>
+      <link>https://yunxi177.github.io/hugo/post/electron/change-window-from-render/</link>
       <pubDate>Sat, 13 Apr 2019 07:28:08 +4700</pubDate>
       
-      <guid>https://www.artacode.com/post/electron/change-window-from-render/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/electron/change-window-from-render/</guid>
       <description>相关链接: electron-vue 集成 element-ui 在开发 electron 的时候遇到了需要在 render 中修改 BrowserWindow 窗口大小的方式，经过一番尝试，有两种方法实现: 通过 ipcRenderer 与 ipcMain 的通讯来实现 通过 render 的 remote 模块来实</description>
     </item>
     
     <item>
       <title>electron-vue  集成 element-ui</title>
-      <link>https://www.artacode.com/post/electron/install/</link>
+      <link>https://yunxi177.github.io/hugo/post/electron/install/</link>
       <pubDate>Thu, 04 Apr 2019 20:21:44 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/electron/install/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/electron/install/</guid>
       <description>简介 什么是 electron Electron 是由 Github 开发，用 HTML，CSS 和 JavaScript 来构建跨平台桌面应用程序的一个开源库。 Electron 通过将 Chromium 和 Node.js 合并到同一个运行时环境中，并将其打包为 Mac</description>
     </item>
     
     <item>
       <title>VS Code golang debug 配置</title>
-      <link>https://www.artacode.com/post/ide/vs-code/debug-go/</link>
+      <link>https://yunxi177.github.io/hugo/post/ide/vs-code/debug-go/</link>
       <pubDate>Mon, 25 Mar 2019 18:24:21 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/ide/vs-code/debug-go/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/ide/vs-code/debug-go/</guid>
       <description>实现效果 安装 delve windows go get -u github.com/go-delve/delve/cmd/dlv linux 方式一： go get -u github.com/go-delve/delve/cmd/dlv 方式二 1 2 3 $ git clone https://github.com/go-delve/delve.git $GOPATH/src/github.com/go-delve/delve $ cd $GOPATH/src/github.com/go-delve/delve $ make install 注意: 若果你go版本为1.5需要设置GO15VENDOREXPE</description>
     </item>
     
     <item>
       <title>vscode 自定义代码片段</title>
-      <link>https://www.artacode.com/post/ide/vs-code/snippet/</link>
+      <link>https://yunxi177.github.io/hugo/post/ide/vs-code/snippet/</link>
       <pubDate>Sat, 09 Mar 2019 17:54:58 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/ide/vs-code/snippet/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/ide/vs-code/snippet/</guid>
       <description>实现效果 起因 最近在写一个全新的项目，在项目中频繁创建各种类，这就导致很多重复的东西需要频繁的写，例如类名，命名空间，继承关系&amp;hellip;</description>
     </item>
     
     <item>
       <title>编译安装php常见问题</title>
-      <link>https://www.artacode.com/post/php/make-install-faq/</link>
+      <link>https://yunxi177.github.io/hugo/post/php/make-install-faq/</link>
       <pubDate>Sun, 24 Feb 2019 15:04:42 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/php/make-install-faq/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/php/make-install-faq/</guid>
       <description>configure: error: libxml2 not found. 详细错误如下: 1 2 3 configure: error: libxml2 not found. Please check your libxml2 installation. make: *** No targets specified and no makefile found. Stop. make: *** No rule to make target &amp;#39;install&amp;#39;. Stop. 解决方法： 1 $ sudo apt-get install libxml2-dev configure: error: png.h not found. 详细错误如下: 1 2 3</description>
     </item>
     
     <item>
       <title>virtualbox 分享文件夹，无权访问问题</title>
-      <link>https://www.artacode.com/post/linux/not-permission/</link>
+      <link>https://yunxi177.github.io/hugo/post/linux/not-permission/</link>
       <pubDate>Sun, 24 Feb 2019 14:26:03 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/linux/not-permission/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/linux/not-permission/</guid>
       <description>背景 在 windows 下使用 virtualbox 安装 linux 系统 实现 windows 下开发虚拟机里跑测试的效果 起因 由于项目使用文件目录是可以在 windows 和 linux 下共享的，因此使用 virtualbox 共享文件夹功能来实现项目</description>
     </item>
     
     <item>
       <title>gorm常见问题</title>
-      <link>https://www.artacode.com/post/gorm/faq/</link>
+      <link>https://yunxi177.github.io/hugo/post/gorm/faq/</link>
       <pubDate>Sat, 22 Dec 2018 10:38:17 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/gorm/faq/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/gorm/faq/</guid>
       <description>sql: Scan error on column index 5, name &amp;ldquo;created_at&amp;rdquo;: unsupported Scan, storing driver.Value type []uint8 into type *time.Time DATETIME转换问题 执行Rows.Scan()时报告错误 原因是在调用sql.Open()时没有将pa</description>
     </item>
     
     <item>
       <title>Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1</title>
-      <link>https://www.artacode.com/post/sql/gorm-err/</link>
+      <link>https://yunxi177.github.io/hugo/post/sql/gorm-err/</link>
       <pubDate>Sat, 22 Dec 2018 08:48:49 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/sql/gorm-err/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/sql/gorm-err/</guid>
       <description>使用 gorm 插入数据时爆出 Error 1292: Incorrect datetime value: &#39;0000-00-00&#39; for column &#39;created_at&#39; at row 1 的错误信息，搜索之后发现原来是因为 msyql5.7 及以上不允许时间戳字段插入 ‘0000-00-00’ 数据，修复</description>
     </item>
     
     <item>
       <title>Centos 服务配置详解</title>
-      <link>https://www.artacode.com/post/linux/centos-service/</link>
+      <link>https://yunxi177.github.io/hugo/post/linux/centos-service/</link>
       <pubDate>Thu, 20 Dec 2018 17:11:12 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/linux/centos-service/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/linux/centos-service/</guid>
       <description>systemd 介绍 CentOS 7的服务systemctl脚本存放在：/usr/lib/systemd/，有系统（system）和用户（user）之分，即：/usr</description>
     </item>
     
     <item>
       <title>公众号通过api发送小程序消息</title>
-      <link>https://www.artacode.com/post/wechat/push-mini/</link>
+      <link>https://yunxi177.github.io/hugo/post/wechat/push-mini/</link>
       <pubDate>Mon, 17 Dec 2018 18:34:50 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/wechat/push-mini/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/wechat/push-mini/</guid>
       <description>接口调用请求说明 1 2 http请求方式: POST https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESS_TOKEN 发送普通消息的小程序链接 1 2 3 4 5 6 7 8 { &amp;#34;touser&amp;#34;:&amp;#34;OPENID&amp;#34;, &amp;#34;msgtype&amp;#34;:&amp;#34;text&amp;#34;, &amp;#34;text&amp;#34;: { &amp;#34;content&amp;#34;:&amp;#34;文</description>
     </item>
     
     <item>
       <title>redis实现分布式锁</title>
-      <link>https://www.artacode.com/post/distributed/redis-lock/</link>
+      <link>https://yunxi177.github.io/hugo/post/distributed/redis-lock/</link>
       <pubDate>Fri, 14 Dec 2018 17:47:08 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/distributed/redis-lock/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/distributed/redis-lock/</guid>
       <description>起因 消息队列处理任务中，由于消息队列中有相同的处理请求并且消费端存在多个，因此出现了并发消费的问题，于是产生了利用分布式锁来锁定消费，保证同</description>
     </item>
     
     <item>
       <title>gitalk评论插件自动初始化</title>
-      <link>https://www.artacode.com/post/hugo/auto-init-gitalk/</link>
+      <link>https://yunxi177.github.io/hugo/post/hugo/auto-init-gitalk/</link>
       <pubDate>Thu, 29 Nov 2018 18:44:33 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/hugo/auto-init-gitalk/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/hugo/auto-init-gitalk/</guid>
       <description>这只是个预告，耐心等待把。😀</description>
     </item>
     
     <item>
       <title>hugo集成girment插件</title>
-      <link>https://www.artacode.com/post/hugo/enable-gitment/</link>
+      <link>https://yunxi177.github.io/hugo/post/hugo/enable-gitment/</link>
       <pubDate>Tue, 27 Nov 2018 18:57:45 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/hugo/enable-gitment/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/hugo/enable-gitment/</guid>
       <description>起因 使 hugo 搭建博客已经有半年了，一直觉得用 markdown 才写博客才程序员应该有的范，所以看到 hugo 就觉得自己应该有一个这样的博客，后面就自己搭建起来。最近，写</description>
     </item>
     
     <item>
       <title>etcd入门系列四：开启客户端证书访问</title>
-      <link>https://www.artacode.com/post/etcd/certificates/</link>
+      <link>https://yunxi177.github.io/hugo/post/etcd/certificates/</link>
       <pubDate>Sun, 25 Nov 2018 14:26:14 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/etcd/certificates/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/etcd/certificates/</guid>
       <description>etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 1. 生成客户端证书 生成clien</description>
     </item>
     
     <item>
       <title>etcd入门系列三：身份验证访问控制</title>
-      <link>https://www.artacode.com/post/etcd/auth/</link>
+      <link>https://yunxi177.github.io/hugo/post/etcd/auth/</link>
       <pubDate>Sat, 24 Nov 2018 12:05:50 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/etcd/auth/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/etcd/auth/</guid>
       <description>etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 1. 简介 etcd 默认是没有开启访问控制</description>
     </item>
     
     <item>
       <title>etcd入门系列二：etcd开启https</title>
-      <link>https://www.artacode.com/post/etcd/enable-https/</link>
+      <link>https://yunxi177.github.io/hugo/post/etcd/enable-https/</link>
       <pubDate>Wed, 21 Nov 2018 13:44:07 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/etcd/enable-https/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/etcd/enable-https/</guid>
       <description>etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 上节(etcd在docker中</description>
     </item>
     
     <item>
       <title>etcd入门系列一：etcd 在 docker 中使用</title>
-      <link>https://www.artacode.com/post/etcd/install/</link>
+      <link>https://yunxi177.github.io/hugo/post/etcd/install/</link>
       <pubDate>Mon, 19 Nov 2018 11:03:08 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/etcd/install/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/etcd/install/</guid>
       <description>etcd入门系列 一. etcd在docker中的安装与使用 二. etcd 开启 https 三. 身份验证访问控制 四. 开启客户端证书访问 简介 etcd是CoreOS团队</description>
     </item>
     
     <item>
       <title>Windows修改命令行标题</title>
-      <link>https://www.artacode.com/post/windows/modify-command-title/</link>
+      <link>https://yunxi177.github.io/hugo/post/windows/modify-command-title/</link>
       <pubDate>Thu, 15 Nov 2018 11:32:31 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/windows/modify-command-title/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/windows/modify-command-title/</guid>
       <description>修改命令行标题 cmd title new title Console2 title new title PowerShell [System.Console]::Title = &amp;quot;new title&amp;quot;</description>
     </item>
     
     <item>
       <title>swoft openWhere使用指南</title>
-      <link>https://www.artacode.com/post/swoft/where/</link>
+      <link>https://yunxi177.github.io/hugo/post/swoft/where/</link>
       <pubDate>Thu, 15 Nov 2018 10:47:05 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/swoft/where/</guid>
-      <description>open/close where 理解 openWhere 为where条件的左边括号即( closeWhere 为where条件的右边括号即) 实例 1 2 3 4 5 6 7 8 9 //默认连接符为AND Query::table(&amp;#34;order&amp;#34;)-&amp;gt;openWhere()-&amp;gt;where(&amp;#39;id&amp;#39;,&amp;#39;1&amp;#39;)-&amp;gt;where(&amp;#39;state&amp;#39;, 3)-&amp;gt;closeWhere()-&amp;gt;openWhere()-&amp;gt;where(&amp;#39;id&amp;#39;, 3)-&amp;gt;where(&amp;#39;state&amp;#39;, 2)-&amp;gt;closeWhere()-&amp;gt;one()-&amp;gt;getResult(); //执行结果为:</description>
+      <guid>https://yunxi177.github.io/hugo/post/swoft/where/</guid>
+      <description>open/close where 理解 openWhere 为where条件的左边括号即( closeWhere 为where条件的右边括号即) 实例 1 2 3 4 5 6 7 8 9 //默认连接符为ANDQuery::table</description>
     </item>
     
     <item>
       <title>Sqlite3 stdlib.h: No such file or directory</title>
-      <link>https://www.artacode.com/post/golang/sqlite3-error/</link>
+      <link>https://yunxi177.github.io/hugo/post/golang/sqlite3-error/</link>
       <pubDate>Sun, 23 Sep 2018 12:29:55 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/golang/sqlite3-error/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/golang/sqlite3-error/</guid>
       <description>sqlite3/backup.go:14:20: fatal error: stdlib.h: No such file or directory 错误提示 1 2 3 # github.com/mattn/go-sqlite3 ../../../.go/src/github.com/mattn/go-sqlite3/backup.go:14:20: fatal error: stdlib.h: No such file or directory compilation terminated. 解决方法 sudo apt-get install g++ 参考链接 mattn/go-sqlite3/issues</description>
     </item>
     
     <item>
       <title>xorm将表生成实体</title>
-      <link>https://www.artacode.com/post/golang/xorm-reverse/</link>
+      <link>https://yunxi177.github.io/hugo/post/golang/xorm-reverse/</link>
       <pubDate>Sun, 16 Sep 2018 17:24:20 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/golang/xorm-reverse/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/golang/xorm-reverse/</guid>
       <description>xorm 工具 xorm 是一组数据库操作命令行工具。 源码安装 go get github.com/go-xorm/cmd/xorm 使用 使用帮助 查看帮助命令： xorm help reverse 帮助详情 1 2 3 4 5 6 7 8 9 10 11 12 usage: xorm reverse [-s] driverName datasourceName tmplPath [generatedPath] [tableFilterReg] according database&amp;#39;s tables and</description>
     </item>
     
     <item>
       <title>docker mysql启动报错</title>
-      <link>https://www.artacode.com/post/docker/mysql/</link>
+      <link>https://yunxi177.github.io/hugo/post/docker/mysql/</link>
       <pubDate>Sat, 15 Sep 2018 16:22:17 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/docker/mysql/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/docker/mysql/</guid>
       <description>错误信息 1 2 3 2018-09-15T08:11:26.620005077Z 2018-09-15T08:11:26.619857Z 0 [ERROR] [FATAL] InnoDB: Table flags are 0 in the data dictionary but the flags in file ./ibdata1 are 0x4800! 2018-09-15T08:11:26.620023933Z 2018-09-15 08:11:26 0x7f7203c4b740 InnoDB: Assertion failure in thread 140127666222912 in file ut0ut.cc line 942 解决方法 原因是宿主机data目录不为空照成; 删除默认</description>
     </item>
     
     <item>
       <title>nodejs常见问题</title>
-      <link>https://www.artacode.com/post/nodejs/faq/</link>
+      <link>https://yunxi177.github.io/hugo/post/nodejs/faq/</link>
       <pubDate>Sat, 15 Sep 2018 12:44:30 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/nodejs/faq/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/nodejs/faq/</guid>
       <description>错误1 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 npm ERR! Linux 4.15.0-34-generic npm ERR! argv &amp;#34;/usr/bin/node&amp;#34; &amp;#34;/usr/bin/npm&amp;#34; &amp;#34;install&amp;#34; &amp;#34;--no-bin-links&amp;#34; npm ERR! node v8.10.0 npm ERR! npm v3.5.2 npm ERR! code EMISSINGARG npm ERR! typeerror Error: Missing required argument #1 npm ERR! typeerror at andLogAndFinish (/usr/share/npm/lib/fetch-package-metadata.js:31:3) npm ERR! typeerror at</description>
     </item>
     
     <item>
       <title>docker常用命令</title>
-      <link>https://www.artacode.com/post/docker/command/</link>
+      <link>https://yunxi177.github.io/hugo/post/docker/command/</link>
       <pubDate>Sat, 15 Sep 2018 09:06:07 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/docker/command/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/docker/command/</guid>
       <description>docker 查看日志 sudo docker logs -f -t --tail 20 mysql docker拷贝内容到宿主机 docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH 例如：docker cp 容器名:容器路径 宿主机路径</description>
     </item>
     
     <item>
       <title>docker常见问题</title>
-      <link>https://www.artacode.com/post/docker-error/</link>
+      <link>https://yunxi177.github.io/hugo/post/docker-error/</link>
       <pubDate>Sun, 09 Sep 2018 15:54:18 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/docker-error/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/docker-error/</guid>
       <description>docker pull 失败 错误信息 Get https://registry-1.docker.io/v2/: dial tcp: lookup registry-1.docker.io: no such host 解决方法 将dns修改成8.8.8.8就可以解决此问题</description>
     </item>
     
     <item>
       <title>Supervisor 安装与使用</title>
-      <link>https://www.artacode.com/post/supervisor/</link>
+      <link>https://yunxi177.github.io/hugo/post/supervisor/</link>
       <pubDate>Tue, 04 Sep 2018 11:22:14 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/supervisor/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/supervisor/</guid>
       <description>简介 supervisor管理进程，是通过fork/exec的方式将这些被管理的进程当作supervisor的子进程来启动，所以我们只需要将要</description>
     </item>
     
     <item>
       <title>freeRADIUS搭建</title>
-      <link>https://www.artacode.com/post/freeradius/</link>
+      <link>https://yunxi177.github.io/hugo/post/freeradius/</link>
       <pubDate>Sun, 19 Aug 2018 11:05:29 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/freeradius/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/freeradius/</guid>
       <description>系统要求 操作系统 CentOS 7.0 x86_64 网址：http://www.centos.org/ 所需软件 FreeRADIUS 3.0 网址：http://freeradius.org/ 目前最</description>
     </item>
     
     <item>
       <title>hugo安装及部署</title>
-      <link>https://www.artacode.com/post/hugoinstall/</link>
+      <link>https://yunxi177.github.io/hugo/post/hugoinstall/</link>
       <pubDate>Mon, 06 Aug 2018 19:27:54 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/hugoinstall/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/hugoinstall/</guid>
       <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;Hugo是一个用Go编写的快速而现代的静态站点生成器，旨在使网站创建再次变得有趣。&lt;br&gt;
 Hugo的优势就在于其生成的站点是静态的，因此网站的访问速度是非常快的，其次使用Hugo，可以让你专注于写文章，至于主题和seo Hugo已经很好的解决了这些问题。下面就来讲一下如何用Hugo生成一个站点并用github page部署&lt;/p&gt;</description>
@@ -533,20 +533,20 @@ Hugo的优势就在于其生成的站点是静态的，因此网站的访问速�
     
     <item>
       <title>swoft单元测试</title>
-      <link>https://www.artacode.com/post/swoftunit/</link>
+      <link>https://yunxi177.github.io/hugo/post/swoftunit/</link>
       <pubDate>Sun, 05 Aug 2018 11:08:39 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/swoftunit/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/swoftunit/</guid>
       <description>&lt;h2 id=&#34;11-为什么要使用单元测试&#34;&gt;1.1 为什么要使用单元测试&lt;/h2&gt;
 &lt;p&gt;在编写代码的过程中，一定会反复调试保证它能够编译通过。但代码通过编译，只是说明了它的语法正确。无法保证它的语义也一定正确，没有任何人可以轻易承诺这段代码的行为一定是正确的。幸运的是，单元测试会为我们的承诺做保证。编写单元测试就是用来验证这段代码的行为是否与我们期望的一致。有了单元测试，我们可以自信地交付自己的代码，减少后顾之忧。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>微信分享</title>
-      <link>https://www.artacode.com/post/wxshare/</link>
+      <link>https://yunxi177.github.io/hugo/post/wxshare/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://www.artacode.com/post/wxshare/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/wxshare/</guid>
       <description>&lt;h3 id=&#34;微信分享步骤&#34;&gt;微信分享步骤&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;引入jｓ&lt;/li&gt;
@@ -558,10 +558,10 @@ Hugo的优势就在于其生成的站点是静态的，因此网站的访问速�
     
     <item>
       <title>第一篇博客</title>
-      <link>https://www.artacode.com/post/firstpost/</link>
+      <link>https://yunxi177.github.io/hugo/post/firstpost/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://www.artacode.com/post/firstpost/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/firstpost/</guid>
       <description>it‘s my life 最喜欢的句子 世界上只有一种英雄主义，就是在认清了生活的本质之后依然热爱生活 最喜欢的乐队 最信奉的信条 大道至简 世上至所有有专业和非专</description>
     </item>
     

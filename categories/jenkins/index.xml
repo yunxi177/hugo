@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>jenkins on 一二三四吾</title>
-    <link>https://www.artacode.com/categories/jenkins/</link>
+    <link>https://yunxi177.github.io/hugo/categories/jenkins/</link>
     <description>Recent content in jenkins on 一二三四吾</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 07 Jun 2021 17:16:46 +0800</lastBuildDate><atom:link href="https://www.artacode.com/categories/jenkins/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Jun 2021 17:16:46 +0800</lastBuildDate><atom:link href="https://yunxi177.github.io/hugo/categories/jenkins/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>jenkins pipeline 环境变量详解</title>
-      <link>https://www.artacode.com/post/ci-cd/environment-variables/</link>
+      <link>https://yunxi177.github.io/hugo/post/ci-cd/environment-variables/</link>
       <pubDate>Mon, 07 Jun 2021 17:16:46 +0800</pubDate>
       
-      <guid>https://www.artacode.com/post/ci-cd/environment-variables/</guid>
+      <guid>https://yunxi177.github.io/hugo/post/ci-cd/environment-variables/</guid>
       <description>关于 Jenkins 的环境变量，可以分为系统内置环境变量和自定义环境变量。系统内置环境变量是 Jenkins 内部定义的环境变量。自定义环境变量是用户自己定义的环境变量 系</description>
     </item>
     
